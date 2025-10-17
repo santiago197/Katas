@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculateStats.Test", "CalculateStats.Test\CalculateStats.Test.csproj", "{301DDE24-9F56-4C80-B45D-5EB34FAB9505}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{301DDE24-9F56-4C80-B45D-5EB34FAB9505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{301DDE24-9F56-4C80-B45D-5EB34FAB9505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{301DDE24-9F56-4C80-B45D-5EB34FAB9505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{301DDE24-9F56-4C80-B45D-5EB34FAB9505}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
