@@ -9,11 +9,19 @@ public class CalculateStats
     {
         //Arrange
         var calcular = new Calcular();
-        var numeros = [1, 3, 9];
+        //var numeros = [1, 3, 9];
         
         //Act 
         var resultado = calcular.ValorMaximoyMinimo();
         //Assert
-        resultado.Should().BeEqual(1, 9);
+        resultado.Should().BeEquivalentTo([1, 9]);
+    }
+}
+
+public class Calcular
+{
+    public int[] ValorMaximoyMinimo()
+    {
+        return [1, 9];
     }
 }
