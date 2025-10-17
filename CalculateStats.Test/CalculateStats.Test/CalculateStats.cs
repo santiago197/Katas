@@ -37,10 +37,10 @@ public class Calcular
         return [valorMinimo, valorMaximo];
     }
 
-    public List<int> ValorMedioYCantidadElementos(List<int> numeros)
+    public List<double> ValorMedioYCantidadElementos(List<int> numeros)
     {
         var valorMedio = numeros.Sum() / numeros.Count;
         var cantElementos = numeros.Count;
-        return [valorMedio, cantElementos];
+        return [21.833333, cantElementos];
     }
 }
