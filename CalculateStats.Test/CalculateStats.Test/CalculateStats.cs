@@ -9,10 +9,10 @@ public class CalculateStats
     {
         //Arrange
         var calcular = new Calcular();
-        //var numeros = [1, 3, 9];
+        List<int> numeros = [1, 3, 9];
         
         //Act 
-        var resultado = calcular.ValorMaximoyMinimo();
+        var resultado = calcular.ValorMaximoyMinimo(numeros);
         //Assert
         resultado.Should().BeEquivalentTo([1, 9]);
     }
@@ -20,8 +20,11 @@ public class CalculateStats
 
 public class Calcular
 {
-    public int[] ValorMaximoyMinimo()
+    public int[] ValorMaximoyMinimo(List<int> numeros)
     {
-        return [1, 9];
+        var valorMaximo = numeros.Max();
+        var valorMinimo = numeros.Min();
+        
+        return [valorMinimo, valorMaximo];
     }
 }
