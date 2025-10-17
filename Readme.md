@@ -1,10 +1,10 @@
 ﻿Katas a practicar
 1. Calculate Stats 
    * Su tarea es procesar una secuencia de números enteros para determinar las siguientes estadísticas:
-   * Valor mínimo
-   * Valor máximo
-   * Número de elementos en la secuencia
-   * Valor medio
+   [x] Valor mínimo
+   [x] Valor máximo
+   [] Número de elementos en la secuencia
+   [] Valor medio
 2. FizzBuzz
    * Escribe un programa que imprima los números del 1 al 100.
    * Pero para múltiplos de tres, imprima "Fizz" en lugar de la etiqueta.
