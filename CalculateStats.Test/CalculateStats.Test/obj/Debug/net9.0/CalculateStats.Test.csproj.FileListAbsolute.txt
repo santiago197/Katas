@@ -96,3 +96,4 @@ C:\Users\santiago.rodriguez\Desktop\ESTUDIO\Katas\CalculateStats.Test\CalculateS
 C:\Users\santiago.rodriguez\Desktop\ESTUDIO\Katas\CalculateStats.Test\CalculateStats.Test\obj\Debug\net9.0\CalculateStats.Test.pdb
 C:\Users\santiago.rodriguez\Desktop\ESTUDIO\Katas\CalculateStats.Test\CalculateStats.Test\obj\Debug\net9.0\CalculateStats.Test.genruntimeconfig.cache
 C:\Users\santiago.rodriguez\Desktop\ESTUDIO\Katas\CalculateStats.Test\CalculateStats.Test\obj\Debug\net9.0\ref\CalculateStats.Test.dll
+C:\Users\santiago.rodriguez\Desktop\ESTUDIO\Katas\CalculateStats.Test\CalculateStats.Test\obj\Debug\net9.0\CalculateStats.Test.sourcelink.json
