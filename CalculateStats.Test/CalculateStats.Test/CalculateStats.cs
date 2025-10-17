@@ -31,16 +31,38 @@ public class Calcular
 {
     public List<int> ValorMaximoyMinimo(List<int> numeros)
     {
-        var valorMaximo = numeros.Max();
-        var valorMinimo = numeros.Min();
+        var valorMaximo = ValorMaximo(numeros);
+        var valorMinimo = ValorMinimo(numeros);
 
         return [valorMinimo, valorMaximo];
     }
 
+    private static int ValorMinimo(List<int> numeros)
+    {
+        var valorMinimo = numeros.Min();
+        return valorMinimo;
+    }
+
+    private static int ValorMaximo(List<int> numeros)
+    {
+        var valorMaximo = numeros.Max();
+        return valorMaximo;
+    }
+
     public List<double> ValorMedioYCantidadElementos(List<int> numeros)
     {
-        var valorMedio = numeros.Sum() / numeros.Count;
-        var cantElementos = numeros.Count;
-        return [21.833333, cantElementos];
+        var valorMedio = ValorMedio(numeros);
+        var cantElementos = CantElementos(numeros);
+        return [valorMedio, cantElementos];
+    }
+
+    private static int CantElementos(List<int> numeros)
+    {
+        return numeros.Count;
+    }
+
+    private static double ValorMedio(List<int> numeros)
+    {
+        return Math.Round(numeros.Average(), 6);
     }
 }
