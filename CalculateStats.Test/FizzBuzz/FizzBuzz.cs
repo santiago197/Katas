@@ -4,25 +4,19 @@ namespace FizzBuzz;
 
 public class FizzBuzz
 {
-    [Fact]
-    public void Si_Recibe_El_Numero_Uno_Debe_Retornar_Uno()
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(4)]
+    public void Si_Recibe_Numero_Que_No_Es_Multiplo_De_Tres_Y_No_Es_Multiplo_De_Cinco_Debe_Retornar_Numero(int numero)
     {
         var fizzBuzz = new Validar();
 
-        var resultado = fizzBuzz.ValidaNumero(1);
+        var resultado = fizzBuzz.ValidaNumero(numero);
 
-        resultado.Should().Be("1");
+        resultado.Should().Be(numero.ToString());
     }
 
-    [Fact]
-    public void Si_Recibe_El_Numero_Dos_Debe_Retornar_Dos()
-    {
-        var fizzBuzz = new Validar();
-
-        var resultado = fizzBuzz.ValidaNumero(2);
-
-        resultado.Should().Be("2");
-    }
 
     [Theory]
     [InlineData(3)]
@@ -48,15 +42,6 @@ public class FizzBuzz
         resultado.Should().Be("Buzz");
     }
 
-    [Fact]
-    public void Si_Recibe_El_Numero_Cuatro_Debe_Retornar_Cuatro()
-    {
-        var fizzBuzz = new Validar();
-
-        var resultado = fizzBuzz.ValidaNumero(4);
-
-        resultado.Should().Be("4");
-    }
 
     [Fact]
     public void Si_Recibe_Numero_Quince_Debe_Retornar_FizzBuzz()
@@ -73,10 +58,15 @@ public class Validar
 {
     public string ValidaNumero(int numero)
     {
-        return numero == 15 ? "FizzBuzz" :
+        return NumeroEsMultiploDeTresYCinco(numero) ? "FizzBuzz" :
             NumeroEsMultiploDeCinco(numero) ? "Buzz" :
             NumeroEsMultiploDeTres(numero) ? "Fizz" :
             numero.ToString();
+    }
+
+    private static bool NumeroEsMultiploDeTresYCinco(int numero)
+    {
+        return numero == 15;
     }
 
     private static bool NumeroEsMultiploDeTres(int numero)
