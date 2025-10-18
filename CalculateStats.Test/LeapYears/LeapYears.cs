@@ -9,15 +9,16 @@ public class LeapYears
     {
         var calcular = new Calcular();
         var anio = 1996;
-        var resultado = calcular.CalculaAnioBisiesto();
+        var resultado = calcular.CalculaAnioBisiesto(anio);
         resultado.Should().Be(true);
     }
 }
 
 public class Calcular
 {
-    public object CalculaAnioBisiesto()
+    public bool CalculaAnioBisiesto(int anio)
     {
-        return true;
+        var esAnioBisiesto = (anio % 4 == 0) ? true : false;
+        return esAnioBisiesto;
     }
 }
