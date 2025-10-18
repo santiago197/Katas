@@ -7,6 +7,7 @@
       &lt;TestId&gt;xUnit::63B9EE78-FB68-4430-AA38-7516C3251FEF::net9.0::FizzBuzz.FizzBuzz.Si_Recibe_El_Numero_Uno_Debe_Retornar_Uno&lt;/TestId&gt;&#xD;
     &lt;/TestAncestor&gt;&#xD;
     &lt;ProjectFile&gt;F75BEF0D-D2FA-46FE-9B6F-AEE36D423B17/f:LeapYears.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;63B9EE78-FB68-4430-AA38-7516C3251FEF/f:FizzBuzz.cs&lt;/ProjectFile&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e0855355_002D0292_002D4bab_002Da2c3_002Dc9b38045221c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CalculateStats" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
