@@ -63,7 +63,7 @@ public class FizzBuzz
     {
         var fizzBuzz = new Validar();
 
-        var resultado = fizzBuzz.ValidaNumero(4);
+        var resultado = fizzBuzz.ValidaNumero(15);
 
         resultado.Should().Be("FizzBuzz");
     }
