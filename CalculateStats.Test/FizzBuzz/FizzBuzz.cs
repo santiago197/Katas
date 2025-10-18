@@ -19,6 +19,6 @@ public class Validar
 {
     public static object ValidaNumero()
     {
-        throw new NotImplementedException();
+        return 1;
     }
 }
