@@ -11,7 +11,7 @@ public class FizzBuzz
 
         var resultado = fizzBuzz.ValidaNumero(1);
 
-        resultado.Should().Be(1);
+        resultado.Should().Be("1");
     }
 
     [Fact]
@@ -21,7 +21,7 @@ public class FizzBuzz
 
         var resultado = fizzBuzz.ValidaNumero(2);
 
-        resultado.Should().Be(2);
+        resultado.Should().Be("2");
     }
 
     [Fact]
@@ -29,7 +29,7 @@ public class FizzBuzz
     {
         var fizzBuzz = new Validar();
 
-        var resultado = fizzBuzz.ValidarNumeroTres(3);
+        var resultado = fizzBuzz.ValidaNumero(3);
 
         resultado.Should().Be("Fizz");
     }
@@ -37,13 +37,8 @@ public class FizzBuzz
 
 public class Validar
 {
-    public int ValidaNumero(int numero)
+    public string ValidaNumero(int numero)
     {
-        return numero;
-    }
-
-    public string ValidarNumeroTres(int numero)
-    {
-        return numero == 3 ? "Fizz" : "";
+        return numero == 3 ? "Fizz" : numero.ToString();
     }
 }
