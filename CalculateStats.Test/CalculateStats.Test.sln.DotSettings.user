@@ -1,6 +1,11 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6741b752_002Dac52_002D4c94_002Da80f_002D4e135dd6f1ba/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;CalculateStats.Test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\Users\santiago.rodriguez\Desktop\ESTUDIO\Katas\CalculateStats.Test\CalculateStats.Test" Presentation="&amp;lt;CalculateStats.Test&amp;gt;" /&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;Project Location="C:\Users\santiago.rodriguez\Desktop\ESTUDIO\Katas\CalculateStats.Test\CalculateStats.Test" Presentation="&amp;lt;CalculateStats.Test&amp;gt;" /&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;xUnit::F75BEF0D-D2FA-46FE-9B6F-AEE36D423B17::net9.0::LeapYears.LeapYears.Si_Recibe_Un_Anio_Bisiesto_Debe_Retornar_True&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e0855355_002D0292_002D4bab_002Da2c3_002Dc9b38045221c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CalculateStats" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;

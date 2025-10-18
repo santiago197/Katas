@@ -1,4 +1,6 @@
-﻿namespace LeapYears;
+﻿using FluentAssertions;
+
+namespace LeapYears;
 
 public class LeapYears
 {
