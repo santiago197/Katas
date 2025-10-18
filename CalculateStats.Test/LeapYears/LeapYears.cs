@@ -28,6 +28,21 @@ public class Calcular
 
     private static bool CalcularAnioBisiesto(int anio)
     {
-        return anio % 4 == 0 || (anio % 100 != 0) && (anio % 400 == 0);
+        return Anio_Divisible_En_Cuatro(anio) || Anio_No_Es_Divisible_En_100(anio) && Anio_Divisible_En_400(anio);
+    }
+
+    private static bool Anio_Divisible_En_400(int anio)
+    {
+        return anio % 400 == 0;
+    }
+
+    private static bool Anio_No_Es_Divisible_En_100(int anio)
+    {
+        return anio % 100 != 0;
+    }
+
+    private static bool Anio_Divisible_En_Cuatro(int anio)
+    {
+        return anio % 4 == 0;
     }
 }
