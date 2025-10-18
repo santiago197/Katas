@@ -52,7 +52,18 @@ public class FizzBuzz
 
         resultado.Should().Be("FizzBuzz");
     }
-    
+
+    [Theory]
+    [InlineData(15)]
+    [InlineData(45)]
+    public void Si_Recibe_Numero_Que_Es_Multiplo_De_Tres_Y_Es_Multiplo_De_Cinco_Debe_Retornar_FizzBuzz(int numero)
+    {
+        var fizzBuzz = new Validar();
+
+        var resultado = fizzBuzz.ValidaNumero(numero);
+
+        resultado.Should().Be("FizzBuzz");
+    }
 }
 
 public class Validar
