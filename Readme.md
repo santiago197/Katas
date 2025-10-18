@@ -7,8 +7,8 @@
    - [x] Valor medio
 2. FizzBuzz 
    - [x] Si el numero es Uno Mostrar Uno
-   - [] Si el numero es Dos mostrar Dos
-   - [] Si el numero es tres mostrar Fizz
+   - [x] Si el numero es Dos mostrar Dos
+   - [x] Si el numero es tres mostrar Fizz
    - [] Si el numero es cuatro mostrar cuatro
    - [] Si el numero es cinco mostrar Buzz
    - [] Si el numero es seis mostrar Fizz

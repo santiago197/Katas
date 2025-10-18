@@ -23,6 +23,16 @@ public class FizzBuzz
         
         resultado.Should().Be(2);
     }
+
+    [Fact]
+    public void Si_Recibe_El_Numero_Tres_Debe_Retornar_Fizz()
+    {
+        var fizzBuzz = new Validar();
+        
+        var resultado = fizzBuzz.ValidaNumero(3);
+
+        resultado.Should().Equals("Fizz");
+    }
 }
 
 public class Validar
