@@ -12,7 +12,7 @@
     - [x] Si el numero es Dos mostrar Dos
     - [x] Si el numero es tres mostrar Fizz
     - [x] Si el numero es cuatro mostrar cuatro
-    - [] Si el numero es cinco mostrar Buzz
+    - [z] Si el numero es cinco mostrar Buzz
     - [] Si el numero es seis mostrar Fizz
     - [] Si el numero es diez mostrar Buzz
     - [] Si el numero es quince mostrar FizzBuzz
