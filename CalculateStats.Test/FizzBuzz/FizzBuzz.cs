@@ -52,6 +52,7 @@ public class FizzBuzz
 
         resultado.Should().Be("FizzBuzz");
     }
+    
 }
 
 public class Validar
@@ -66,7 +67,7 @@ public class Validar
 
     private static bool NumeroEsMultiploDeTresYCinco(int numero)
     {
-        return numero == 15;
+        return NumeroEsMultiploDeTres(numero) && NumeroEsMultiploDeCinco(numero);
     }
 
     private static bool NumeroEsMultiploDeTres(int numero)
