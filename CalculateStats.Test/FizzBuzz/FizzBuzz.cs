@@ -20,7 +20,7 @@ public class FizzBuzz
         var fizzBuzz = new Validar();
 
         var resultado = fizzBuzz.ValidaNumero(2);
-        
+
         resultado.Should().Be(2);
     }
 
@@ -28,10 +28,10 @@ public class FizzBuzz
     public void Si_Recibe_El_Numero_Tres_Debe_Retornar_Fizz()
     {
         var fizzBuzz = new Validar();
-        
-        var resultado = fizzBuzz.ValidaNumero(3);
 
-        resultado.Should().Equals("Fizz");
+        var resultado = fizzBuzz.ValidarNumeroTres(3);
+
+        resultado.Should().Be("Fizz");
     }
 }
 
@@ -42,5 +42,8 @@ public class Validar
         return numero;
     }
 
-
+    public string ValidarNumeroTres(int numero)
+    {
+        return numero == 3 ? "Fizz" : "";
+    }
 }
