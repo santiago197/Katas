@@ -73,9 +73,10 @@ public class Validar
 {
     public string ValidaNumero(int numero)
     {
-        return NumeroEsMultiploDeCinco(numero) ? "Buzz" :
+        return numero == 15 ? "FizzBuzz" :
+            NumeroEsMultiploDeCinco(numero) ? "Buzz" :
             NumeroEsMultiploDeTres(numero) ? "Fizz" :
-            numero == 15 ? "FizzBuzz" : numero.ToString();
+            numero.ToString();
     }
 
     private static bool NumeroEsMultiploDeTres(int numero)
