@@ -18,6 +18,6 @@ public class Calcular
 {
     public object CalculaAnioBisiesto()
     {
-        throw new NotImplementedException();
+        return true;
     }
 }
