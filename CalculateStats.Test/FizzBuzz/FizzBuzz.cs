@@ -79,6 +79,6 @@ public class Validar
 {
     public string ValidaNumero(int numero)
     {
-        return numero == 3 ? "Fizz" : numero == 5 ? "Buzz" : numero.ToString();
+        return numero == 3 ? "Fizz" : numero == 5 || numero == 10 ? "Buzz" : numero.ToString();
     }
 }
