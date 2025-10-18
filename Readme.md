@@ -15,11 +15,11 @@
     - [x] Si el numero es cinco mostrar Buzz
     - [x] Si el numero es seis mostrar Fizz
     - [x] Si el numero es diez mostrar Buzz
-    - [] Si el numero es quince mostrar FizzBuzz
-    - [] Imprimir los números del 1 al 100.
     - [x] Para múltiplos de tres, imprima "Fizz".
-    - [] Para los múltiplos de cinco imprime "Buzz".
+    - [x] Para los múltiplos de cinco imprime "Buzz".
+    - [] Si el numero es quince mostrar FizzBuzz
     - [] Para números que son múltiplos de tres y cinco imprimir "FizzBuzz".
+    - [] Imprimir los números del 1 al 100.
 3. Leap Years
     - [x] Escriba una función que devuelva verdadero o falso en función de si su entero de entrada es un año bisiesto o
       no.

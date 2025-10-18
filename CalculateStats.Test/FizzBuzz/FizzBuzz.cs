@@ -36,6 +36,18 @@ public class FizzBuzz
         resultado.Should().Be("Fizz");
     }
 
+    [Theory]
+    [InlineData(5)]
+    [InlineData(10)]
+    public void Si_RecibeNumero_Multiplo_De_Cinco_Debe_Retornar_Buzz(int numero)
+    {
+        var fizzBuzz = new Validar();
+
+        var resultado = fizzBuzz.ValidaNumero(numero);
+
+        resultado.Should().Be("Buzz");
+    }
+
     [Fact]
     public void Si_Recibe_El_Numero_Cuatro_Debe_Retornar_Cuatro()
     {
@@ -44,27 +56,6 @@ public class FizzBuzz
         var resultado = fizzBuzz.ValidaNumero(4);
 
         resultado.Should().Be("4");
-    }
-
-    [Fact]
-    public void Si_Recibe_El_Numero_Cinco_Deb_Retornar_Buzz()
-    {
-        var fizzBuzz = new Validar();
-
-        var resultado = fizzBuzz.ValidaNumero(5);
-
-        resultado.Should().Be("Buzz");
-    }
-
-
-    [Fact]
-    public void Si_Recibe_El_Numero_Diez_Debe_Retornar_Buzz()
-    {
-        var fizzBuzz = new Validar();
-
-        var resultado = fizzBuzz.ValidaNumero(10);
-
-        resultado.Should().Be("Buzz");
     }
 }
 
