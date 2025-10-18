@@ -48,9 +48,9 @@ public class FizzBuzz
     public void Si_Recibe_El_Numero_Cinco_Deb_Retornar_Buzz()
     {
         var fizzBuzz = new Validar();
-        
+
         var resultado = fizzBuzz.ValidaNumero(5);
-        
+
         resultado.Should().Be("Buzz");
     }
 }
@@ -59,6 +59,6 @@ public class Validar
 {
     public string ValidaNumero(int numero)
     {
-        return numero == 3 ? "Fizz" : numero.ToString();
+        return numero == 3 ? "Fizz" : numero == 5 ? "Buzz" : numero.ToString();
     }
 }
