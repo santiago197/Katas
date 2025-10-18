@@ -63,6 +63,16 @@ public class FizzBuzz
 
         resultado.Should().Be("6");
     }
+
+    [Fact]
+    public void Si_Recibe_El_Numero_Diez_Debe_Retornar_Buzz()
+    {
+        var fizzBuzz = new Validar();
+
+        var resultado = fizzBuzz.ValidaNumero(10);
+
+        resultado.Should().Be("Buzz");
+    }
 }
 
 public class Validar

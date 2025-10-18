@@ -14,7 +14,7 @@
     - [x] Si el numero es cuatro mostrar cuatro
     - [x] Si el numero es cinco mostrar Buzz
     - [x] Si el numero es seis mostrar Fizz
-    - [] Si el numero es diez mostrar Buzz
+    - [x] Si el numero es diez mostrar Buzz
     - [] Si el numero es quince mostrar FizzBuzz
     - [] Imprimir los números del 1 al 100.
     - [] Para múltiplos de tres, imprima "Fizz".
