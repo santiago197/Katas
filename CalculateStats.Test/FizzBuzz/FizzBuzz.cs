@@ -9,7 +9,7 @@ public class FizzBuzz
     {
         var fizzBuzz = new Validar();
 
-        var resultado = fizzBuzz.ValidaNumero();
+        var resultado = fizzBuzz.ValidaNumero(1);
 
         resultado.Should().Be(1);
     }
@@ -19,7 +19,7 @@ public class FizzBuzz
     {
         var fizzBuzz = new Validar();
 
-        var resultado = fizzBuzz.ValidaNumero();
+        var resultado = fizzBuzz.ValidaNumero(2);
         
         resultado.Should().Be(2);
     }
@@ -27,9 +27,9 @@ public class FizzBuzz
 
 public class Validar
 {
-    public int ValidaNumero()
+    public int ValidaNumero(int numero)
     {
-        return 1;
+        return numero;
     }
 
 
