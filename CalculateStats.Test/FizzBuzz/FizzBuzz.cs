@@ -33,6 +33,16 @@ public class FizzBuzz
 
         resultado.Should().Be("Fizz");
     }
+
+    [Fact]
+    public void Si_Recibe_El_Numero_Cuatro_Debe_Retornar_Cuatro()
+    {
+        var fizzBuzz = new Validar();
+
+        var resultado = fizzBuzz.ValidaNumero(4);
+
+        resultado.Should().Be("4");
+    }
 }
 
 public class Validar
