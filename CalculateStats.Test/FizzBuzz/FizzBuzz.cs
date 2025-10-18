@@ -57,13 +57,25 @@ public class FizzBuzz
 
         resultado.Should().Be("4");
     }
+
+    [Fact]
+    public void Si_Recibe_Numero_Quince_Debe_Retornar_FizzBuzz()
+    {
+        var fizzBuzz = new Validar();
+
+        var resultado = fizzBuzz.ValidaNumero(4);
+
+        resultado.Should().Be("FizzBuzz");
+    }
 }
 
 public class Validar
 {
     public string ValidaNumero(int numero)
     {
-        return NumeroEsMultiploDeCinco(numero) ? "Buzz" : NumeroEsMultiploDeTres(numero) ? "Fizz" : numero.ToString();
+        return NumeroEsMultiploDeCinco(numero) ? "Buzz" :
+            NumeroEsMultiploDeTres(numero) ? "Fizz" :
+            numero == 15 ? "FizzBuzz" : numero.ToString();
     }
 
     private static bool NumeroEsMultiploDeTres(int numero)
