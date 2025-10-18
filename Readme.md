@@ -6,12 +6,12 @@
    [x] Número de elementos en la secuencia
    [x] Valor medio
 2. FizzBuzz
-   * Escribe un programa que imprima los números del 1 al 100.
-   * Pero para múltiplos de tres, imprima "Fizz" en lugar de la etiqueta.
-   * Para los múltiplos de cinco imprime "Buzz".
-   * Para números que son múltiplos de tres y cinco imprimir "FizzBuzz".
+   [] Escribe un programa que imprima los números del 1 al 100.
+   [] Para múltiplos de tres, imprima "Fizz".
+   [] Para los múltiplos de cinco imprime "Buzz".
+   [] Para números que son múltiplos de tres y cinco imprimir "FizzBuzz".
 3. Leap Years
-   [] Escriba una función que devuelva verdadero o falso en función de si su entero de entrada es un año bisiesto o no.
+   [x] Escriba una función que devuelva verdadero o falso en función de si su entero de entrada es un año bisiesto o no.
    * Un año bisiesto se define como aquel que es divisible por 4, pero no es divisible por 100 a menos que sea también divisible por 400.
    * Por ejemplo, 2001 es un año común típico y 1996 es un año bisiesto típico, mientras que 1900 es un año bisiesto atípico El año común y 2000 es un año bisiesto atípico.
 4. Closest To Zero

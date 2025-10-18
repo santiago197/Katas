@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculateStats.Test", "Calc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeapYears", "LeapYears\LeapYears.csproj", "{F75BEF0D-D2FA-46FE-9B6F-AEE36D423B17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizzBuzz", "FizzBuzz\FizzBuzz.csproj", "{63B9EE78-FB68-4430-AA38-7516C3251FEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{F75BEF0D-D2FA-46FE-9B6F-AEE36D423B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F75BEF0D-D2FA-46FE-9B6F-AEE36D423B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F75BEF0D-D2FA-46FE-9B6F-AEE36D423B17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63B9EE78-FB68-4430-AA38-7516C3251FEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63B9EE78-FB68-4430-AA38-7516C3251FEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63B9EE78-FB68-4430-AA38-7516C3251FEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63B9EE78-FB68-4430-AA38-7516C3251FEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
