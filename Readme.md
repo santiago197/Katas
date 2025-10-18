@@ -17,7 +17,7 @@
     - [x] Si el numero es diez mostrar Buzz
     - [] Si el numero es quince mostrar FizzBuzz
     - [] Imprimir los números del 1 al 100.
-    - [] Para múltiplos de tres, imprima "Fizz".
+    - [x] Para múltiplos de tres, imprima "Fizz".
     - [] Para los múltiplos de cinco imprime "Buzz".
     - [] Para números que son múltiplos de tres y cinco imprimir "FizzBuzz".
 3. Leap Years

@@ -24,12 +24,14 @@ public class FizzBuzz
         resultado.Should().Be("2");
     }
 
-    [Fact]
-    public void Si_Recibe_El_Numero_Tres_Debe_Retornar_Fizz()
+    [Theory]
+    [InlineData(3)]
+    [InlineData(6)]
+    public void Si_Recibe_Numero_Multiplo_De_Tres_Debe_Retornar_Fizz(int numero)
     {
         var fizzBuzz = new Validar();
 
-        var resultado = fizzBuzz.ValidaNumero(3);
+        var resultado = fizzBuzz.ValidaNumero(numero);
 
         resultado.Should().Be("Fizz");
     }
@@ -54,15 +56,6 @@ public class FizzBuzz
         resultado.Should().Be("Buzz");
     }
 
-    [Fact]
-    public void Si_Recibe_El_Numero_Seis_Debe_Retornar_Seis()
-    {
-        var fizzBuzz = new Validar();
-
-        var resultado = fizzBuzz.ValidaNumero(6);
-
-        resultado.Should().Be("6");
-    }
 
     [Fact]
     public void Si_Recibe_El_Numero_Diez_Debe_Retornar_Buzz()
@@ -84,7 +77,7 @@ public class Validar
 
     private static bool NumeroEsMultiploDeTres(int numero)
     {
-        return numero == 3;
+        return numero % 3 == 0;
     }
 
     private static bool NumeroEsMultiploDeCinco(int numero)
