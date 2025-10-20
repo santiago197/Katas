@@ -4,29 +4,17 @@ namespace BankAccount.Test;
 
 public class BankAccount
 {
-    [Fact]
-    public void Si_Cliente_Hace_Deposito_De_1000_Debe_Retornar_1000()
-    {
-        //Arrange
-        var account = new AccountService();
-        var deposit = 1000;
-
-        //Act
-        var result = account.deposit(deposit);
-        //Assert
-        result.Should().Be(1000);
-    }
-
-    [Fact]
-    public void Si_Cliente_Hace_Deposito_De_2000_Debe_Retornar_2000()
+    [Theory]
+    [InlineData(1000)]
+    [InlineData(2000)]
+    public void Si_Cliente_Hace_Deposito_Debe_Retornar_El_Valor_Depositadp(int amount)
     {
         var account = new AccountService();
 
-        var deposit = 2000;
 
-        var result = account.deposit(deposit);
+        var result = account.deposit(amount);
 
-        result.Should().Be(2000);
+        result.Should().Be(amount);
     }
 }
 
