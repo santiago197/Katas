@@ -10,11 +10,23 @@ public class BankAccount
         //Arrange
         var account = new AccountService();
         var deposit = 1000;
-        
+
         //Act
         var result = account.deposit();
         //Assert
         result.Should().Be(1000);
+    }
+
+    [Fact]
+    public void Si_Cliente_Hace_Deposito_De_2000_Debe_Retornar_2000()
+    {
+        var account = new AccountService();
+
+        var deposit = 2000;
+
+        var result = account.deposit();
+
+        result.Should().Be(2000);
     }
 }
 
