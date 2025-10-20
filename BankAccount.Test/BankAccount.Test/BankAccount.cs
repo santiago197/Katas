@@ -16,6 +16,16 @@ public class BankAccount
 
         result.Should().Be(amount);
     }
+
+    [Fact]
+    public void Si_Cliente_Hace_Retiro_Debe_Retornar_El_Valor_Retirado(int amount)
+    {
+        var account = new AccountService();
+
+        var result = account.withdraw(amount);
+
+        result.Should().Be(amount);
+    }
 }
 
 public class AccountService
