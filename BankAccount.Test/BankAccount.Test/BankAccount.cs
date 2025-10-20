@@ -12,7 +12,7 @@ public class BankAccount
         var deposit = 1000;
 
         //Act
-        var result = account.deposit();
+        var result = account.deposit(deposit);
         //Assert
         result.Should().Be(1000);
     }
@@ -24,7 +24,7 @@ public class BankAccount
 
         var deposit = 2000;
 
-        var result = account.deposit();
+        var result = account.deposit(deposit);
 
         result.Should().Be(2000);
     }
@@ -32,8 +32,8 @@ public class BankAccount
 
 public class AccountService
 {
-    public object deposit()
+    public object deposit(int amount)
     {
-        return 1000;
+        return amount;
     }
 }
