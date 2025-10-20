@@ -1,4 +1,6 @@
-﻿namespace BankAccount.Test;
+﻿using FluentAssertions;
+
+namespace BankAccount.Test;
 
 public class BankAccount
 {
@@ -6,12 +8,20 @@ public class BankAccount
     public void Si_Cliente_Hace_Deposito_De_1000_Debe_Retornar_1000()
     {
         //Arrange
-        var account = new BankAccount();
+        var account = new AccountService();
         var deposit = 1000;
         
         //Act
         var result = account.deposit();
         //Assert
-        Assert.Should().Be(1000);
+        result.Should().Be(1000);
+    }
+}
+
+public class AccountService
+{
+    public object deposit()
+    {
+        return 1000;
     }
 }
