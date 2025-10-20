@@ -10,15 +10,11 @@ public class BankAccount
     public void Si_Cliente_Hace_Deposito_Debe_Retornar_El_Valor_Depositadp(int amount)
     {
         var account = new AccountService();
-        var expectedOutput = 
-            @"Date       || Amount || Balance
-            14/01/2012 || -500   || 2500
-            13/01/2012 || 2000   || 3000
-            10/01/2012 || 1000   || 1000";
+
 
         var result = account.deposit(amount);
 
-        result.Should().Be(expectedOutput);
+        result.Should().Be(amount);
     }
 
     [Theory]
@@ -36,10 +32,15 @@ public class BankAccount
     public void Si_Cliente_Solicita_Extracto_Debe_Retornar_Movimientos()
     {
         var account = new AccountService();
+        var expectedOutput = 
+            @"Date       || Amount || Balance
+            14/01/2012 || -500   || 2500
+            13/01/2012 || 2000   || 3000
+            10/01/2012 || 1000   || 1000";
 
         var extract = account.printStatement();
 
-        extract.Should().WithMessage("");
+        extract.Should().Be(expectedOutput);
     }
 }
 
