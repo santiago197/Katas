@@ -17,7 +17,8 @@ public class BankAccount
         result.Should().Be(amount);
     }
 
-    [Fact]
+    [Theory]
+    [InlineData(500)]
     public void Si_Cliente_Hace_Retiro_Debe_Retornar_El_Valor_Retirado(int amount)
     {
         var account = new AccountService();
@@ -31,6 +32,11 @@ public class BankAccount
 public class AccountService
 {
     public object deposit(int amount)
+    {
+        return amount;
+    }
+
+    public object withdraw(int amount)
     {
         return amount;
     }
