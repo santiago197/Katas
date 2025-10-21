@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Katas.Tests", "Katas.Tests\Katas.Tests.csproj", "{B12E9676-8409-4B2F-B3C4-9D7B0F453654}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Katas", "Katas\Katas.csproj", "{CB37F537-F011-42DB-9932-AABDE896BC44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{B12E9676-8409-4B2F-B3C4-9D7B0F453654}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B12E9676-8409-4B2F-B3C4-9D7B0F453654}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B12E9676-8409-4B2F-B3C4-9D7B0F453654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB37F537-F011-42DB-9932-AABDE896BC44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB37F537-F011-42DB-9932-AABDE896BC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB37F537-F011-42DB-9932-AABDE896BC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB37F537-F011-42DB-9932-AABDE896BC44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
