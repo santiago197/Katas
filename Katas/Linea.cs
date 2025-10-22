@@ -29,7 +29,7 @@ public class Linea
             .Where(turno => turno.NoTienePuntaje())
             .ToList();
 
-    private bool EsPrimerTurno() => _turnos.Count <= 1;
+    private bool EsPrimerTurno() => _turnos.Count == 1;
 
     private void CambiarDeTurnoSiEsNecesario()
     {
