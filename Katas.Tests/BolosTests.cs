@@ -40,6 +40,7 @@ public class BolosTests
         var caller = () => linea.RegistrarLanzamiento(pinesDerribados);
 
         caller.Should().ThrowExactly<ArgumentOutOfRangeException>().WithMessage("No (Parameter 'pinesDerribados')");
+        linea.ObtenerTurno(0).ObtenerLanzamientos().Should().BeEquivalentTo((int?[])[null, null]);
     }
 
     [Fact]
@@ -54,7 +55,22 @@ public class BolosTests
     }
 
     [Fact]
-    public void X()
+    public void Si_RealizoDosLanzamiento_Debe_ElTurnoEstarCompleto()
+    {
+        var linea = new Linea();
+
+        linea.RegistrarLanzamiento(5);
+        linea.RegistrarLanzamiento(3);
+
+
+        var turno = linea.ObtenerTurno(0);
+
+        turno.Puntaje.Should().Be(8);
+        turno.Completo.Should().BeTrue();
+    }
+
+    [Fact]
+    public void Si_Un_Spare_Debe_En_El_Siguiente_Lanzamiento_Asignar_Bonus()
     {
         var linea = new Linea();
 
@@ -68,90 +84,87 @@ public class BolosTests
 
 public class Linea
 {
-    private int _cantidadLanzamientos = 0;
-    private List<Turno> _turnos = [];
+    private Turno TurnoActual => _turnos[^1];
+    private readonly List<Turno> _turnos = [new()];
+
 
     public void RegistrarLanzamiento(int pinesDerribados)
     {
-        ValidarPinesDerribados(pinesDerribados);
-
-
-        if (_cantidadLanzamientos % 2 == 0)
-        {
-            _turnos.Add(new Turno());
-        }
-
-        var turno = _turnos.LastOrDefault(new Turno());
-        turno.RegistrarLanzamiento(pinesDerribados);
-
-//        _turnos;
-        _cantidadLanzamientos++;
-
-
-        if (turno.EsSpare)
-        {
-            turno.AsignarPuntosExtra(pinesDerribados);
-        }
+        ValidarMediaChuzaEnTurnoAnterior(pinesDerribados);
+        RegistrarLanzamientoEnTurnoActual(pinesDerribados);
+        ValidarEstadoTurnoActual();
     }
-
-    private static void ValidarPinesDerribados(int pinesDerribados)
+    
+    private void ValidarMediaChuzaEnTurnoAnterior(int pinesDerribados)
     {
-        if (pinesDerribados > 10 || pinesDerribados < 0)
-            throw new ArgumentOutOfRangeException(nameof(pinesDerribados), "No");
+        if (_turnos.Count > 1 && _turnos[^2].EsMediaChuza)
+            _turnos[^2].AsignarPuntosExtra(pinesDerribados);
     }
 
+    private void ValidarEstadoTurnoActual()
+    {
+        if (!TurnoActual.Completo) return;
+
+        _turnos.Add(new Turno());
+    }
+
+    private void RegistrarLanzamientoEnTurnoActual(int pinesDerribados)
+    {
+        TurnoActual.RegistrarLanzamiento(pinesDerribados);
+    }
 
     public Turno ObtenerTurno(int indexTurno)
     {
-        return _turnos[0];
+        return _turnos[indexTurno];
     }
 }
 
 public class Turno
 {
+    public int? Puntaje { get; private set; }
+    public bool EsMediaChuza => _lanzamiento1 + _lanzamiento2 is 10;
+    public bool Completo => _lanzamiento1.HasValue && _lanzamiento2.HasValue;
+
     private int? _lanzamiento1;
     private int? _lanzamiento2;
-    public int? Puntaje { get; set; }
-    public bool EsSpare { get; set; }
-
-
+    
     public void RegistrarLanzamiento(int pinesDerribados)
     {
-        ValidarSpare(pinesDerribados);
-
-        AsignarLanzamiento(pinesDerribados);
-
-        CalcularPuntaje();
+        ValidarPinesDerribados(pinesDerribados);
+        AsignarLanzamientos(pinesDerribados);
+        CalcularPuntaje(pinesDerribados);
+    }
+    
+    private static void ValidarPinesDerribados(int pinesDerribados)
+    {
+        if (pinesDerribados is > 10 or < 0)
+            throw new ArgumentOutOfRangeException(nameof(pinesDerribados), "No");
     }
 
-
-    private void ValidarSpare(int pinesDerribados)
+    private void AsignarLanzamientos(int pinesDerribados)
     {
-        EsSpare = _lanzamiento1.HasValue && _lanzamiento1 + pinesDerribados == 10;
-    }
-
-    private void AsignarLanzamiento(int pinesDerribados)
-    {
-        if (_lanzamiento1.HasValue)
-            _lanzamiento2 = pinesDerribados;
-        else
+        if (_lanzamiento1 is null)
+        {
             _lanzamiento1 = pinesDerribados;
+            return;
+        }
+
+        _lanzamiento2 = pinesDerribados;
     }
 
-    private void CalcularPuntaje()
+    private void CalcularPuntaje(int pinesDerribados)
     {
-        var puntaje = _lanzamiento1 + _lanzamiento2;
-
-        if (puntaje == 10)
-            Puntaje = null;
-        else
-            Puntaje = puntaje;
+        if (!Completo || EsMediaChuza) return;
+        Puntaje = pinesDerribados + _lanzamiento1;
     }
 
-    public void AsignarPuntosExtra(int puntos)
+    public void AsignarPuntosExtra(int puntosExtra)
     {
-        if (EsSpare)
-            Puntaje += 10;
-        Puntaje += puntos;
+        Puntaje = _lanzamiento1 + _lanzamiento2 + puntosExtra;
+    }
+
+    public int?[] ObtenerLanzamientos()
+    {
+        return [_lanzamiento1, _lanzamiento2];
     }
 }
