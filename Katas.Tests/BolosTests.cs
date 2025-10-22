@@ -14,7 +14,7 @@ public class BolosTests
         linea.RegistrarLanzamiento(1);
         linea.RegistrarLanzamiento(1);
 
-        linea.ObtenerTurno(0).Puntaje.Should().Be(2);
+        linea.ObtenerTurno(0).ObtenerPuntaje().Should().Be(2);
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class BolosTests
         linea.RegistrarLanzamiento(3);
         linea.RegistrarLanzamiento(2);
 
-        linea.ObtenerTurno(0).Puntaje.Should().Be(5);
+        linea.ObtenerTurno(0).ObtenerPuntaje().Should().Be(5);
     }
 
 
@@ -41,7 +41,7 @@ public class BolosTests
         var caller = () => linea.RegistrarLanzamiento(pinesDerribados);
 
         caller.Should().ThrowExactly<ArgumentOutOfRangeException>().WithMessage("No (Parameter 'pinesDerribados')");
-        linea.ObtenerTurno(0).ObtenerLanzamientos().Should().BeEquivalentTo((int?[])[null, null]);
+        linea.ObtenerTurno(0).ObtenerLanzamientos().Should().BeEmpty();
     }
 
     [Fact]
@@ -52,7 +52,7 @@ public class BolosTests
         linea.RegistrarLanzamiento(2);
         linea.RegistrarLanzamiento(8);
 
-        linea.ObtenerTurno(0).Puntaje.Should().BeNull();
+        linea.ObtenerTurno(0).ObtenerPuntaje().Should().BeNull();
     }
 
     [Fact]
@@ -65,8 +65,8 @@ public class BolosTests
 
         var turno = linea.ObtenerTurno(0);
 
-        turno.Puntaje.Should().Be(8);
-        turno.Completo.Should().BeTrue();
+        turno.ObtenerPuntaje().Should().Be(8);
+        turno.EstaFinalizado.Should().BeTrue();
     }
 
     [Fact]
@@ -79,7 +79,7 @@ public class BolosTests
         linea.RegistrarLanzamiento(8);
         linea.RegistrarLanzamiento(2);
 
-        linea.ObtenerTurno(0).Puntaje.Should().Be(18);
+        linea.ObtenerTurno(0).ObtenerPuntaje().Should().Be(18);
     }
 
     [Fact]
@@ -91,7 +91,7 @@ public class BolosTests
         linea.RegistrarLanzamiento(5);
         linea.RegistrarLanzamiento(5);
 
-        linea.ObtenerTurno(0).Puntaje.Should().Be(20);
+        linea.ObtenerTurno(0).ObtenerPuntaje().Should().Be(20);
     }
 
     [Theory]
@@ -132,8 +132,8 @@ public class BolosTests
         linea.RegistrarLanzamiento(4);
         linea.RegistrarLanzamiento(3);
 
-        linea.ObtenerTurno(0).Puntaje.Should().Be(8);
-        linea.ObtenerTurno(1).Puntaje.Should().Be(15);
+        linea.ObtenerTurno(0).ObtenerPuntaje().Should().Be(8);
+        linea.ObtenerTurno(1).ObtenerPuntaje().Should().Be(15);
     }
 
     [Fact]
@@ -145,9 +145,9 @@ public class BolosTests
         linea.RegistrarLanzamiento(10);
         linea.RegistrarLanzamiento(10);
 
-        linea.ObtenerTurno(0).Puntaje.Should().Be(30);
-        linea.ObtenerTurno(1).Puntaje.Should().BeNull();
-        linea.ObtenerTurno(2).Puntaje.Should().BeNull();
+        linea.ObtenerTurno(0).ObtenerPuntaje().Should().Be(30);
+        linea.ObtenerTurno(1).ObtenerPuntaje().Should().BeNull();
+        linea.ObtenerTurno(2).ObtenerPuntaje().Should().BeNull();
     }
 
     [Fact]
@@ -160,127 +160,66 @@ public class BolosTests
         linea.RegistrarLanzamiento(10);
         linea.RegistrarLanzamiento(8);
 
-        linea.ObtenerTurno(0).Puntaje.Should().Be(30);
-        linea.ObtenerTurno(1).Puntaje.Should().Be(58);
-        linea.ObtenerTurno(2).Puntaje.Should().BeNull();
-        linea.ObtenerTurno(3).Puntaje.Should().BeNull();
-    }
-}
-
-public class Linea
-{
-    private Turno TurnoActual => _turnos[^1];
-    private readonly List<Turno> _turnos = [new()];
-
-    public void RegistrarLanzamiento(int pinesDerribados)
-    {
-        AgregarPuntosAdicionalesATurnosAnteriores(pinesDerribados);
-        RegistrarLanzamientoEnTurnoActual(pinesDerribados);
-        ValidarEstadoTurnoActual();
+        linea.ObtenerTurno(0).ObtenerPuntaje().Should().Be(30);
+        linea.ObtenerTurno(1).ObtenerPuntaje().Should().Be(58);
+        linea.ObtenerTurno(2).ObtenerPuntaje().Should().BeNull();
+        linea.ObtenerTurno(3).ObtenerPuntaje().Should().BeNull();
     }
 
-    private void AgregarPuntosAdicionalesATurnosAnteriores(int pinesDerribados)
+    [Fact]
+    public void Si_Hay_Un_Spare_Y_Hay_Lanzamiento_No_Valido_Debe_Lanzar_Excepcion_Y_No_Agregar_Bonos()
     {
-        if (_turnos.Count <= 1) return;
+        var linea = new Linea();
+        linea.RegistrarLanzamiento(8);
+        linea.RegistrarLanzamiento(2);
 
-        var turnoSinPuntaje = _turnos[..^1].Where(turno => turno.Puntaje is null).ToList();
-        foreach (var turnoAnterior in turnoSinPuntaje)
-            turnoAnterior.AsignarPuntosExtra(pinesDerribados);
+        var caller = () => linea.RegistrarLanzamiento(12);
+
+        caller.Should().ThrowExactly<ArgumentOutOfRangeException>();
+        linea.ObtenerTurno(0).ObtenerPuntaje().Should().BeNull();
     }
 
-    private void ValidarEstadoTurnoActual()
+    [Fact]
+    public void Si_Juego_Bien_Debe_Totalizar_Bien()
     {
-        if (!TurnoActual.Completo) return;
+        var linea = new Linea();
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(2);
+        linea.RegistrarLanzamiento(8);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(2);
+        linea.RegistrarLanzamiento(4);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(2);
+        linea.RegistrarLanzamiento(8);
+        linea.RegistrarLanzamiento(10);
 
-        _turnos.Add(new Turno(TurnoActual));
+        linea.ObtenerTurno(9).ObtenerLanzamientos().Should().HaveCount(3);
+        linea.ObtenerTurno(9).ObtenerPuntaje().Should().Be(198);
     }
 
-    private void RegistrarLanzamientoEnTurnoActual(int pinesDerribados)
+    [Fact]
+    public void Si_En_El_Ultimo_Turno_Registro_Un_Lanzamiento_Fuera_Del_Rango_Debe_Lanzar_Error()
     {
-        TurnoActual.RegistrarLanzamiento(pinesDerribados);
-    }
+        var linea = new Linea();
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(2);
+        linea.RegistrarLanzamiento(8);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(2);
+        linea.RegistrarLanzamiento(4);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(2);
+        var caller = () => linea.RegistrarLanzamiento(12);
 
-    public Turno ObtenerTurno(int indexTurno)
-    {
-        return _turnos[indexTurno];
-    }
-}
-
-public class Turno
-{
-    public int? Puntaje { get; private set; }
-    public bool Completo => EsMediaChuza || EsChuza || (_lanzamiento1.HasValue && _lanzamiento2.HasValue);
-    public bool EsMediaChuza => _lanzamiento1 + _lanzamiento2 is 10;
-    public bool EsChuza => _lanzamiento1 == 10;
-
-    private int? _lanzamiento1;
-    private int? _lanzamiento2;
-    private int _puntosAdicionales;
-    private int _cantidadBonosEsperados;
-    private readonly Turno? _turnoAnterior;
-
-    public Turno()
-    {
-    }
-
-    public Turno(Turno turnoAnterior)
-    {
-        _turnoAnterior = turnoAnterior;
-    }
-
-    public void RegistrarLanzamiento(int pinesDerribados)
-    {
-        ValidarPinesDerribados(pinesDerribados);
-        AsignarLanzamientos(pinesDerribados);
-        CalcularPuntaje(pinesDerribados);
-        if (EsMediaChuza) _cantidadBonosEsperados = 1;
-        if (EsChuza) _cantidadBonosEsperados = 2;
-    }
-
-    private void ValidarPinesDerribados(int pinesDerribados)
-    {
-        if (pinesDerribados < 0 || (_lanzamiento1 ?? 0) + pinesDerribados is > 10 or < 0)
-            throw new ArgumentOutOfRangeException(nameof(pinesDerribados), "No");
-    }
-
-    private void AsignarLanzamientos(int pinesDerribados)
-    {
-        if (_lanzamiento1 is null)
-        {
-            _lanzamiento1 = pinesDerribados;
-            return;
-        }
-
-        _lanzamiento2 = pinesDerribados;
-    }
-
-    private void CalcularPuntaje(int pinesDerribados)
-    {
-        if (!Completo || EsMediaChuza || EsChuza) return;
-        Puntaje = pinesDerribados + _lanzamiento1;
-        AgregarPuntajeTurnoAnterior();
-    }
-
-    private void AgregarPuntajeTurnoAnterior()
-    {
-        if (_turnoAnterior is not null)
-        {
-            Puntaje += _turnoAnterior.Puntaje;
-        }
-    }
-
-    public void AsignarPuntosExtra(int puntosExtra)
-    {
-        if (_cantidadBonosEsperados == 0) return;
-        _puntosAdicionales += puntosExtra;
-        _cantidadBonosEsperados--;
-        if (_cantidadBonosEsperados != 0) return;
-        Puntaje = _lanzamiento1 + (_lanzamiento2 ?? 0) + _puntosAdicionales;
-        AgregarPuntajeTurnoAnterior();
-    }
-
-    public int?[] ObtenerLanzamientos()
-    {
-        return [_lanzamiento1, _lanzamiento2];
+        caller.Should().ThrowExactly<ArgumentOutOfRangeException>();
     }
 }
