@@ -9,9 +9,16 @@ public class Linea
 
     public void RegistrarLanzamiento(int pinesDerribados)
     {
+        ValidarLineaFinalizada();
         TurnoActual.RegistrarLanzamiento(pinesDerribados);
         AgregarBonificaciones(pinesDerribados);
         CambiarDeTurnoSiEsNecesario();
+    }
+
+    private void ValidarLineaFinalizada()
+    {
+        if (TurnoActual is UltimoTurno && TurnoActual.EstaFinalizado)
+            throw new InvalidOperationException("Juego finalizado");
     }
 
     private void AgregarBonificaciones(int pinesDerribados)
@@ -33,7 +40,7 @@ public class Linea
 
     private void CambiarDeTurnoSiEsNecesario()
     {
-        if (!TurnoActual.EstaFinalizado) return;
+        if (!TurnoActual.EstaFinalizado || TurnoActual is UltimoTurno) return;
 
         _turnos.Add(EsUltimoTurno() ? Turno.UltimoTurno(TurnoActual) : Turno.TurnoIntermedio(TurnoActual));
     }

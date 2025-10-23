@@ -203,6 +203,74 @@ public class BolosTests
     }
 
     [Fact]
+    public void Si_En_El_Ultimo_Turno_No_Hago_Chuza_Ni_Media_Chuza_Debe_Tener_2_Lanzamientos()
+    {
+        var linea = new Linea();
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(4);
+        linea.RegistrarLanzamiento(2);
+
+        var caller = () => linea.RegistrarLanzamiento(4);
+
+        caller.Should().ThrowExactly<InvalidOperationException>().WithMessage("Juego finalizado");
+        linea.ObtenerTurno(9).ObtenerLanzamientos().Should().HaveCount(2);
+    }
+
+    [Fact]
+    public void Si_Hago_Un_Juego_Perfecto_Debe_Retornar_300()
+    {
+        var linea = new Linea();
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        linea.RegistrarLanzamiento(10);
+        
+        linea.ObtenerTurno(9).ObtenerPuntaje().Should().Be(300);
+    }
+    [Fact]
+    public void Si_No_Registra_Puntaje_Debe_Retornar_0()
+    {
+        var linea = new Linea();
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.RegistrarLanzamiento(0);
+        linea.ObtenerTurno(9).ObtenerPuntaje().Should().Be(0);
+    }
+
+    [Fact]
     public void Si_En_El_Ultimo_Turno_Registro_Un_Lanzamiento_Fuera_Del_Rango_Debe_Lanzar_Error()
     {
         var linea = new Linea();

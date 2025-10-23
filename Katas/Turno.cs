@@ -5,8 +5,8 @@ public class Turno
     protected virtual int MaximaCantidadDePines => 10;
     private const int MinimaCantidadDePines = 0;
 
-    public bool EstaFinalizado => EsChuza || LanzamientosCompletos;
-    private bool EsMediaChuza => Lanzamientos.Sum() == MaximaCantidadDePines && LanzamientosCompletos;
+    public virtual bool EstaFinalizado => EsChuza || LanzamientosCompletos;
+    private bool EsMediaChuza => Lanzamientos.Sum() == MaximaCantidadDePines && Lanzamientos.Count == 2;
     private bool EsChuza => Lanzamientos.Count == 1 && Lanzamientos[0] == MaximaCantidadDePines;
     protected virtual bool LanzamientosCompletos => Lanzamientos.Count == 2;
     protected readonly List<int> Lanzamientos = [];
@@ -24,13 +24,13 @@ public class Turno
     }
 
     public IReadOnlyList<int> ObtenerLanzamientos() => Lanzamientos.AsReadOnly();
-    
+
     public bool NoTienePuntaje() => ObtenerPuntaje() is null;
 
     public int? ObtenerPuntaje()
     {
         if (EsChuzaIncompleta() || MediaChuzaIncompleta() || !EstaFinalizado) return null;
-        
+
         return Lanzamientos.Sum() + _puntajesExtra.Sum() + (_turnoAnterior?.ObtenerPuntaje() ?? 0);
     }
 
@@ -61,7 +61,7 @@ public class Turno
     {
         return pinesDerribados is < 0 or > 10;
     }
-    
+
     private bool EsTotalDePinesFueraDeRango(int pinesDerribados)
     {
         var total = Lanzamientos.Sum() + pinesDerribados;
@@ -77,7 +77,7 @@ public class Turno
     {
         return new Turno(turnoAnterior);
     }
-    
+
     public static Turno UltimoTurno(Turno turnoAnterior)
     {
         return new UltimoTurno(turnoAnterior);
@@ -88,4 +88,6 @@ public class UltimoTurno(Turno turnoAnterior) : Turno(turnoAnterior)
 {
     protected override bool LanzamientosCompletos => Lanzamientos.Count == 3;
     protected override int MaximaCantidadDePines => 30;
+    private bool NoEsMediaChuza => Lanzamientos.Count == 2 && Lanzamientos.Sum() < 10;
+    public override bool EstaFinalizado => NoEsMediaChuza || LanzamientosCompletos;
 }
