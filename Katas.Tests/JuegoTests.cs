@@ -70,7 +70,7 @@ public class JuegoTests
     }
 
     [Fact]
-    public void Si_x()
+    public void Si_LosJugadoresFinalizaronSuPrimerTurno_Debe_CambiarDeTurno()
     {
         var juego = new Juego();
 
