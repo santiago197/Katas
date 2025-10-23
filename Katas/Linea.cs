@@ -23,8 +23,6 @@ public class Linea
 
     private void AgregarBonificaciones(int pinesDerribados)
     {
-        if (EsPrimerTurno()) return;
-
         var turnosPasadosSinPuntaje = ObtenerTurnosPasadosSinPuntaje();
 
         foreach (var turno in turnosPasadosSinPuntaje)

@@ -3,7 +3,7 @@ using AwesomeAssertions;
 
 namespace Katas.Tests;
 
-public class BolosTests
+public class LineaTests
 {
     [Fact]
     public void
@@ -290,4 +290,6 @@ public class BolosTests
 
         caller.Should().ThrowExactly<ArgumentOutOfRangeException>();
     }
+    
+    
 }
