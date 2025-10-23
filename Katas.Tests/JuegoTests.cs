@@ -95,9 +95,9 @@ public class JuegoTests
 public class Juego
 {
     private const int CantidadJugadoresPermitidos = 6;
-    private List<Jugador> _jugadores = [];
-    private int _indiceJugadorActual = 0;
-    private int _indiceTurnoGlobal = 0;
+    private readonly List<Jugador> _jugadores = [];
+    private int _indiceJugadorActual;
+    private int _indiceTurnoGlobal;
 
     public void AgregarJugador(string nombre)
     {
@@ -107,6 +107,13 @@ public class Juego
     }
 
     public Jugador ObtenerJugador(int indice) => _jugadores[indice];
+
+    public void RegistrarLanzamiento(int pinesDerribados)
+    {
+        EsTurnoJugadorFinalizado();
+        EsTurnoGlobalFinalizado();
+        RegistraLanzamientoJugador(pinesDerribados);
+    }
 
     private void ValidarCantidadJugadoresPermitidos()
     {
@@ -120,17 +127,10 @@ public class Juego
             throw new DuplicateNameException("Ya existe jugador.");
     }
 
-    public void RegistrarLanzamiento(int pinesDerribados)
-    {
-        EsTurnoJugadorFinalizado();
-        EsTurnoGlobalFinalizado();
-        RegistraLanzamientoJugador(pinesDerribados);
-    }
 
     private void RegistraLanzamientoJugador(int pinesDerribados)
-    {
-        _jugadores[_indiceJugadorActual].Linea.RegistrarLanzamiento(pinesDerribados);
-    }
+        => _jugadores[_indiceJugadorActual].Linea.RegistrarLanzamiento(pinesDerribados);
+
 
     private void EsTurnoGlobalFinalizado()
     {
