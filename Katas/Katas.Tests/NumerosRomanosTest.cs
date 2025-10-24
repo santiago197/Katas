@@ -37,13 +37,17 @@ public class NumerosRomanos
 {
     public string Convertir(int numero)
     {
-        switch (numero)
-        {
-            case 1: return "I";
-            case 2: return "II";
-            case 3: return "III";
-        }
+        return NumeroRomano(numero);
+    }
 
-        return "";
+    private static string NumeroRomano(int numero)
+    {
+        return numero switch
+        {
+            1 => "I",
+            2 => "II",
+            3 => "III",
+            _ => ""
+        };
     }
 }
