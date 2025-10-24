@@ -69,6 +69,7 @@ public class NumerosRomanos
             2 => "II",
             3 => "III",
             4 => "IV",
+            5 => "IV",
             _ => ""
         };
     }
