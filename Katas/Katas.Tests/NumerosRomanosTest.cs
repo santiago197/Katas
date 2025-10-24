@@ -67,7 +67,6 @@ public class NumerosRomanosTest
         var resultado = romanos.Convertir(numeroArabigo);
 
         resultado.Should().Be("VI");
-        
     }
 }
 
@@ -81,20 +80,38 @@ public class NumerosRomanos
     private static string NumeroRomano(int numero)
     {
         var numeroRomano = "";
+        numeroRomano = NumerosRomanosMenoresACinco(numero, numeroRomano);
+        numeroRomano = NumeroRomanoCuatro(numero, numeroRomano);
+        numeroRomano = NumeroRomanoCinco(numero, numeroRomano);
+        numeroRomano = NumeroRomanoSeis(numero, numeroRomano);
+
+        return numeroRomano;
+    }
+
+    private static string NumeroRomanoCuatro(int numero, string numeroRomano)
+    {
         if (numero == 4)
-        {
-            return "IV";
-        }
+            numeroRomano = "IV";
+        return numeroRomano;
+    }
+
+    private static string NumeroRomanoCinco(int numero, string numeroRomano)
+    {
         if (numero == 5)
-        {
             numeroRomano = "V";
-        }
+        return numeroRomano;
+    }
 
+    private static string NumeroRomanoSeis(int numero, string numeroRomano)
+    {
         if (numero == 6)
-        {
             numeroRomano = "VI";
-        }
+        return numeroRomano;
+    }
 
+
+    private static string NumerosRomanosMenoresACinco(int numero, string numeroRomano)
+    {
         for (int i = 0; i < numero; i++)
         {
             if (numero < 5)
