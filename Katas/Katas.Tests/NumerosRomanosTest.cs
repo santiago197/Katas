@@ -8,8 +8,9 @@ public class NumerosRomanosTest
     public void Si_RecibeNumeroUno_Debe_Retornar_I()
     {
         var romanos = new NumerosRomanos();
+        var numeroArabigo = 1;
 
-        var resultado = romanos.Convertir(1);
+        var resultado = romanos.Convertir(numeroArabigo);
 
         resultado.Should().Be("I");
     }
@@ -18,8 +19,9 @@ public class NumerosRomanosTest
     public void Si_RecibeNumeroDos_Debe_Retornar_II()
     {
         var romanos = new NumerosRomanos();
+        var numeroArabigo = 2;
 
-        var resultado = romanos.Convertir(2);
+        var resultado = romanos.Convertir(numeroArabigo);
 
         resultado.Should().Be("II");
     }
@@ -28,8 +30,9 @@ public class NumerosRomanosTest
     public void Si_RecibeNumeroTres_Debe_Retornar_III()
     {
         var romanos = new NumerosRomanos();
+        var numeroArabigo = 3;
 
-        var resultado = romanos.Convertir(3);
+        var resultado = romanos.Convertir(numeroArabigo);
         resultado.Should().Be("III");
     }
 
@@ -37,8 +40,9 @@ public class NumerosRomanosTest
     public void Si_RecibeNumeroCuatro_Debe_Retornar_IV()
     {
         var romanos = new NumerosRomanos();
+        var numeroArabigo = 4;
 
-        var resultado = romanos.Convertir(4);
+        var resultado = romanos.Convertir(numeroArabigo);
 
         resultado.Should().Be("IV");
     }
@@ -47,8 +51,9 @@ public class NumerosRomanosTest
     public void Si_RecibeNumeroCinco_Debe_Retornar_V()
     {
         var romanos = new NumerosRomanos();
+        var numeroArabigo = 5;
 
-        var resultado = romanos.Convertir(5);
+        var resultado = romanos.Convertir(numeroArabigo);
 
         resultado.Should().Be("V");
     }
@@ -63,14 +68,24 @@ public class NumerosRomanos
 
     private static string NumeroRomano(int numero)
     {
-        return numero switch
+        var numeroRomano = "";
+        if (numero == 4)
         {
-            1 => "I",
-            2 => "II",
-            3 => "III",
-            4 => "IV",
-            5 => "IV",
-            _ => ""
-        };
+            return "IV";
+        }
+        if (numero == 5)
+        {
+            numeroRomano = "V";
+        }
+
+        for (int i = 0; i < numero; i++)
+        {
+            if (numero < 5)
+            {
+                numeroRomano += "I";
+            }
+        }
+
+        return numeroRomano;
     }
 }
