@@ -40,10 +40,44 @@ public class NumerosRomanosTest
 
         resultado.Should().Be(numeroRomano);
     }
+
+    [Fact]
+    public void Si_ReciboNumeroDiez_Debe_Retornar_X()
+    {
+        var romanos = new NumerosRomanos();
+        var numeroArabigo = 10;
+        var numeroRomano = "X";
+
+        var resultado = romanos.RomanosEstandar(numeroArabigo);
+
+        resultado.Should().Be(numeroRomano);
+    } 
+    [Fact]
+    public void Si_ReciboNumeroVeinte_Debe_Retornar_XX()
+    {
+        var romanos = new NumerosRomanos();
+        var numeroArabigo = 20;
+        var numeroRomano = "X";
+
+        var resultado = romanos.Convertir(numeroArabigo);
+
+        resultado.Should().Be(numeroRomano);
+    }
 }
 
 public class NumerosRomanos
 {
+    private Dictionary<int, string> estandarRomanos = new Dictionary<int, string>()
+    {
+        { 1, "I" },
+        { 5, "V" },
+        { 10, "X" },
+        { 50, "L" },
+        { 100, "C" },
+        { 500, "D" },
+        { 1000, "M" },
+    };
+
     public string Convertir(int numero)
     {
         return NumeroRomano(numero);
@@ -51,33 +85,7 @@ public class NumerosRomanos
 
     public string RomanosEstandar(int numero)
     {
-        var numeroRomano = "";
-        switch (numero)
-        {
-            case 1:
-                numeroRomano = "I";
-                break;
-            case 5:
-                numeroRomano = "V";
-                break;
-            case 10:
-                numeroRomano = "X";
-                break;
-            case 50:
-                numeroRomano = "L";
-                break;
-            case 100:
-                numeroRomano = "C";
-                break;
-            case 500:
-                numeroRomano = "D";
-                break;
-            case 1000:
-                numeroRomano = "M";
-                break;
-        }
-
-        return numeroRomano;
+        return estandarRomanos[numero];
     }
 
     private static string NumeroRomano(int numero)
