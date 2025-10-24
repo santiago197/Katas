@@ -58,15 +58,19 @@ public class NumerosRomanosTest
         resultado.Should().Be("V");
     }
 
-    [Fact]
-    public void Si_ReciboNumeroSeis_Debe_Retornar_VI()
+
+    [Theory]
+    [InlineData(6,"VI")]
+    [InlineData(7,"VII")]
+    [InlineData(8,"VIII")]
+    
+    public void Si_RecibeNumerosDelSeisAlOcho_Debe_RetornarLosNumerosEnRomano(int numeroArabigo, string numeroRomano)
     {
         var romanos = new NumerosRomanos();
-        var numeroArabigo = 6;
 
         var resultado = romanos.Convertir(numeroArabigo);
 
-        resultado.Should().Be("VI");
+        resultado.Should().Be(numeroRomano);
     }
 }
 
