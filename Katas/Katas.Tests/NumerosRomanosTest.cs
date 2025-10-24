@@ -22,6 +22,24 @@ public class NumerosRomanosTest
 
         resultado.Should().Be(numeroRomano);
     }
+
+    [Theory]
+    [InlineData(1, "I")]
+    [InlineData(5, "V")]
+    [InlineData(10, "X")]
+    [InlineData(50, "L")]
+    [InlineData(100, "C")]
+    [InlineData(500, "D")]
+    [InlineData(1000, "M")]
+    public void Si_Recibo_CombinacionesIniciales_Debe_Retornar_LetrasEstandarDeRomanos(int numeroArabigo,
+        string numeroRomano)
+    {
+        var romanos = new NumerosRomanos();
+
+        var resultado = romanos.Convertir(numeroArabigo);
+
+        resultado.Should().Be(numeroRomano);
+    }
 }
 
 public class NumerosRomanos
@@ -29,6 +47,37 @@ public class NumerosRomanos
     public string Convertir(int numero)
     {
         return NumeroRomano(numero);
+    }
+
+    public string RomanosEstandar(int numero)
+    {
+        var numeroRomano = "";
+        switch (numero)
+        {
+            case 1:
+                numeroRomano = "I";
+                break;
+            case 5:
+                numeroRomano = "V";
+                break;
+            case 10:
+                numeroRomano = "X";
+                break;
+            case 50:
+                numeroRomano = "L";
+                break;
+            case 100:
+                numeroRomano = "C";
+                break;
+            case 500:
+                numeroRomano = "D";
+                break;
+            case 1000:
+                numeroRomano = "M";
+                break;
+        }
+
+        return numeroRomano;
     }
 
     private static string NumeroRomano(int numero)
