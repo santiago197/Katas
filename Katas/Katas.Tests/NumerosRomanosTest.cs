@@ -51,7 +51,8 @@ public class NumerosRomanosTest
         var resultado = romanos.RomanosEstandar(numeroArabigo);
 
         resultado.Should().Be(numeroRomano);
-    } 
+    }
+
     [Fact]
     public void Si_ReciboNumeroVeinte_Debe_Retornar_XX()
     {
@@ -91,25 +92,14 @@ public class NumerosRomanos
     private static string NumeroRomano(int numero)
     {
         var numeroRomano = "";
-        numeroRomano = NumerosRomanosMenoresACinco(numero, numeroRomano);
-        numeroRomano = NumeroRomanoCuatro(numero, numeroRomano);
-        numeroRomano = NumeroRomanoCinco(numero, numeroRomano);
-        numeroRomano = NumeroRomanoSeisAOcho(numero, numeroRomano);
-        numeroRomano = NumeroRomanoNueve(numero, numeroRomano);
-        numeroRomano = NumeroRomanoVeinte(numero, numeroRomano);
+        numeroRomano = NumeroRomano(numero, numeroRomano);
+
 
         return numeroRomano;
     }
 
-    private static string NumeroRomanoCuatro(int numero, string numeroRomano)
-    {
-        if (numero == 4)
-            numeroRomano = "IV";
-        return numeroRomano;
-    }
 
-
-    private static string NumerosRomanosMenoresACinco(int numero, string numeroRomano)
+    private static string NumeroRomano(int numero, string numeroRomano)
     {
         for (int i = 0; i < numero; i++)
         {
@@ -119,44 +109,18 @@ public class NumerosRomanos
             }
         }
 
-        return numeroRomano;
-    }
-
-    private static string NumeroRomanoCinco(int numero, string numeroRomano)
-    {
-        if (numero == 5)
-            numeroRomano = "V";
-        return numeroRomano;
-    }
-
-    private static string NumeroRomanoSeisAOcho(int numero, string numeroRomano)
-    {
-        switch (numero)
+        numeroRomano = numero switch
         {
-            case 6:
-                numeroRomano = "VI";
-                break;
-            case 7:
-                numeroRomano = "VII";
-                break;
-            case 8:
-                numeroRomano = "VIII";
-                break;
-        }
+            4 => "IV",
+            5 => "V",
+            6 => "VI",
+            7 => "VII",
+            8 => "VIII",
+            9 => "IX",
+            20 => "XX",
+            _ => numeroRomano
+        };
 
-        return numeroRomano;
-    }
-
-    private static string NumeroRomanoNueve(int numero, string numeroRomano)
-    {
-        if (numero == 9)
-            numeroRomano = "IX";
-        return numeroRomano;
-    }
-    private static string NumeroRomanoVeinte(int numero, string numeroRomano)
-    {
-        if (numero == 20)
-            numeroRomano = "XX";
         return numeroRomano;
     }
 }
