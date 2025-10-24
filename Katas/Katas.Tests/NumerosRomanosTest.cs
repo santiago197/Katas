@@ -90,6 +90,11 @@ public class NumerosRomanos
             numeroRomano = "V";
         }
 
+        if (numero == 6)
+        {
+            numeroRomano = "VI";
+        }
+
         for (int i = 0; i < numero; i++)
         {
             if (numero < 5)
