@@ -57,7 +57,7 @@ public class NumerosRomanosTest
     {
         var romanos = new NumerosRomanos();
         var numeroArabigo = 20;
-        var numeroRomano = "X";
+        var numeroRomano = "XX";
 
         var resultado = romanos.Convertir(numeroArabigo);
 
@@ -96,6 +96,7 @@ public class NumerosRomanos
         numeroRomano = NumeroRomanoCinco(numero, numeroRomano);
         numeroRomano = NumeroRomanoSeisAOcho(numero, numeroRomano);
         numeroRomano = NumeroRomanoNueve(numero, numeroRomano);
+        numeroRomano = NumeroRomanoVeinte(numero, numeroRomano);
 
         return numeroRomano;
     }
@@ -150,6 +151,12 @@ public class NumerosRomanos
     {
         if (numero == 9)
             numeroRomano = "IX";
+        return numeroRomano;
+    }
+    private static string NumeroRomanoVeinte(int numero, string numeroRomano)
+    {
+        if (numero == 20)
+            numeroRomano = "XX";
         return numeroRomano;
     }
 }
