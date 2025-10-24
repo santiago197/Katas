@@ -60,10 +60,9 @@ public class NumerosRomanosTest
 
 
     [Theory]
-    [InlineData(6,"VI")]
-    [InlineData(7,"VII")]
-    [InlineData(8,"VIII")]
-    
+    [InlineData(6, "VI")]
+    [InlineData(7, "VII")]
+    [InlineData(8, "VIII")]
     public void Si_RecibeNumerosDelSeisAlOcho_Debe_RetornarLosNumerosEnRomano(int numeroArabigo, string numeroRomano)
     {
         var romanos = new NumerosRomanos();
@@ -87,7 +86,7 @@ public class NumerosRomanos
         numeroRomano = NumerosRomanosMenoresACinco(numero, numeroRomano);
         numeroRomano = NumeroRomanoCuatro(numero, numeroRomano);
         numeroRomano = NumeroRomanoCinco(numero, numeroRomano);
-        numeroRomano = NumeroRomanoSeis(numero, numeroRomano);
+        numeroRomano = NumeroRomanoSeisAOcho(numero, numeroRomano);
 
         return numeroRomano;
     }
@@ -106,10 +105,21 @@ public class NumerosRomanos
         return numeroRomano;
     }
 
-    private static string NumeroRomanoSeis(int numero, string numeroRomano)
+    private static string NumeroRomanoSeisAOcho(int numero, string numeroRomano)
     {
-        if (numero == 6)
-            numeroRomano = "VI";
+        switch (numero)
+        {
+            case 6:
+                numeroRomano = "VI";
+                break;
+            case 7:
+                numeroRomano = "VII";
+                break;
+            case 8:
+                numeroRomano = "VIII";
+                break;
+        }
+
         return numeroRomano;
     }
 
