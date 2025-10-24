@@ -13,6 +13,7 @@ public class NumerosRomanosTest
 
         resultado.Should().Be("I");
     }
+
     [Fact]
     public void Si_RecibeNumeroDos_Debe_Retornar_II()
     {
@@ -21,16 +22,26 @@ public class NumerosRomanosTest
         var resultado = romanos.Convertir(2);
 
         resultado.Should().Be("II");
-    } [Fact]
+    }
+
+    [Fact]
     public void Si_RecibeNumeroTres_Debe_Retornar_III()
     {
         var romanos = new NumerosRomanos();
 
         var resultado = romanos.Convertir(3);
-
         resultado.Should().Be("III");
     }
-    
+
+    [Fact]
+    public void Si_RecibeNumeroCuatro_Debe_Retornar_IV()
+    {
+        var romanos = new NumerosRomanos();
+
+        var resultado = romanos.Convertir(4);
+
+        resultado.Should().Be("IV");
+    }
 }
 
 public class NumerosRomanos
