@@ -20,6 +20,6 @@ public class NumerosRomanos
 {
     public object Convertir(int i)
     {
-        throw new NotImplementedException();
+        return "I";
     }
 }
