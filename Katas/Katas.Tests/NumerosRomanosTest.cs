@@ -4,66 +4,17 @@ namespace Katas.Tests;
 
 public class NumerosRomanosTest
 {
-    [Fact]
-    public void Si_RecibeNumeroUno_Debe_Retornar_I()
-    {
-        var romanos = new NumerosRomanos();
-        var numeroArabigo = 1;
-
-        var resultado = romanos.Convertir(numeroArabigo);
-
-        resultado.Should().Be("I");
-    }
-
-    [Fact]
-    public void Si_RecibeNumeroDos_Debe_Retornar_II()
-    {
-        var romanos = new NumerosRomanos();
-        var numeroArabigo = 2;
-
-        var resultado = romanos.Convertir(numeroArabigo);
-
-        resultado.Should().Be("II");
-    }
-
-    [Fact]
-    public void Si_RecibeNumeroTres_Debe_Retornar_III()
-    {
-        var romanos = new NumerosRomanos();
-        var numeroArabigo = 3;
-
-        var resultado = romanos.Convertir(numeroArabigo);
-        resultado.Should().Be("III");
-    }
-
-    [Fact]
-    public void Si_RecibeNumeroCuatro_Debe_Retornar_IV()
-    {
-        var romanos = new NumerosRomanos();
-        var numeroArabigo = 4;
-
-        var resultado = romanos.Convertir(numeroArabigo);
-
-        resultado.Should().Be("IV");
-    }
-
-    [Fact]
-    public void Si_RecibeNumeroCinco_Debe_Retornar_V()
-    {
-        var romanos = new NumerosRomanos();
-        var numeroArabigo = 5;
-
-        var resultado = romanos.Convertir(numeroArabigo);
-
-        resultado.Should().Be("V");
-    }
-
-
     [Theory]
+    [InlineData(1, "I")]
+    [InlineData(2, "II")]
+    [InlineData(3, "III")]
+    [InlineData(4, "IV")]
+    [InlineData(5, "V")]
     [InlineData(6, "VI")]
     [InlineData(7, "VII")]
     [InlineData(8, "VIII")]
-    public void Si_RecibeNumerosDelSeisAlOcho_Debe_RetornarLosNumerosEnRomano(int numeroArabigo, string numeroRomano)
+    [InlineData(9, "IX")]
+    public void Si_RecibeNumerosDelUnoAlNueve_Debe_Retornar_Romanos(int numeroArabigo, string numeroRomano)
     {
         var romanos = new NumerosRomanos();
 
@@ -87,6 +38,7 @@ public class NumerosRomanos
         numeroRomano = NumeroRomanoCuatro(numero, numeroRomano);
         numeroRomano = NumeroRomanoCinco(numero, numeroRomano);
         numeroRomano = NumeroRomanoSeisAOcho(numero, numeroRomano);
+        numeroRomano = NumeroRomanoNueve(numero, numeroRomano);
 
         return numeroRomano;
     }
@@ -95,6 +47,20 @@ public class NumerosRomanos
     {
         if (numero == 4)
             numeroRomano = "IV";
+        return numeroRomano;
+    }
+
+
+    private static string NumerosRomanosMenoresACinco(int numero, string numeroRomano)
+    {
+        for (int i = 0; i < numero; i++)
+        {
+            if (numero < 5)
+            {
+                numeroRomano += "I";
+            }
+        }
+
         return numeroRomano;
     }
 
@@ -123,17 +89,10 @@ public class NumerosRomanos
         return numeroRomano;
     }
 
-
-    private static string NumerosRomanosMenoresACinco(int numero, string numeroRomano)
+    private static string NumeroRomanoNueve(int numero, string numeroRomano)
     {
-        for (int i = 0; i < numero; i++)
-        {
-            if (numero < 5)
-            {
-                numeroRomano += "I";
-            }
-        }
-
+        if (numero == 9)
+            numeroRomano = "IX";
         return numeroRomano;
     }
 }
