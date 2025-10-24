@@ -1,0 +1,9 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5028c862_002D87e1_002D4308_002D91ed_002D4b7ae0ddc84b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="BankAccount" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::B927A0FF-63A0-40D9-940C-EB3F119EB489::net9.0::Katas.Test.BankAccount&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::B927A0FF-63A0-40D9-940C-EB3F119EB489::net9.0::Katas.Tests.LeapYears&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::B927A0FF-63A0-40D9-940C-EB3F119EB489::net9.0::Katas.Test.CalculateStats&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::B927A0FF-63A0-40D9-940C-EB3F119EB489::net9.0::Katas.Tests.FizzBuzz&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
