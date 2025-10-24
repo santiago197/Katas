@@ -57,6 +57,18 @@ public class NumerosRomanosTest
 
         resultado.Should().Be("V");
     }
+
+    [Fact]
+    public void Si_ReciboNumeroSeis_Debe_Retornar_VI()
+    {
+        var romanos = new NumerosRomanos();
+        var numeroArabigo = 6;
+
+        var resultado = romanos.Convertir(numeroArabigo);
+
+        resultado.Should().Be("VI");
+        
+    }
 }
 
 public class NumerosRomanos
