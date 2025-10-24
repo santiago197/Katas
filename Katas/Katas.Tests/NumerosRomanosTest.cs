@@ -36,7 +36,7 @@ public class NumerosRomanosTest
     {
         var romanos = new NumerosRomanos();
 
-        var resultado = romanos.Convertir(numeroArabigo);
+        var resultado = romanos.RomanosEstandar(numeroArabigo);
 
         resultado.Should().Be(numeroRomano);
     }
