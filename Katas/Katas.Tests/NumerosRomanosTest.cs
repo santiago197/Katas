@@ -21,6 +21,14 @@ public class NumerosRomanosTest
         var resultado = romanos.Convertir(2);
 
         resultado.Should().Be("II");
+    } [Fact]
+    public void Si_RecibeNumeroTres_Debe_Retornar_III()
+    {
+        var romanos = new NumerosRomanos();
+
+        var resultado = romanos.Convertir(3);
+
+        resultado.Should().Be("III");
     }
     
 }
@@ -32,6 +40,7 @@ public class NumerosRomanos
         switch (numero)
         {
             case 1: return "I";
+            case 2: return "II";
         }
 
         return "";
