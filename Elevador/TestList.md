@@ -1,4 +1,5 @@
-﻿
+﻿ - [ ] 
+
 #Diccionario
 
 Llamar: Pedir que el elevador llegue a algún piso específico.
