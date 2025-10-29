@@ -101,18 +101,7 @@ public class ElevadorTests
         elevador.ConsultarPuertaAbierta().Should().BeTrue();
     }
 
-    [Fact]
-    public void
-        Si_ElevadorEstaEnPiso1YEsLlamadoAPiso2YDespuesDeLlegarEsLlamadoAPiso3AntesDeMoverseAPiso3_Debe_CerrarPuerta()
-    {
-        var elevador = new Elevador();
-        
-        elevador.Mover(2);
 
-        Action caller = () => elevador.Mover(3);
-
-        caller.Should().ThrowExactly<InvalidOperationException>().WithMessage("La puerta esta abierta");
-    }
 }
 
 public enum Direccion
@@ -133,9 +122,7 @@ public class Elevador(byte pisoLimiteInferior = 1, byte pisoLimiteSuperior = 10)
 
     public void Mover(byte pisoDestino)
     {
-        if (_puertaAbierta)
-            throw new InvalidOperationException("La puerta esta abierta");
-        
+        _puertaAbierta = false;
         _pisoActual = pisoDestino;
         _puertaAbierta = true;
     }
@@ -143,7 +130,7 @@ public class Elevador(byte pisoLimiteInferior = 1, byte pisoLimiteSuperior = 10)
     public void Llamar(byte pisoSolicitado, Direccion direccion)
     {
         ValidarDireccionSegunLimite(pisoSolicitado, direccion);
-        
+
         if (pisoSolicitado == _pisoActual)
         {
             _puertaAbierta = true;
@@ -151,7 +138,6 @@ public class Elevador(byte pisoLimiteInferior = 1, byte pisoLimiteSuperior = 10)
         }
 
         Mover(pisoSolicitado);
-
         _direccion = direccion;
     }
 
