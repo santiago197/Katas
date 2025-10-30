@@ -141,11 +141,9 @@ public class ElevadorTests
         elevador.Solicitar(2);
 
         elevador.Eventos[0].Nombre.Should().Be("Puerta cerrada.");
-        elevador.Eventos[1].Nombre.Should().Be("Moviendose...");
-        elevador.Eventos[2].Nombre.Should().Be("Piso 1.");
-        elevador.Eventos[3].Nombre.Should().Be("Piso 2.");
-        elevador.Eventos[4].Nombre.Should().Be("Detenido...");
-        elevador.Eventos[5].Nombre.Should().Be("Puerta abierta.");
+        elevador.Eventos[1].Nombre.Should().Be("Piso 1.");
+        elevador.Eventos[2].Nombre.Should().Be("Piso 2.");
+        elevador.Eventos[3].Nombre.Should().Be("Puerta abierta.");
     }
 
     [Fact]
@@ -162,13 +160,20 @@ public class ElevadorTests
     }
 
     [Fact]
-    public void Si_ElevadorEstaEnElPiso1YLoSolicitoAlPiso1_DebeLanzarExcepcion()
+    public void Si_LlamoElevador_Debe_RegistrarLosEventosEnMomentosCorrespondientes()
     {
-        // var elevador = new Elevador();
-        //
-        // var caller = () =>elevador.Solicitar(1);
-        //
-        // caller.Should().ThrowExactly<>()
+        var elevador = new Elevador();
+
+        elevador.Llamar(2, Direccion.Arriba);
+
+        elevador.Eventos[0].Nombre.Should().Be("Puerta cerrada.");
+        elevador.Eventos[0].Momento.Should().Be(1);
+        elevador.Eventos[1].Nombre.Should().Be("Piso 1.");
+        elevador.Eventos[1].Momento.Should().Be(2);
+        elevador.Eventos[2].Nombre.Should().Be("Piso 2.");
+        elevador.Eventos[2].Momento.Should().Be(3);
+        elevador.Eventos[3].Nombre.Should().Be("Puerta abierta.");
+        elevador.Eventos[3].Momento.Should().Be(4);
     }
 
     public enum Direccion
@@ -185,6 +190,8 @@ public class ElevadorTests
         public List<Evento> Eventos { get; private set; } = [];
 
         private Direccion _direccion;
+
+        private int _momentoActual = 0;
 
 
         public void Llamar(int pisoSolicitado, Direccion direccion)
@@ -208,10 +215,9 @@ public class ElevadorTests
         {
             if (pisoDestino == PisoActual)
                 return;
-            Eventos.Add(new Evento(1, "Moviendose..."));
+
             ValidarPuertaAbierta();
             AsignarRecorrido(pisoDestino);
-            Eventos.Add(new Evento(1, "Detenido..."));
         }
 
         private void ValidarDireccion(int pisoDestino)
@@ -227,13 +233,19 @@ public class ElevadorTests
         private void AbrirPuerta()
         {
             PuertaEstaAbierta = true;
-            Eventos.Add(new Evento(1, "Puerta abierta."));
+            AgregarEvento("Puerta abierta.");
+        }
+
+        private void AgregarEvento(string nombre)
+        {
+            _momentoActual++;
+            Eventos.Add(new Evento(_momentoActual, nombre));
         }
 
         private void CerrarPuerta()
         {
             PuertaEstaAbierta = false;
-            Eventos.Add(new Evento(1, "Puerta cerrada."));
+            AgregarEvento("Puerta cerrada.");
         }
 
         private void ValidarPuertaAbierta()
@@ -248,7 +260,7 @@ public class ElevadorTests
 
             while (PisoActual != pisoDestino)
             {
-                Eventos.Add(new Evento(1, $"Piso {PisoActual}."));
+                AgregarEvento($"Piso {PisoActual}.");
                 Recorrido.Add(PisoActual);
                 if (PisoActual >= pisoDestino)
                     PisoActual--;
@@ -256,7 +268,7 @@ public class ElevadorTests
                     PisoActual++;
             }
 
-            Eventos.Add(new Evento(1, $"Piso {pisoDestino}."));
+            AgregarEvento($"Piso {pisoDestino}.");
             Recorrido.Add(pisoDestino);
         }
     }
