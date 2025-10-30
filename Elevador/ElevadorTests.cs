@@ -5,151 +5,265 @@ namespace Elevador;
 public class ElevadorTests
 {
     [Fact]
-    public void Si_InicioElevador_Debe_EstarEnPiso1()
+    public void Si_LlamoElevadorDesdePiso1YEstaEnPiso1_Debe_AbrirPuertas()
     {
         var elevador = new Elevador();
+        elevador.Llamar(1, Direccion.Arriba);
 
-        var piso = elevador.PisoActual;
-
-        piso.Should().Be(1);
+        elevador.PisoActual.Should().Be(1);
+        elevador.PuertaEstaAbierta.Should().BeTrue();
     }
 
     [Fact]
-    public void Si_ElevadorEstaEnElPiso1YMuevoAlPiso2_Debe_ElPisoActualSer2()
+    public void Si_ElevadorEstaEnElPiso1YMuevoAlPiso2_Debe_PisoActualSer2()
     {
         var elevador = new Elevador();
-        byte pisoDestino = 2;
+        var pisoDestino = 2;
+
+        elevador.Mover(pisoDestino);
+
+        elevador.PisoActual.Should().Be(2);
+    }
+
+    [Fact]
+    public void Si_ElevadorSeMueveAPiso3_Debe_PisoActual3YRecorridoSer123()
+    {
+        var elevador = new Elevador();
+        var pisoDestino = 3;
 
         elevador.Mover(pisoDestino);
 
         elevador.PisoActual.Should().Be(pisoDestino);
+        elevador.Recorrido.Should().BeEquivalentTo(new List<int>() { 1, 2, 3 });
     }
 
     [Fact]
-    public void
-        Si_ElevadorEstaEnElPiso1YLlamoElevadorDesdeElPiso2YDireccionSolicitadaEsArriba_Debe_ElPisoActualSer2YDireccionSerArriba()
+    public void Si_ElevadorSeMueveAlPiso5_Debe_RecorridoSer12345()
+    {
+        var elevador = new Elevador();
+        var pisoDestino = 5;
+
+        elevador.Mover(pisoDestino);
+
+        elevador.Recorrido.Should().BeEquivalentTo(new List<int>() { 1, 2, 3, 4, 5 });
+    }
+
+    [Fact]
+    public void Si_LlamoElevadorDesdePiso2YElevadorEnPiso1_Debe_IrAlPiso2YAbrirPuertas()
     {
         var elevador = new Elevador();
 
-        byte pisoSolicitado = 2;
+        const int pisoSolicitado = 2;
         elevador.Llamar(pisoSolicitado, Direccion.Arriba);
 
         elevador.PisoActual.Should().Be(pisoSolicitado);
-        elevador.Direccion.Should().Be(Direccion.Arriba);
+        elevador.PuertaEstaAbierta.Should().BeTrue();
     }
 
     [Fact]
-    public void
-        Si_ElevadorEstaEnElPiso3YLlamoElevadorDesdeElPiso2YDireccionSolicitadaEsAbajo_Debe_ElPisoActualSer2YDireccionSerAbajo()
+    public void Si_ElevadorEstaEnPiso5YSeLLamaAlPiso1_Debe_MostrarElUltimoRecorrido()
     {
         var elevador = new Elevador();
-        byte pisoInicial = 3;
-        byte pisoSolicitado = 2;
-        elevador.Mover(pisoInicial);
 
-        elevador.Llamar(pisoSolicitado, Direccion.Abajo);
+        elevador.Mover(5);
+        elevador.Mover(1);
 
-        elevador.PisoActual.Should().Be(pisoSolicitado);
-        elevador.Direccion.Should().Be(Direccion.Abajo);
+        elevador.Recorrido.Should()
+            .BeEquivalentTo(new List<int>() { 5, 4, 3, 2, 1 }, options => options.WithStrictOrdering());
+        elevador.PisoActual.Should().Be(1);
     }
 
     [Fact]
-    public void Si_ElevadorEstaEnElPisoLimiteInferiorYLaDireccionLlamadaEsAbajo_Debe_LanzarExcepcion()
+    public void Si_ElevadorTienePuertaAbiertaEIntentoMover_Debe_LanzarExcepcion()
     {
         var elevador = new Elevador();
-
-        Action caller = () => elevador.Llamar(1, Direccion.Abajo);
-
-        caller.Should().Throw<InvalidOperationException>()
-            .WithMessage("El elevador ya se encuentra en el límite inferior.");
-    }
-
-    [Fact]
-    public void Si_ElevadorEstaEnElPisoLimiteSuperiorYLaDireccionLlamadaEsArriba_Debe_LanzarExcepcion()
-    {
-        var elevador = new Elevador();
-
-        Action caller = () => elevador.Llamar(10, Direccion.Arriba);
-
-        caller.Should().Throw<InvalidOperationException>()
-            .WithMessage("El elevador ya se encuentra en el límite superior.");
-    }
-
-    [Theory]
-    [InlineData(1)]
-    [InlineData(2)]
-    [InlineData(3)]
-    public void Si_ElevadorEsLlamadoEnElMismoPisoAlActual_Debe_AbrirPuerta(byte pisoSolicitado)
-    {
-        var elevador = new Elevador();
-        elevador.Mover(pisoSolicitado);
-
+        const int pisoSolicitado = 2;
         elevador.Llamar(pisoSolicitado, Direccion.Arriba);
 
-        elevador.ConsultarPuertaAbierta().Should().BeTrue();
+        var caller = () => elevador.Mover(6);
+
+        caller.Should().ThrowExactly<InvalidOperationException>();
     }
 
+    [Fact]
+    public void Si_ElevadorEsLlamadoAlPiso2YEsSolicitadoAlPiso3_Debe_IrAlPiso3YAbrirPuertas()
+    {
+        var elevador = new Elevador();
+        const int pisoSolicitado = 2;
+        elevador.Llamar(pisoSolicitado, Direccion.Arriba);
+        const int pisoDestino = 3;
+
+        elevador.Solicitar(pisoDestino);
+
+        elevador.PisoActual.Should().Be(pisoDestino);
+        elevador.PuertaEstaAbierta.Should().BeTrue();
+    }
 
     [Fact]
-    public void Si_ElevadorEstaEnElPiso1YEsLlamadoEnElPiso2_Debe_PisoActualSer2YAbrirPuerta()
+    public void Si_ElevadorEsLlamadoAlPiso5ConDireccionArribaYEsSolicitadoAlPiso3_Debe_LanzarExcepcion()
+    {
+        var elevador = new Elevador();
+        elevador.Llamar(5, Direccion.Arriba);
+
+        Action caller = () => elevador.Solicitar(3);
+
+        caller.Should().ThrowExactly<InvalidOperationException>()
+            .WithMessage("El piso destino no corresponde a la dirección");
+    }
+
+    [Fact]
+    public void Si_ElevadorEsLlamadoAlPiso5ConDireccionAbajoYEsSolicitadoAlPiso6_Debe_LanzarExcepcion()
     {
         var elevador = new Elevador();
 
-        elevador.Llamar(2, Direccion.Arriba);
+        elevador.Llamar(5, Direccion.Abajo);
+        var caller = () => elevador.Solicitar(6);
 
-        elevador.PisoActual.Should().Be(2);
-        elevador.ConsultarPuertaAbierta().Should().BeTrue();
+        caller.Should().ThrowExactly<InvalidOperationException>()
+            .WithMessage("El piso destino no corresponde a la dirección");
     }
 
-
-}
-
-public enum Direccion
-{
-    Arriba,
-    Abajo
-}
-
-public class Elevador(byte pisoLimiteInferior = 1, byte pisoLimiteSuperior = 10)
-{
-    private byte _pisoActual = 1;
-    private Direccion _direccion;
-    private bool _puertaAbierta;
-
-    public byte PisoActual => _pisoActual;
-    public Direccion Direccion => _direccion;
-
-
-    public void Mover(byte pisoDestino)
+    [Fact]
+    public void Si_SolicitamosUnElevadorAlPiso1_Debe_RegistrarEvento()
     {
-        _puertaAbierta = false;
-        _pisoActual = pisoDestino;
-        _puertaAbierta = true;
+        var elevador = new Elevador();
+
+        elevador.Solicitar(1);
+
+        elevador.Eventos[0].Nombre.Should().Be("Puerta cerrada.");
     }
 
-    public void Llamar(byte pisoSolicitado, Direccion direccion)
+    [Fact]
+    public void Si_SolicitamosUnElevadorAlPiso2_Debe_RegistrarEventosCerrarPuertaPiso1Piso2AbrirPuerta()
     {
-        ValidarDireccionSegunLimite(pisoSolicitado, direccion);
+        var elevador = new Elevador();
 
-        if (pisoSolicitado == _pisoActual)
+        elevador.Solicitar(2);
+
+        elevador.Eventos[0].Nombre.Should().Be("Puerta cerrada.");
+        elevador.Eventos[1].Nombre.Should().Be("Moviendose...");
+        elevador.Eventos[2].Nombre.Should().Be("Piso 1.");
+        elevador.Eventos[3].Nombre.Should().Be("Piso 2.");
+        elevador.Eventos[4].Nombre.Should().Be("Detenido...");
+        elevador.Eventos[5].Nombre.Should().Be("Puerta abierta.");
+    }
+
+    [Fact]
+    public void Si_SolicitoElevadorEnPiso1ElEventoInicial_Debe_SerNombrePuertaCerradaMomento1()
+    {
+        var elevador = new Elevador();
+
+        elevador.Solicitar(1);
+        var eventoEsperado = elevador.Eventos[0];
+
+        eventoEsperado.Momento.Should().Be(1);
+        elevador.Eventos.Should().HaveCount(2);
+        eventoEsperado.Nombre.Should().Be("Puerta cerrada.");
+    }
+
+    [Fact]
+    public void Si_ElevadorEstaEnElPiso1YLoSolicitoAlPiso1_DebeLanzarExcepcion()
+    {
+        // var elevador = new Elevador();
+        //
+        // var caller = () =>elevador.Solicitar(1);
+        //
+        // caller.Should().ThrowExactly<>()
+    }
+
+    public enum Direccion
+    {
+        Arriba,
+        Abajo
+    }
+
+    public class Elevador()
+    {
+        public bool PuertaEstaAbierta { get; private set; }
+        public int PisoActual { get; private set; } = 1;
+        public List<int> Recorrido { get; private set; } = [];
+        public List<Evento> Eventos { get; private set; } = [];
+
+        private Direccion _direccion;
+
+
+        public void Llamar(int pisoSolicitado, Direccion direccion)
         {
-            _puertaAbierta = true;
-            return;
+            CerrarPuerta();
+            Mover(pisoSolicitado);
+            AbrirPuerta();
+            _direccion = direccion;
         }
 
-        Mover(pisoSolicitado);
-        _direccion = direccion;
+
+        public void Solicitar(int pisoDestino)
+        {
+            ValidarDireccion(pisoDestino);
+            CerrarPuerta();
+            Mover(pisoDestino);
+            AbrirPuerta();
+        }
+
+        public void Mover(int pisoDestino)
+        {
+            if (pisoDestino == PisoActual)
+                return;
+            Eventos.Add(new Evento(1, "Moviendose..."));
+            ValidarPuertaAbierta();
+            AsignarRecorrido(pisoDestino);
+            Eventos.Add(new Evento(1, "Detenido..."));
+        }
+
+        private void ValidarDireccion(int pisoDestino)
+        {
+            if ((_direccion.Equals(Direccion.Arriba) && Bajando(pisoDestino)) || (
+                    _direccion.Equals(Direccion.Abajo) && Subiendo(pisoDestino)))
+                throw new InvalidOperationException("El piso destino no corresponde a la dirección");
+        }
+
+        private bool Subiendo(int pisoDestino) => pisoDestino > PisoActual;
+        private bool Bajando(int pisoDestino) => pisoDestino < PisoActual;
+
+        private void AbrirPuerta()
+        {
+            PuertaEstaAbierta = true;
+            Eventos.Add(new Evento(1, "Puerta abierta."));
+        }
+
+        private void CerrarPuerta()
+        {
+            PuertaEstaAbierta = false;
+            Eventos.Add(new Evento(1, "Puerta cerrada."));
+        }
+
+        private void ValidarPuertaAbierta()
+        {
+            if (PuertaEstaAbierta)
+                throw new InvalidOperationException();
+        }
+
+        private void AsignarRecorrido(int pisoDestino)
+        {
+            Recorrido.Clear();
+
+            while (PisoActual != pisoDestino)
+            {
+                Eventos.Add(new Evento(1, $"Piso {PisoActual}."));
+                Recorrido.Add(PisoActual);
+                if (PisoActual >= pisoDestino)
+                    PisoActual--;
+                else
+                    PisoActual++;
+            }
+
+            Eventos.Add(new Evento(1, $"Piso {pisoDestino}."));
+            Recorrido.Add(pisoDestino);
+        }
     }
+}
 
-    public bool ConsultarPuertaAbierta()
-        => _puertaAbierta;
-
-    private void ValidarDireccionSegunLimite(byte pisoSolicitado, Direccion direccion)
-    {
-        if (pisoSolicitado == pisoLimiteInferior && direccion == Direccion.Abajo)
-            throw new InvalidOperationException("El elevador ya se encuentra en el límite inferior.");
-
-        if (pisoSolicitado == pisoLimiteSuperior && direccion == Direccion.Arriba)
-            throw new InvalidOperationException("El elevador ya se encuentra en el límite superior.");
-    }
+public class Evento(int momento, string nombre)
+{
+    public int Momento { get; set; } = momento;
+    public string Nombre { get; } = nombre;
 }
