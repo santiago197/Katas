@@ -1,6 +1,6 @@
 using AwesomeAssertions;
 
-namespace Cosmos.Mob.Katas;
+namespace ElJuegoDeLaVida;
 
 public class TableroTests
 {
@@ -38,156 +38,20 @@ public class TableroTests
         caller.Should().ThrowExactly<ArgumentOutOfRangeException>();
     }
 
-    public static TheoryData<Coordenada, int, int> DatosTestVecinoArriba = new()
-    {
-        { new Coordenada(1, 1), 1, 2 },
-        { new Coordenada(0, 1), 0, 2 },
-    };
-
-    [Theory]
-    [MemberData(nameof(DatosTestVecinoArriba))]
-    public void Si_TenemosUnTableroDeTresXTresYSeleccionamosUnaCelda_Debe_ObtenerSuVecinoDeArriba(
-        Coordenada celdaSeleccionada, int valorX, int valorY)
+    [Fact]
+    public void Si_TenemosUnTableroDeTresXTresYSeleccionamosLaCelda00Tablero_Debe_ValidarVecinosDentroDeLosLimites()
     {
         var tablero = new Tablero(3, 3);
-
-        var celdaVecino = tablero.ObtenerVecinoArriba(celdaSeleccionada);
-
-        celdaVecino.X.Should().Be(valorX);
-        celdaVecino.Y.Should().Be(valorY);
-    }
-
-    public static TheoryData<Coordenada, int, int> DatosTestVecinoDeAbajo = new()
-    {
-        { new Coordenada(1, 1), 1, 0 },
-        { new Coordenada(0, 1), 0, 0 },
-    };
-
-    [Theory]
-    [MemberData(nameof(DatosTestVecinoDeAbajo))]
-    public void Si_TenemosUnTableroDeTresXTresYSeleccionamosUnaCelda_Debe_ObtenerSuVecinoDeAbajo(
-        Coordenada celdaSeleccionada, int valorX, int valorY)
-    {
-        var tablero = new Tablero(3, 3);
-
-        var celdaVecino = tablero.ObtenerVecinoAbajo(celdaSeleccionada);
-
-        celdaVecino.X.Should().Be(valorX);
-        celdaVecino.Y.Should().Be(valorY);
-    }
-
-    public static TheoryData<Coordenada, int, int> DatosTestVecinoDeIzquierda = new()
-    {
-        { new Coordenada(1, 1), 0, 1 },
-        { new Coordenada(2, 2), 1, 2 },
-    };
-
-    [Theory]
-    [MemberData(nameof(DatosTestVecinoDeIzquierda))]
-    public void Si_TenemosUnTableroDeTresXTresYSeleccionamosUnaCelda_Debe_ObtenerSuVecinoDeIzquierda(
-        Coordenada celdaSeleccionada, int valorX, int valorY)
-    {
-        var tablero = new Tablero(3, 3);
-
-        var celdaVecino = tablero.ObtenerVecinoIzquierda(celdaSeleccionada);
-
-        celdaVecino.X.Should().Be(valorX);
-        celdaVecino.Y.Should().Be(valorY);
-    }
-
-    public static TheoryData<Coordenada, int, int> DatosTestVecinoDeDerecha = new()
-    {
-        { new Coordenada(0, 1), 1, 1 },
-        { new Coordenada(1, 0), 2, 0 },
-    };
-
-    [Theory]
-    [MemberData(nameof(DatosTestVecinoDeDerecha))]
-    public void Si_TenemosUnTableroDeTresXTresYSeleccionamosUnaCelda_Debe_ObtenerSuVecinoDeDerecha(
-        Coordenada celdaSeleccionada, int valorX, int valorY)
-    {
-        var tablero = new Tablero(3, 3);
-
-        var celdaVecino = tablero.ObtenerVecinoDerecha(celdaSeleccionada);
-
-        celdaVecino.X.Should().Be(valorX);
-        celdaVecino.Y.Should().Be(valorY);
-    }
-
-    public static TheoryData<Coordenada, int, int> DatosTestVecinoDeArribaDerecha = new()
-    {
-        { new Coordenada(1, 1), 2, 2 },
-        { new Coordenada(0, 0), 1, 1 },
-    };
-
-    [Theory]
-    [MemberData(nameof(DatosTestVecinoDeArribaDerecha))]
-    public void Si_TenemosUnTableroDeTresXTresYSeleccionamosUnaCelda_Debe_ObtenerSuVecinoDeArribaDerecha(
-        Coordenada celdaSeleccionada, int valorX, int valorY)
-    {
-        var tablero = new Tablero(3, 3);
-
-        var celdaVecino = tablero.ObtenerVecinoArribaDerecha(celdaSeleccionada);
-
-        celdaVecino.X.Should().Be(valorX);
-        celdaVecino.Y.Should().Be(valorY);
-    }
-
-
-    public static TheoryData<Coordenada, int, int> DatosTestVecinoDeAbajoDerecha = new()
-    {
-        { new Coordenada(1, 1), 2, 0 },
-        { new Coordenada(0, 1), 1, 0 },
-    };
-
-    [Theory]
-    [MemberData(nameof(DatosTestVecinoDeAbajoDerecha))]
-    public void Si_TenemosUnTableroDeTresXTresYSeleccionamosUnaCelda_Debe_ObtenerSuVecinoDeAbajoDerecha(
-        Coordenada celdaSeleccionada, int valorX, int valorY)
-    {
-        var tablero = new Tablero(3, 3);
-
-        var celdaVecino = tablero.ObtenerVecinoAbajoDerecha(celdaSeleccionada);
-
-        celdaVecino.X.Should().Be(valorX);
-        celdaVecino.Y.Should().Be(valorY);
-    }
-    
-    public static TheoryData<Coordenada, int, int> DatosTestVecinoDeAbajoIzquierda = new()
-    {
-        { new Coordenada(1, 1), 0, 0 },
-        { new Coordenada(2, 1), 1, 0 },
-    };
-
-    [Theory]
-    [MemberData(nameof(DatosTestVecinoDeAbajoIzquierda))]
-    public void Si_TenemosUnTableroDeTresXTresYSeleccionamosUnaCelda_Debe_ObtenerSuVecinoDeAbajoIzquierda(
-        Coordenada celdaSeleccionada, int valorX, int valorY)
-    {
-        var tablero = new Tablero(3, 3);
-
-        var celdaVecino = tablero.ObtenerVecinoAbajoIzquierda(celdaSeleccionada);
         
-        celdaVecino.X.Should().Be(valorX);
-        celdaVecino.Y.Should().Be(valorY);
-    }
-    
-    public static TheoryData<Coordenada, int, int> DatosTestVecinoDeArribaIzquierda = new()
-    {
-        { new Coordenada(1, 1), 0, 2 },
-        { new Coordenada(1, 0), 0, 1 },
-    };
-
-    [Theory]
-    [MemberData(nameof(DatosTestVecinoDeArribaIzquierda))]
-    public void Si_TenemosUnTableroDeTresXTresYSeleccionamosUnaCelda_Debe_ObtenerSuVecinoDeArribaIzquierda(
-        Coordenada celdaSeleccionada, int valorX, int valorY)
-    {
-        var tablero = new Tablero(3, 3);
-
-        var celdaVecino = tablero.ObtenerVecinoArribaIzquierda(celdaSeleccionada);
+        var vecinosEsperados = new List<Coordenada>()
+        {
+            new(0,1),
+            new(1,1),
+            new(1,0)
+        };
         
-        celdaVecino.X.Should().Be(valorX);
-        celdaVecino.Y.Should().Be(valorY);
+        var vecinosValidos = tablero.ObtenerVecinosDentroDelLimite(new Coordenada(0,0));
+        
+        vecinosValidos.Should().BeEquivalentTo(vecinosEsperados);
     }
 }

@@ -1,13 +1,13 @@
 using AwesomeAssertions;
 
-namespace Cosmos.Mob.Katas;
+namespace ElJuegoDeLaVida;
 
 public class CelulasTests
 {
     [Fact]
     public void Si_CreoUnaCelulaSuEstadoInicial_Debe_EstarMuerta()
     {
-        var celula = new Celula();
+        var celula = new Celula(new Coordenada(1,1));
 
         var estadoCelula = celula.EstaViva;
 
@@ -17,7 +17,7 @@ public class CelulasTests
     [Fact]
     public void Si_HayUnaCelulaMuertaYLaVivo_Debe_EstarViva()
     {
-        var celula = new Celula();
+        var celula = new Celula(new Coordenada(1,1));
 
         celula.Vivir();
         var estadoCelula = celula.EstaViva;
@@ -28,7 +28,7 @@ public class CelulasTests
     [Fact]
     public void Si_HayUnaCelulaVivaYLaAsesino_Debe_EstarMuerta()
     {
-        var celula = new Celula();
+        var celula = new Celula(new Coordenada(1,1));
         celula.Vivir();
 
         celula.Asesinar();
@@ -42,7 +42,7 @@ public class CelulasTests
     public void Si_LaCelulaEstaVivaYTieneDosOTresVecinasVivas_Debe_EstarViva(int vecinosVivos)
     {
         //Arrange
-        var celula = new Celula();
+        var celula = new Celula(new Coordenada(1,1));
         celula.Vivir();
 
         //Act
@@ -56,7 +56,7 @@ public class CelulasTests
     [Fact]
     public void Si_HayUnaCelulaMuertaConTresVecinasVivas_Debe_Vivir()
     {
-        var celula = new Celula();
+        var celula = new Celula(new Coordenada(1,1));
         celula.CalcularSiguienteEstado(3);
 
         celula.EstaViva.Should().BeTrue();
@@ -72,36 +72,21 @@ public class CelulasTests
     [InlineData(8)]
     public void Si_HayUnaCelulaVivaConMasDeTresVecinasVivas_Debe_Morir(int vecinosVivos)
     {
-        var celula = new Celula();
+        var celula = new Celula(new Coordenada(1,1));
         celula.Vivir();
 
         celula.CalcularSiguienteEstado(vecinosVivos);
 
         celula.EstaViva.Should().BeFalse();
     }
-}
 
-public class Celula
-{
-    public bool EstaViva { get; private set; }
-
-    public void Vivir() => EstaViva = true;
-
-    public void Asesinar() => EstaViva = false;
-
-    public void CalcularSiguienteEstado(int vecinosVivos)
+    [Fact]
+    public void CuandoCreeUnaCelula_Debe_TenerUnaCoordenada()
     {
-        if (EstaViva && vecinosVivos is 2 or 3)
-            return;
+        var celula = new Celula(new Coordenada(1,1));
 
-        if (EstaMuerta() && vecinosVivos == 3)
-        {
-            Vivir();
-            return;
-        }
-
-        Asesinar();
+        celula.Coordenadas.Should().NotBeNull();
+        celula.Coordenadas.X.Should().Be(1);
+        celula.Coordenadas.Y.Should().Be(1);
     }
-
-    private bool EstaMuerta() => EstaViva is false;
 }

@@ -1,6 +1,4 @@
-using System.Xml.Serialization;
-
-namespace Cosmos.Mob.Katas;
+namespace ElJuegoDeLaVida;
 
 public class Tablero
 {
@@ -41,22 +39,10 @@ public class Tablero
             throw new ArgumentOutOfRangeException(nombreParametro, "Las dimensiones son erroneas");
     }
 
-    public Coordenada ObtenerVecinoArriba(Coordenada celdaSeleccionada) => celdaSeleccionada with { Y = celdaSeleccionada.Y + 1 };
-    public Coordenada ObtenerVecinoArribaDerecha(Coordenada celdaSeleccionada) => new(celdaSeleccionada.X + 1, celdaSeleccionada.Y + 1);
-    public Coordenada ObtenerVecinoDerecha(Coordenada celdaSeleccionada) => celdaSeleccionada with { X = celdaSeleccionada.X + 1 };
-    public Coordenada ObtenerVecinoAbajoDerecha(Coordenada celdaSeleccionada) => new(celdaSeleccionada.X + 1, celdaSeleccionada.Y - 1);
-    public Coordenada ObtenerVecinoAbajo(Coordenada celdaSeleccionada) => celdaSeleccionada with { Y = celdaSeleccionada.Y - 1 };
-    public Coordenada ObtenerVecinoAbajoIzquierda(Coordenada celdaSeleccionada) => new(celdaSeleccionada.X - 1, celdaSeleccionada.Y - 1);
-    public Coordenada ObtenerVecinoIzquierda(Coordenada celdaSeleccionada) => celdaSeleccionada with { X = celdaSeleccionada.X - 1 };
-    public Coordenada ObtenerVecinoArribaIzquierda(Coordenada celdaSeleccionada) => new(celdaSeleccionada.X - 1, celdaSeleccionada.Y + 1);
-}
+    public List<Coordenada> ObtenerVecinosDentroDelLimite(Coordenada coordenada )
+    {
+        var vecinos = coordenada.ObtenerVecinos();
 
-public record Coordenada(int X, int Y);
-
-public enum Direccion
-{
-    Arriba,
-    Abajo,
-    Derecha,
-    Izquierda
+        return vecinos.Where(vecino => vecino is { X: >= 0, Y: >= 0 }).ToList();
+    }
 }

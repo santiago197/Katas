@@ -1,6 +1,6 @@
 using AwesomeAssertions;
 
-namespace Cosmos.Mob.Katas;
+namespace ElJuegoDeLaVida;
 
 public class GameOfLifeTests
 {
