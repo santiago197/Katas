@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Katas", "Katas\Katas.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevador", "Elevador\Elevador.csproj", "{F8A97749-D360-4CBB-BF22-33E4CB83CE82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CajeroATM", "CajeroATM\CajeroATM.csproj", "{73CF087F-C645-49A8-A1CC-57C576565AE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElJuegoDeLaVida", "ElJuegoDeLaVida\ElJuegoDeLaVida.csproj", "{CC179994-A5AF-4765-BF11-4CABF1197BE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{F8A97749-D360-4CBB-BF22-33E4CB83CE82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8A97749-D360-4CBB-BF22-33E4CB83CE82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8A97749-D360-4CBB-BF22-33E4CB83CE82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73CF087F-C645-49A8-A1CC-57C576565AE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73CF087F-C645-49A8-A1CC-57C576565AE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73CF087F-C645-49A8-A1CC-57C576565AE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73CF087F-C645-49A8-A1CC-57C576565AE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC179994-A5AF-4765-BF11-4CABF1197BE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC179994-A5AF-4765-BF11-4CABF1197BE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC179994-A5AF-4765-BF11-4CABF1197BE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC179994-A5AF-4765-BF11-4CABF1197BE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
