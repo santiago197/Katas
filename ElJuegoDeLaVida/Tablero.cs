@@ -17,6 +17,22 @@ public class Tablero
         Celdas = GenerarCelulas(ancho, alto);
     }
 
+    public Celula ObtenerCelulaPorCoordenada(Coordenada coordenada) => Celdas[coordenada.X, coordenada.Y];
+    public List<Coordenada> ObtenerVecinosDentroDelLimite(Coordenada coordenada)
+    {
+        var vecinos = coordenada.ObtenerVecinos();
+
+        return vecinos.Where(vecino => vecino is { X: >= 0, Y: >= 0 }).ToList();
+    }
+
+    public void DarVida(Coordenada coordenada)
+    {
+        LanzarExcepcionCuandoExcedeLimite(coordenada);
+        
+        var celula = Celdas[coordenada.X, coordenada.Y];
+        celula.Vivir();
+    }
+    
     private Celula[,] GenerarCelulas(int ancho, int alto)
     {
         Celula[,] celulasTablero = new Celula[ancho, alto];
@@ -31,19 +47,7 @@ public class Tablero
 
         return celulasTablero;
     }
-
-    public int[] ObtenerVecinos(int x, int y)
-    {
-        ValidarCoordenadaExistente(x, y);
-        return [];
-    }
-
-    private void ValidarCoordenadaExistente(int x, int y)
-    {
-        if (x > _indiceXMaximo || y > _indiceYMaximo)
-            throw new ArgumentOutOfRangeException();
-    }
-
+    
     private (int x, int y) CalcularIndiceMaximo(int ancho, int alto)
     {
         var indiceXMaximo = ancho - 1;
@@ -52,21 +56,16 @@ public class Tablero
         return (indiceXMaximo, indiceYMaximo);
     }
 
+    private void LanzarExcepcionCuandoExcedeLimite(Coordenada coordenada)
+    {
+        if (coordenada.X > _indiceXMaximo || coordenada.Y > _indiceYMaximo)
+            throw new ArgumentOutOfRangeException(nameof(coordenada), "La célula no se encuentra en la coordenada establecida");
+    }
+    
     private void LanzarErrorCuandoDimensionNoEsValida(int parametro, string nombreParametro)
     {
         if (parametro <= 0)
             throw new ArgumentOutOfRangeException(nombreParametro, "Las dimensiones son erroneas");
     }
-
-    public List<Coordenada> ObtenerVecinosDentroDelLimite(Coordenada coordenada)
-    {
-        var vecinos = coordenada.ObtenerVecinos();
-
-        return vecinos.Where(vecino => vecino is { X: >= 0, Y: >= 0 }).ToList();
-    }
-
-    public void GenerarCelulasIniciales()
-    {
-        throw new NotImplementedException();
-    }
+    
 }

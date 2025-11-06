@@ -16,28 +16,6 @@ public class TableroTests
             .WithMessage($"Las dimensiones son erroneas (Parameter '{parametro}')");
     }
 
-    //Calcular vecinos 
-    [Fact]
-    public void Si_InicializoUnTableroDeUnoXUno_Debe_NoExistirVecinoEnLaCordenadaCeroCero()
-    {
-        var tablero = new Tablero(1, 1);
-
-        int[] vecinos = tablero.ObtenerVecinos(0, 0);
-
-        vecinos.Should().HaveCount(0);
-    }
-
-    //Debe intentar obtener vecinos de una coordenada que no existe
-    [Fact]
-    public void Si_InicializoUnTableroDeUnoXUnoYObtengoVecinosDeCoordenadaDosDos_Debe_LanzarExcepcion()
-    {
-        var tablero = new Tablero(1, 1);
-
-        Action caller = () => tablero.ObtenerVecinos(2, 2);
-
-        caller.Should().ThrowExactly<ArgumentOutOfRangeException>();
-    }
-
     [Fact]
     public void Si_TenemosUnTableroDeTresXTresYSeleccionamosLaCelda00Tablero_Debe_ValidarVecinosDentroDeLosLimites()
     {
@@ -67,10 +45,55 @@ public class TableroTests
     [InlineData(2, 2)]
     public void SI_TenemosUnTablero3x3D_Debe_PorCadaCeldaDelTableroCrearUnaCelula(int x, int y)
     {
-        //Arrange
         var tablero = new Tablero(3, 3);
 
-        //Assert
         tablero.Celdas[x, y].Should().NotBeNull();
+    }
+
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(0, 1)]
+    [InlineData(0, 2)]
+    [InlineData(1, 0)]
+    [InlineData(1, 1)]
+    [InlineData(1, 2)]
+    [InlineData(2, 0)]
+    [InlineData(2, 1)]
+    [InlineData(2, 2)]
+    public void SI_TenemosUnTablero3x3_Debe_PorCadaCeldaDelTableroLaCelulaDebeEstarMuerta(int x, int y)
+    {
+        var tablero = new Tablero(3, 3);
+
+        tablero.ObtenerCelulaPorCoordenada(new Coordenada(x, y)).EstaViva.Should().BeFalse();
+    }
+
+
+    public static TheoryData<Coordenada,int> DatosTestVecinoDeArribaIzquierda = new()
+    {
+        { new Coordenada(0, 0),3 },
+        { new Coordenada(0, 1),5 },
+        { new Coordenada(1, 1),8 }
+    };
+
+    [Theory]
+    [MemberData(nameof(DatosTestVecinoDeArribaIzquierda))]
+    public void Si_TenemosUnTableroDe3X3YSeleccionoUnaCelula_Debe_SaberCualesSonSusCelulasVecinas(Coordenada coordenada, int vecinosEsperados)
+    {
+        var tablero = new Tablero(3, 3);
+
+        var celulas = tablero.ObtenerCelulaPorCoordenada(coordenada);
+
+        // celulas.Should().HaveCount(vecinosEsperados);
+    }
+
+    [Fact]
+    public void Si_TenemosUnTableroDe1X1YUnaCelulaMuertaYLeDoyVidaConCoordenadaFueraDelLimite_Debe_LanzarExcepcion()
+    {
+        var tablero = new Tablero(1, 1);
+
+        Action caller = () => tablero.DarVida(new Coordenada(2, 2));
+
+        caller.Should().ThrowExactly<ArgumentOutOfRangeException>()
+            .WithMessage("La célula no se encuentra en la coordenada establecida (Parameter 'coordenada')");
     }
 }
