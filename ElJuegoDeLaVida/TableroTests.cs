@@ -42,16 +42,35 @@ public class TableroTests
     public void Si_TenemosUnTableroDeTresXTresYSeleccionamosLaCelda00Tablero_Debe_ValidarVecinosDentroDeLosLimites()
     {
         var tablero = new Tablero(3, 3);
-        
+
         var vecinosEsperados = new List<Coordenada>()
         {
-            new(0,1),
-            new(1,1),
-            new(1,0)
+            new(0, 1),
+            new(1, 1),
+            new(1, 0)
         };
-        
-        var vecinosValidos = tablero.ObtenerVecinosDentroDelLimite(new Coordenada(0,0));
-        
+
+        var vecinosValidos = tablero.ObtenerVecinosDentroDelLimite(new Coordenada(0, 0));
+
         vecinosValidos.Should().BeEquivalentTo(vecinosEsperados);
+    }
+
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(0, 1)]
+    [InlineData(0, 2)]
+    [InlineData(1, 0)]
+    [InlineData(1, 1)]
+    [InlineData(1, 2)]
+    [InlineData(2, 0)]
+    [InlineData(2, 1)]
+    [InlineData(2, 2)]
+    public void SI_TenemosUnTablero3x3D_Debe_PorCadaCeldaDelTableroCrearUnaCelula(int x, int y)
+    {
+        //Arrange
+        var tablero = new Tablero(3, 3);
+
+        //Assert
+        tablero.Celdas[x, y].Should().NotBeNull();
     }
 }
