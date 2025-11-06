@@ -81,19 +81,28 @@ public class TableroTests
     {
         var tablero = new Tablero(3, 3);
 
-        var celulas = tablero.ObtenerCelulaPorCoordenada(coordenada);
+        var celulas = tablero.ObtenerCelulasPorCoordenada(coordenada);
 
-        // celulas.Should().HaveCount(vecinosEsperados);
+        celulas.Should().HaveCount(vecinosEsperados);
     }
 
     [Fact]
-    public void Si_TenemosUnTableroDe1X1YUnaCelulaMuertaYLeDoyVidaConCoordenadaFueraDelLimite_Debe_LanzarExcepcion()
+    public void Si_TenemosTablero3x3YLeDamosVidaATresCelulas_DebeRetornarTresCelulasVivasCuandoLaCoordenadaEsUnoUno()
     {
-        var tablero = new Tablero(1, 1);
+        var tablero = new Tablero(3, 3);
+        tablero.DarVida(new Coordenada(0,0));
+        tablero.DarVida(new Coordenada(1,0));
+        tablero.DarVida(new Coordenada(2,0));
 
-        Action caller = () => tablero.DarVida(new Coordenada(2, 2));
+        var celulasVivas = tablero.ObtenerCelulasVivasPorCoordenada(new Coordenada(1,1));
 
-        caller.Should().ThrowExactly<ArgumentOutOfRangeException>()
-            .WithMessage("La célula no se encuentra en la coordenada establecida (Parameter 'coordenada')");
+        celulasVivas.Should().HaveCount(3);
+
+
+
     }
+    
+    
+
+    
 }

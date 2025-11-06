@@ -67,5 +67,15 @@ public class Tablero
         if (parametro <= 0)
             throw new ArgumentOutOfRangeException(nombreParametro, "Las dimensiones son erroneas");
     }
-    
+
+    public List<Celula> ObtenerCelulasPorCoordenada(Coordenada coordenada)
+    {
+        return ObtenerVecinosDentroDelLimite(coordenada).Select(coordenadaVecino =>
+            Celdas[coordenadaVecino.X, coordenadaVecino.Y]).ToList();
+    }
+
+    public List<Celula> ObtenerCelulasVivasPorCoordenada(Coordenada coordenada)
+    {
+        return ObtenerCelulasPorCoordenada(coordenada).Where(celula => celula.EstaViva).ToList();
+    }
 }
