@@ -17,22 +17,31 @@ public class Tablero
         Celdas = GenerarCelulas(ancho, alto);
     }
 
+    public void ActualizarCeldas(Celula[,] celulasActualizadas)
+    {
+        Celdas = celulasActualizadas;
+    }
+
     public Celula ObtenerCelulaPorCoordenada(Coordenada coordenada) => Celdas[coordenada.X, coordenada.Y];
+
+    // public List<Celula> ObtenerCelulasPorCoordenadas(List<Coordenada> coordenada) => Celdas[coordenada.X, coordenada.Y];
     public List<Coordenada> ObtenerVecinosDentroDelLimite(Coordenada coordenada)
     {
         var vecinos = coordenada.ObtenerVecinos();
 
-        return vecinos.Where(vecino => vecino is { X: >= 0, Y: >= 0 }).ToList();
+        return vecinos.Where(vecino =>
+                vecino.X >= 0 && vecino.X <= _indiceXMaximo && vecino.Y >= 0 && vecino.Y <= _indiceYMaximo)
+            .ToList();
     }
 
     public void DarVida(Coordenada coordenada)
     {
         LanzarExcepcionCuandoExcedeLimite(coordenada);
-        
+
         var celula = Celdas[coordenada.X, coordenada.Y];
         celula.Vivir();
     }
-    
+
     private Celula[,] GenerarCelulas(int ancho, int alto)
     {
         Celula[,] celulasTablero = new Celula[ancho, alto];
@@ -47,7 +56,7 @@ public class Tablero
 
         return celulasTablero;
     }
-    
+
     private (int x, int y) CalcularIndiceMaximo(int ancho, int alto)
     {
         var indiceXMaximo = ancho - 1;
@@ -59,9 +68,10 @@ public class Tablero
     private void LanzarExcepcionCuandoExcedeLimite(Coordenada coordenada)
     {
         if (coordenada.X > _indiceXMaximo || coordenada.Y > _indiceYMaximo)
-            throw new ArgumentOutOfRangeException(nameof(coordenada), "La célula no se encuentra en la coordenada establecida");
+            throw new ArgumentOutOfRangeException(nameof(coordenada),
+                "La célula no se encuentra en la coordenada establecida");
     }
-    
+
     private void LanzarErrorCuandoDimensionNoEsValida(int parametro, string nombreParametro)
     {
         if (parametro <= 0)
@@ -78,4 +88,8 @@ public class Tablero
     {
         return ObtenerCelulasPorCoordenada(coordenada).Where(celula => celula.EstaViva).ToList();
     }
+
+    public List<Coordenada> ObtenerCelulasVivas()
+        => Celdas.Cast<Celula>().ToArray().Where(celula => celula.EstaViva).Select(celula => celula.Coordenadas).ToList();
+    
 }

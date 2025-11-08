@@ -33,6 +33,23 @@ public class TableroTests
         vecinosValidos.Should().BeEquivalentTo(vecinosEsperados);
     }
 
+    [Fact]
+    public void Si_TenemosUnTableroDeTresXTresYSeleccionamosLaCelda22Tablero_Debe_ValidarVecinosDentroDeLosLimites()
+    {
+        var tablero = new Tablero(3, 3);
+
+        var vecinosEsperados = new List<Coordenada>()
+        {
+            new(2, 1),
+            new(1, 1),
+            new(1, 2),
+        };
+
+        var vecinosValidos = tablero.ObtenerVecinosDentroDelLimite(new Coordenada(2, 2));
+
+        vecinosValidos.Should().BeEquivalentTo(vecinosEsperados);
+    }
+
     [Theory]
     [InlineData(0, 0)]
     [InlineData(0, 1)]
@@ -68,16 +85,17 @@ public class TableroTests
     }
 
 
-    public static TheoryData<Coordenada,int> DatosTestVecinoDeArribaIzquierda = new()
+    public static TheoryData<Coordenada, int> DatosTestVecinoDeArribaIzquierda = new()
     {
-        { new Coordenada(0, 0),3 },
-        { new Coordenada(0, 1),5 },
-        { new Coordenada(1, 1),8 }
+        { new Coordenada(0, 0), 3 },
+        { new Coordenada(0, 1), 5 },
+        { new Coordenada(1, 1), 8 }
     };
 
     [Theory]
     [MemberData(nameof(DatosTestVecinoDeArribaIzquierda))]
-    public void Si_TenemosUnTableroDe3X3YSeleccionoUnaCelula_Debe_SaberCualesSonSusCelulasVecinas(Coordenada coordenada, int vecinosEsperados)
+    public void Si_TenemosUnTableroDe3X3YSeleccionoUnaCelula_Debe_SaberCualesSonSusCelulasVecinas(Coordenada coordenada,
+        int vecinosEsperados)
     {
         var tablero = new Tablero(3, 3);
 
@@ -90,19 +108,12 @@ public class TableroTests
     public void Si_TenemosTablero3x3YLeDamosVidaATresCelulas_DebeRetornarTresCelulasVivasCuandoLaCoordenadaEsUnoUno()
     {
         var tablero = new Tablero(3, 3);
-        tablero.DarVida(new Coordenada(0,0));
-        tablero.DarVida(new Coordenada(1,0));
-        tablero.DarVida(new Coordenada(2,0));
+        tablero.DarVida(new Coordenada(0, 0));
+        tablero.DarVida(new Coordenada(1, 0));
+        tablero.DarVida(new Coordenada(2, 0));
 
-        var celulasVivas = tablero.ObtenerCelulasVivasPorCoordenada(new Coordenada(1,1));
+        var celulasVivas = tablero.ObtenerCelulasVivasPorCoordenada(new Coordenada(1, 1));
 
         celulasVivas.Should().HaveCount(3);
-
-
-
     }
-    
-    
-
-    
 }
