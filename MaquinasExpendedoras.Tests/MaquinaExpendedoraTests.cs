@@ -83,6 +83,19 @@ public class MaquinaExpendedoraTests
         //Assert
         maquina.Pantalla.Should().Be("10");
     }
+
+    [Fact]
+    public void Si_IngresoMonedaDe25_Debe_MostrarEnPantalla25()
+    {
+        //Arrange
+        var maquina = new Maquina();
+        
+        //Act
+        maquina.IngresarMoneda(25);
+        
+        //Assert
+        maquina.Pantalla.Should().Be("25");
+    }
 }
 
 public class Maquina
@@ -99,6 +112,11 @@ public class Maquina
         }
 
 
+        if (moneda == 25)
+        {
+            Pantalla = "25";
+            return;
+        }
         if ((moneda == 5 && Pantalla == "5") || moneda == 10)
         {
             Pantalla = "10";
