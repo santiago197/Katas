@@ -45,16 +45,39 @@ public class MaquinaExpendedoraTests
         //Assert
         maquina.Pantalla.Should().Be(5);
     }
+    
+    [Fact]
+    public void Si_IngresoUnaMonedaDe5YUnCentavo_Debe_MostrarEnPantalla5YDevolverMonedaDe1()
+    {
+        //Arrange
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(5);
+        
+        //Act
+        maquina.IngresarMoneda(1);
+        
+        //Assert
+        maquina.Pantalla.Should().Be(5);
+        maquina.ValorDevuelto.Should().Be(1);
+    }
+    
+    
+    
+    
 }
 
 public class Maquina
 {
-    public int Pantalla { get; private set; } 
+    public int Pantalla { get; private set; }
+    public int ValorDevuelto { get; private set; } 
 
     public void IngresarMoneda(int moneda)
     {
         if (EsMonedaInvalida(moneda))
+        {
+            ValorDevuelto = moneda;
             return;
+        }
         
         Pantalla += moneda;
     }
