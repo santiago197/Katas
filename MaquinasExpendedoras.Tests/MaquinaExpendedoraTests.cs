@@ -118,6 +118,18 @@ public class MaquinaExpendedoraTests
 
         maquina.Pantalla.Should().Be("20");
     }
+
+    [Fact]
+    public void Si_Ingreso1MonedaDe5Y1Moneda10_Debe_MostrarEnPantalla15()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(5);
+        
+        maquina.IngresarMoneda(10);
+
+        maquina.Pantalla.Should().Be("15");
+
+    }
 }
 
 public class Maquina
@@ -125,6 +137,9 @@ public class Maquina
     public string Pantalla { get; private set; } = "Insertar Monedas";
     public int ValorDevuelto { get; private set; }
 
+    private int _montoActual ;
+
+   
     public void IngresarMoneda(int moneda)
     {
         if (EsMonedaInvalida(moneda))
@@ -133,27 +148,9 @@ public class Maquina
             return;
         }
 
-        if (moneda == 25)
-        {
-            if (Pantalla == "25")
-                Pantalla = "50";
-            else
-                Pantalla = "25";
-        }
-        else if (moneda == 5)
-        {
-            if (Pantalla == "5")
-                Pantalla = "10";
-            else
-                Pantalla = "5";
-        }
-        else
-        {
-            if (Pantalla == "10")
-                Pantalla = "20";
-            else
-                Pantalla = "10";
-        }
+        _montoActual += moneda;
+        Pantalla = _montoActual.ToString();
+     
     }
 
     private static bool EsMonedaInvalida(int moneda) => moneda == 1;
