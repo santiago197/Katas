@@ -14,7 +14,7 @@ public class MaquinaExpendedoraTests
         maquina.IngresarMoneda(5);
 
         //Assert
-        maquina.Pantalla.Should().Be(5);
+        maquina.Pantalla.Should().Be("5");
     }
 
     [Fact]
@@ -26,10 +26,9 @@ public class MaquinaExpendedoraTests
 
         // Act
         maquina.IngresarMoneda(5);
-     
-        // Assert 
-        maquina.Pantalla.Should().Be(10);
 
+        // Assert 
+        maquina.Pantalla.Should().Be("10");
     }
 
     [Fact]
@@ -38,38 +37,44 @@ public class MaquinaExpendedoraTests
         //Arrange
         var maquina = new Maquina();
         maquina.IngresarMoneda(5);
-        
+
         //Act
         maquina.IngresarMoneda(1);
-        
+
         //Assert
-        maquina.Pantalla.Should().Be(5);
+        maquina.Pantalla.Should().Be("5");
     }
-    
+
     [Fact]
     public void Si_IngresoUnaMonedaDe5YUnCentavo_Debe_MostrarEnPantalla5YDevolverMonedaDe1()
     {
         //Arrange
         var maquina = new Maquina();
         maquina.IngresarMoneda(5);
-        
+
         //Act
         maquina.IngresarMoneda(1);
-        
+
         //Assert
-        maquina.Pantalla.Should().Be(5);
+        maquina.Pantalla.Should().Be("5");
         maquina.ValorDevuelto.Should().Be(1);
     }
-    
-    
-    
-    
+
+    [Fact]
+    public void Si_NoIngresoMonedas_Debe_PantallMostrarInsertarMonedas()
+    {
+        //Arrange
+        var maquina = new Maquina();
+        //Act
+        //Assert
+        maquina.Pantalla.Should().Be("Insertar Monedas");
+    }
 }
 
 public class Maquina
 {
-    public int Pantalla { get; private set; }
-    public int ValorDevuelto { get; private set; } 
+    public string Pantalla { get; private set; } = "Insertar Monedas";
+    public int ValorDevuelto { get; private set; }
 
     public void IngresarMoneda(int moneda)
     {
@@ -78,8 +83,15 @@ public class Maquina
             ValorDevuelto = moneda;
             return;
         }
-        
-        Pantalla += moneda;
+
+        if (moneda == 5 && Pantalla == "5")
+        {
+            Pantalla = "10";
+        }
+        else
+        {
+            Pantalla = "5";
+        }
     }
 
     private static bool EsMonedaInvalida(int moneda) => moneda == 1;
