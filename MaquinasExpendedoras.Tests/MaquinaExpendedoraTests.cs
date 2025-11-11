@@ -16,13 +16,29 @@ public class MaquinaExpendedoraTests
         //Assert
         maquina.Pantalla.Should().Be(5);
     }
+
+    [Fact]
+    public void Si_Ingreso2MonedasDe5_Debe_MostrarEnPantalla10()
+    {
+        // Arrange
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(5);
+
+        // Act
+        maquina.IngresarMoneda(5);
+     
+        // Assert 
+        maquina.Pantalla.Should().Be(10);
+
+    }
 }
 
 public class Maquina
 {
-    public int Pantalla { get; private set; } = 5;
+    public int Pantalla { get; private set; } 
 
     public void IngresarMoneda(int moneda)
     {
+        Pantalla += moneda;
     }
 }
