@@ -5,63 +5,63 @@ namespace MaquinasExpendedoras.Tests;
 public class MaquinaExpendedoraTests
 {
     [Fact]
-    public void Si_Ingreso1MonedaDe5_Debe_MostrarEnPantalla5()
+    public void Si_Ingreso1Nickel_Debe_MostrarEnPantalla5()
     {
         //Arrange
         var maquina = new Maquina();
 
         //Act
-        maquina.IngresarMoneda(5);
+        maquina.IngresarMoneda(new Nickel());
 
         //Assert
         maquina.Pantalla.Should().Be("5");
     }
 
     [Fact]
-    public void Si_Ingreso2MonedasDe5_Debe_MostrarEnPantalla10()
+    public void Si_Ingreso2MonedasDeNickel_Debe_MostrarEnPantalla10()
     {
         // Arrange
         var maquina = new Maquina();
-        maquina.IngresarMoneda(5);
+        maquina.IngresarMoneda(new Nickel());
 
         // Act
-        maquina.IngresarMoneda(5);
+        maquina.IngresarMoneda(new Nickel());
 
         // Assert 
         maquina.Pantalla.Should().Be("10");
     }
 
     [Fact]
-    public void Si_IngresoUnaMonedaDe5YUnCentavo_Debe_MostrarEnPantalla5()
+    public void Si_IngresoUnaMonedaDeNickelYUnPenny_Debe_MostrarEnPantalla5()
     {
         //Arrange
         var maquina = new Maquina();
-        maquina.IngresarMoneda(5);
+        maquina.IngresarMoneda(new Nickel());
 
         //Act
-        maquina.IngresarMoneda(1);
+        maquina.IngresarMoneda(new Penny());
 
         //Assert
         maquina.Pantalla.Should().Be("5");
     }
 
     [Fact]
-    public void Si_IngresoUnaMonedaDe5YUnCentavo_Debe_MostrarEnPantalla5YDevolverMonedaDe1()
+    public void Si_IngresoUnNickelYUnPenny_Debe_MostrarEnPantalla5YDevolverMonedaDe1()
     {
         //Arrange
         var maquina = new Maquina();
-        maquina.IngresarMoneda(5);
+        maquina.IngresarMoneda(new Nickel());
 
         //Act
-        maquina.IngresarMoneda(1);
+        maquina.IngresarMoneda(new Penny());
 
         //Assert
         maquina.Pantalla.Should().Be("5");
-        maquina.ValorDevuelto.Should().Be(1);
+        maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Penny() });
     }
 
     [Fact]
-    public void Si_NoIngresoMonedas_Debe_PantallMostrarInsertarMonedas()
+    public void Si_NoIngresoMonedas_Debe_PantallaMostrarInsertarMonedas()
     {
         //Arrange
         var maquina = new Maquina();
@@ -71,99 +71,145 @@ public class MaquinaExpendedoraTests
     }
 
     [Fact]
-    public void Si_IngresoMonedaDe10_Debe_MostranEnPantalla10()
+    public void Si_Ingreso1Dime_Debe_MostrarEnPantalla10()
     {
         //Arrange
         var maquina = new Maquina();
 
 
         //Act
-        maquina.IngresarMoneda(10);
+        maquina.IngresarMoneda(new Dime());
 
         //Assert
         maquina.Pantalla.Should().Be("10");
     }
 
     [Fact]
-    public void Si_IngresoMonedaDe25_Debe_MostrarEnPantalla25()
+    public void Si_IngresoUnQuarter_Debe_MostrarEnPantalla25()
     {
         //Arrange
         var maquina = new Maquina();
 
         //Act
-        maquina.IngresarMoneda(25);
+        maquina.IngresarMoneda(new Quarter());
 
         //Assert
         maquina.Pantalla.Should().Be("25");
     }
 
     [Fact]
-    public void Si_Ingreso2MonedasDe25_Debe_MostrarEnPantalla50()
+    public void Si_Ingreso2Quarter_Debe_MostrarEnPantalla50()
     {
         var maquina = new Maquina();
-        maquina.IngresarMoneda(25);
+        maquina.IngresarMoneda(new Quarter());
 
-        maquina.IngresarMoneda(25);
+        maquina.IngresarMoneda(new Quarter());
 
         maquina.Pantalla.Should().Be("50");
     }
 
     [Fact]
-    public void Si_Ingreso2MonedasDe10_Debe_MostrarEnPantalla20()
+    public void Si_Ingreso2MonedasDime_Debe_MostrarEnPantalla20()
     {
         var maquina = new Maquina();
-        maquina.IngresarMoneda(10);
+        maquina.IngresarMoneda(new Dime());
 
-        maquina.IngresarMoneda(10);
+        maquina.IngresarMoneda(new Dime());
 
         maquina.Pantalla.Should().Be("20");
     }
 
     [Fact]
-    public void Si_Ingreso1MonedaDe5Y1Moneda10_Debe_MostrarEnPantalla15()
+    public void Si_Ingreso1NickelY1Dime_Debe_MostrarEnPantalla15()
     {
         var maquina = new Maquina();
-        maquina.IngresarMoneda(5);
-        
-        maquina.IngresarMoneda(10);
+        maquina.IngresarMoneda(new Nickel());
+
+        maquina.IngresarMoneda(new Dime());
 
         maquina.Pantalla.Should().Be("15");
-
     }
 
     [Fact]
-    public void Si_Ingreso2MonedasDe1_Debe_RetornarElSaldoDe2()
+    public void Si_Ingreso2Penny_Debe_Retornar2Penny()
     {
         var maquina = new Maquina();
-        maquina.IngresarMoneda(1);
-        
-        maquina.IngresarMoneda(1);
+        maquina.IngresarMoneda(new Penny());
 
-        maquina.ValorDevuelto.Should().Be(2);
+        maquina.IngresarMoneda(new Penny());
 
+        maquina.Pantalla.Should().Be("Insertar Monedas");
+        maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Penny(), new Penny() });
     }
+
+    [Fact]
+    public void Si_IngresoMonedaValidasYSolicitoDevolucion_Debe_DevolverMonedasYMostrarEnPantallaInsertarMonedas()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Dime());
+
+        maquina.DevolverMonedas();
+
+        maquina.Pantalla.Should().Be("Insertar Monedas");
+        maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Quarter(), new Dime() });
+    }
+}
+
+public class Penny : Moneda
+{
+    public override int Valor => 1;
+}
+
+public class Nickel : Moneda
+{
+    public override int Valor => 5;
+}
+
+public class Dime : Moneda
+{
+    public override int Valor => 10;
+}
+
+public class Quarter : Moneda
+{
+    public override int Valor => 25;
+}
+
+public abstract class Moneda
+{
+    public abstract int Valor { get; }
 }
 
 public class Maquina
 {
-    public string Pantalla { get; private set; } = "Insertar Monedas";
-    public int ValorDevuelto { get; private set; }
+    private const string EstadoInicialPantalla = "Insertar Monedas";
+    public string Pantalla { get; private set; } = EstadoInicialPantalla;
+    public List<Moneda> BandejaDeMonedas { get; } = [];
 
-    private int _montoActual ;
+    private int _montoActual;
 
-   
-    public void IngresarMoneda(int moneda)
+
+    public void IngresarMoneda(Moneda moneda)
     {
         if (EsMonedaInvalida(moneda))
         {
-            ValorDevuelto += moneda;
+            BandejaDeMonedas.Add(moneda);
             return;
         }
 
-        _montoActual += moneda;
+        _montoActual += moneda.Valor;
         Pantalla = _montoActual.ToString();
-     
     }
 
-    private static bool EsMonedaInvalida(int moneda) => moneda == 1;
+    private static bool EsMonedaInvalida(Moneda moneda)
+    {
+        return moneda is Penny;
+    }
+
+    public void DevolverMonedas()
+    {
+        Pantalla = EstadoInicialPantalla;
+        BandejaDeMonedas.AddRange(new List<Moneda>() { new Quarter(), new Dime() });
+    }
 }

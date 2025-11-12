@@ -1,7 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e1e42512_002Dcbab_002D495d_002Da3fe_002Df431963a37bc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Si_InicializoUnJuego_Debe_ExistirUnTablero" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::CC179994-A5AF-4765-BF11-4CABF1197BE2::net9.0::ElJuegoDeLaVida.GameOfLifeTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::CC179994-A5AF-4765-BF11-4CABF1197BE2::net9.0::ElJuegoDeLaVida.CoordenadaTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ALateBoundTestFramework_002Ecs_002Fl_003AC_0021_003FUsers_003Fronal_002Ecastano_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003Fa086b2165e70434c59081373b994348c6fdf544df56b32a3f25fa92f682e482_003FLateBoundTestFramework_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=34a67283_002D072f_002D4cb8_002D8ed8_002D5175abbf82d4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

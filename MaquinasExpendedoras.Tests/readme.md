@@ -25,7 +25,7 @@ Hay tres productos:
 - chips por 0,50 US$ 
 - caramelos por 0,65 US$. 
 
-- Cuando se pulsa el botón correspondiente y se ha insertado suficiente dinero, se despacha el producto y la máquina muestra THANK YOU durante 5 segundos. 
+- Cuando se pulsa el botón correspondiente y se ha insertado suficiente dinero, se despacha el producto y la máquina muestra THANK YOU durante 5 segundos.
 - Después de eso, mostrará INSERT COIN y el monto actual será restablecido a 0,00 US$.
 - Si no se ha insertado suficiente dinero, la máquina mostrará PRICE seguido del precio del artículo durante 5 segundos.
 - Luego la pantalla mostrará o bien INSERT COIN o el monto actual ingresado, según sea el caso.
