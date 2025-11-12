@@ -5,7 +5,7 @@ namespace Supermercado.Tests;
 public class SupermercadoTests
 {
     [Fact]
-    public void Si_ImprimoSinAgregarProductos_Debe_ImprimirReciboEnBlanco()
+    public void Si_NoAgreagoProductos_Debe_SerReciboEnBlanco()
     {
         var supermercado = new Supermercado();
         var reciboEsperado = "--------------------------------------------\r\n" +
@@ -16,6 +16,8 @@ public class SupermercadoTests
 
         supermercado.Recibo.Should().Be(reciboEsperado);
     }
+
+   
 }
 
 public class Supermercado
