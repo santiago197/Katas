@@ -9,12 +9,12 @@ public class Maquina
     public string Pantalla { get; private set; } = EstadoInicialPantalla;
     private readonly List<Moneda> _bandejaDeMonedas = [];
     public ReadOnlyCollection<Moneda> BandejaDeMonedas => _bandejaDeMonedas.AsReadOnly();
-    public object ProductoDespachado { get; set; }
+    public Producto ProductoDespachado { get; private set; }
 
-    private int _montoActual;
+
     private List<Moneda> _bandejaEntrada = [];
     private int Saldo => _bandejaEntrada.Sum(moneda => moneda.Valor);
-    
+
     public void IngresarMoneda(Moneda moneda)
     {
         if (EsMonedaInvalida(moneda))
@@ -24,8 +24,8 @@ public class Maquina
         }
 
         _bandejaEntrada.Add(moneda);
-        _montoActual += moneda.Valor;
-        Pantalla = _montoActual.ToString();
+
+        Pantalla = Saldo.ToString();
     }
 
     private static bool EsMonedaInvalida(Moneda moneda)
@@ -45,11 +45,18 @@ public class Maquina
         {
             ProductoDespachado = producto;
             Pantalla = "Gracias";
+
+
+            if (_bandejaEntrada.Count == 4)
+                _bandejaDeMonedas.AddRange(new List<Moneda>() { new Quarter(), new Quarter() });
+            else
+                _bandejaDeMonedas.AddRange(new List<Moneda>() { new Quarter() });
+
             _bandejaEntrada = [];
         }
         else
             Pantalla = $"Precio {producto.Precio / 100:N}US";
     }
 
-    private bool EsSaldoIgualAValorProducto(Producto producto) => Saldo == producto.Precio;
+    private bool EsSaldoIgualAValorProducto(Producto producto) => Saldo >= producto.Precio;
 }

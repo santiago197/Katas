@@ -239,4 +239,33 @@ public class MaquinaExpendedoraTests
         maquina.Pantalla.Should().Be("Precio 1.00US");
         maquina.BandejaDeMonedas.Should().BeEmpty();
     }
+
+    [Fact]
+    public void Si_Ingreso3QuarterYCompro1Chips_Debe_EntregarChipYDevolver1Quarter()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+
+        maquina.SeleccionarProducto(new Chips());
+
+        maquina.ProductoDespachado.Should().BeOfType<Chips>();
+        maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Quarter() });
+    }
+
+    [Fact]
+    public void Si_Ingreso4QuarterYCompro1Chips_Debe_EntregarChipYDevolver2Quarter()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+
+        maquina.SeleccionarProducto(new Chips());
+
+        maquina.ProductoDespachado.Should().BeOfType<Chips>();
+        maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Quarter(), new Quarter() });
+    }
 }
