@@ -24,13 +24,7 @@ public class Maquina
         }
 
         _bandejaEntrada.Add(moneda);
-
         Pantalla = Saldo.ToString();
-    }
-
-    private static bool EsMonedaInvalida(Moneda moneda)
-    {
-        return moneda is Penny;
     }
 
     public void DevolverMonedas()
@@ -41,22 +35,28 @@ public class Maquina
 
     public void SeleccionarProducto(Producto producto)
     {
-        if (EsSaldoIgualAValorProducto(producto))
-        {
-            ProductoDespachado = producto;
-            Pantalla = "Gracias";
-
-
-            if (_bandejaEntrada.Count == 4)
-                _bandejaDeMonedas.AddRange(new List<Moneda>() { new Quarter(), new Quarter() });
-            else
-                _bandejaDeMonedas.AddRange(new List<Moneda>() { new Quarter() });
-
-            _bandejaEntrada = [];
-        }
+        if (EsSaldoSuficiente(producto.Precio))
+            Despachar(producto);
         else
-            Pantalla = $"Precio {producto.Precio / 100:N}US";
+            Pantalla = MostrarPrecioDelProducto(producto);
     }
 
-    private bool EsSaldoIgualAValorProducto(Producto producto) => Saldo >= producto.Precio;
+    private static string MostrarPrecioDelProducto(Producto producto) => $"Precio {producto.Precio / 100:N}US";
+
+    private static bool EsMonedaInvalida(Moneda moneda) => moneda is Penny;
+
+    private void Despachar(Producto producto)
+    {
+        ProductoDespachado = producto;
+        Pantalla = "Gracias";
+        
+        if (_bandejaEntrada.Count == 4)
+            _bandejaDeMonedas.AddRange(new List<Moneda>() { new Quarter(), new Quarter() });
+        else
+            _bandejaDeMonedas.AddRange(new List<Moneda>() { new Quarter() });
+
+        _bandejaEntrada = [];
+    }
+
+    private bool EsSaldoSuficiente(decimal productoPrecio) => Saldo >= productoPrecio;
 }
