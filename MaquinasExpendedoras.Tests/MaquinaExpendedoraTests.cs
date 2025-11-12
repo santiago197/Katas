@@ -144,7 +144,8 @@ public class MaquinaExpendedoraTests
     }
 
     [Fact]
-    public void Si_IngresoMonedaValidasYSolicitoDevolucion_Debe_DevolverMonedasYMostrarEnPantallaInsertarMonedas()
+    public void
+        Si_Ingreso1MonedaQuarterY1MonedaDimeYSolicitoDevolucion_Debe_Devolver1MonedaQuarter1MonedaDimeYMostrarEnPantallaInsertarMonedas()
     {
         var maquina = new Maquina();
         maquina.IngresarMoneda(new Quarter());
@@ -155,7 +156,22 @@ public class MaquinaExpendedoraTests
         maquina.Pantalla.Should().Be("Insertar Monedas");
         maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Quarter(), new Dime() });
     }
-    
+
+    [Fact]
+    public void
+        Si_Ingreso1QuarterY1DimeY1NickelYSolicitoDevolucion_Debe_Devolver1Quarter1Dime1NickelYMostrarEnPantallaInsertarMonedas()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Dime());
+        maquina.IngresarMoneda(new Nickel());
+
+        maquina.DevolverMonedas();
+
+        maquina.Pantalla.Should().Be("Insertar Monedas");
+        maquina.BandejaDeMonedas.Should()
+            .BeEquivalentTo(new List<Moneda>() { new Quarter(), new Dime(), new Nickel() });
+    }
 }
 
 public class Penny : Moneda
@@ -192,6 +208,7 @@ public class Maquina
     public ReadOnlyCollection<Moneda> BandejaDeMonedas => _bandejaDeMonedas.AsReadOnly();
 
     private int _montoActual;
+    private List<Moneda> _bandejaEntrada = [];
 
 
     public void IngresarMoneda(Moneda moneda)
@@ -202,6 +219,7 @@ public class Maquina
             return;
         }
 
+        _bandejaEntrada.Add(moneda);
         _montoActual += moneda.Valor;
         Pantalla = _montoActual.ToString();
     }
@@ -214,6 +232,6 @@ public class Maquina
     public void DevolverMonedas()
     {
         Pantalla = EstadoInicialPantalla;
-        _bandejaDeMonedas.AddRange(new List<Moneda>() { new Quarter(), new Dime() });
+        _bandejaDeMonedas.AddRange(_bandejaEntrada);
     }
 }
