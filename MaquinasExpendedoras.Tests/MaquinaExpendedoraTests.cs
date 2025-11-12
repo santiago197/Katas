@@ -172,6 +172,17 @@ public class MaquinaExpendedoraTests
         maquina.BandejaDeMonedas.Should()
             .BeEquivalentTo(new List<Moneda>() { new Quarter(), new Dime(), new Nickel() });
     }
+
+    [Fact]
+    public void Si_SeleccionoElProductoCocaCola_Debe_MostrarEnPantallaPrecio1US()
+    {
+        var maquina = new Maquina();
+
+        maquina.SeleccionarProducto(new CocaCola());
+
+        maquina.Pantalla.Should().Be("Precio 1US");
+
+    }
 }
 
 public class Penny : Moneda
@@ -234,4 +245,13 @@ public class Maquina
         Pantalla = EstadoInicialPantalla;
         _bandejaDeMonedas.AddRange(_bandejaEntrada);
     }
+
+    public void SeleccionarProducto(CocaCola cocaCola)
+    {
+        Pantalla = "Precio 1US";
+    }
+}
+
+public class CocaCola
+{
 }
