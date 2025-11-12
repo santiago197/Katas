@@ -183,6 +183,20 @@ public class MaquinaExpendedoraTests
         maquina.Pantalla.Should().Be("Precio 1US");
 
     }
+
+    [Fact]
+    public void Si_SeleccionoElProductoChips_Debe_MostrarEnPantallaPrecio0_50US()
+    {
+        var maquina = new Maquina();
+        
+        maquina.SeleccionarProducto(new Chips());
+
+        maquina.Pantalla.Should().Be("Precio 0.50US");
+    }
+}
+
+public class Chips : CocaCola
+{
 }
 
 public class Penny : Moneda
@@ -248,6 +262,11 @@ public class Maquina
 
     public void SeleccionarProducto(CocaCola cocaCola)
     {
+        if (cocaCola is Chips)
+        {
+            Pantalla = "Precio 0.50US";
+            return;
+        }
         Pantalla = "Precio 1US";
     }
 }
