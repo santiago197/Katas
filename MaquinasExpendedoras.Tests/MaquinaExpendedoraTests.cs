@@ -130,6 +130,18 @@ public class MaquinaExpendedoraTests
         maquina.Pantalla.Should().Be("15");
 
     }
+
+    [Fact]
+    public void Si_Ingreso2MonedasDe1_Debe_RetornarElSaldoDe2()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(1);
+        
+        maquina.IngresarMoneda(1);
+
+        maquina.ValorDevuelto.Should().Be(2);
+
+    }
 }
 
 public class Maquina
@@ -144,7 +156,7 @@ public class Maquina
     {
         if (EsMonedaInvalida(moneda))
         {
-            ValorDevuelto = moneda;
+            ValorDevuelto += moneda;
             return;
         }
 
