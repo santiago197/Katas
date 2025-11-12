@@ -1,4 +1,5 @@
-﻿using AwesomeAssertions;
+﻿using System.Collections.ObjectModel;
+using AwesomeAssertions;
 
 namespace MaquinasExpendedoras.Tests;
 
@@ -154,6 +155,7 @@ public class MaquinaExpendedoraTests
         maquina.Pantalla.Should().Be("Insertar Monedas");
         maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Quarter(), new Dime() });
     }
+    
 }
 
 public class Penny : Moneda
@@ -184,8 +186,10 @@ public abstract class Moneda
 public class Maquina
 {
     private const string EstadoInicialPantalla = "Insertar Monedas";
+
     public string Pantalla { get; private set; } = EstadoInicialPantalla;
-    public List<Moneda> BandejaDeMonedas { get; private set; } = new List<Moneda>();
+    private readonly List<Moneda> _bandejaDeMonedas = [];
+    public ReadOnlyCollection<Moneda> BandejaDeMonedas => _bandejaDeMonedas.AsReadOnly();
 
     private int _montoActual;
 
@@ -194,7 +198,7 @@ public class Maquina
     {
         if (EsMonedaInvalida(moneda))
         {
-            BandejaDeMonedas.Add(moneda);
+            _bandejaDeMonedas.Add(moneda);
             return;
         }
 
@@ -210,6 +214,6 @@ public class Maquina
     public void DevolverMonedas()
     {
         Pantalla = EstadoInicialPantalla;
-        BandejaDeMonedas.AddRange(new List<Moneda>() { new Quarter(), new Dime() });
+        _bandejaDeMonedas.AddRange(new List<Moneda>() { new Quarter(), new Dime() });
     }
 }
