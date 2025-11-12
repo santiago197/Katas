@@ -185,7 +185,7 @@ public class Maquina
 {
     private const string EstadoInicialPantalla = "Insertar Monedas";
     public string Pantalla { get; private set; } = EstadoInicialPantalla;
-    public List<Moneda> BandejaDeMonedas { get; } = [];
+    public List<Moneda> BandejaDeMonedas { get; private set; } = new List<Moneda>();
 
     private int _montoActual;
 
