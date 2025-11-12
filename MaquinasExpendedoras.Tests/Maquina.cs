@@ -46,6 +46,7 @@ public class Maquina
         {
             ProductoDespachado = producto;
             Pantalla = "Gracias";
+            _bandejaEntrada = [];
         }
         else
             Pantalla = $"Precio {producto.Precio / 100:N}US";

@@ -214,4 +214,17 @@ public class MaquinaExpendedoraTests
         maquina.Pantalla.Should().Be("Gracias");
         maquina.ProductoDespachado.Should().BeOfType<Chips>();
     }
+
+    [Fact]
+    public void Si_DespuesDeComprarUnProductoYSeleccionoUnProducto_Debe_MostrarEnPantallaPrecioProducto()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.SeleccionarProducto(new Chips());
+        
+        maquina.SeleccionarProducto(new Chips());
+
+        maquina.Pantalla.Should().Be("Precio 0.50US");
+    }
 }
