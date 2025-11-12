@@ -222,9 +222,21 @@ public class MaquinaExpendedoraTests
         maquina.IngresarMoneda(new Quarter());
         maquina.IngresarMoneda(new Quarter());
         maquina.SeleccionarProducto(new Chips());
-        
+
         maquina.SeleccionarProducto(new Chips());
 
         maquina.Pantalla.Should().Be("Precio 0.50US");
+    }
+
+    [Fact]
+    public void Si_ComproUnProductoConSaldoInsuficiente_Debe_MostrarEnPantallaElPrecioProducto()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.SeleccionarProducto(new CocaCola());
+
+        maquina.Pantalla.Should().Be("Precio 1.00US");
+        maquina.BandejaDeMonedas.Should().BeEmpty();
     }
 }

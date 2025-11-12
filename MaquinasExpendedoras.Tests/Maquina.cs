@@ -14,8 +14,7 @@ public class Maquina
     private int _montoActual;
     private List<Moneda> _bandejaEntrada = [];
     private int Saldo => _bandejaEntrada.Sum(moneda => moneda.Valor);
-
-
+    
     public void IngresarMoneda(Moneda moneda)
     {
         if (EsMonedaInvalida(moneda))
