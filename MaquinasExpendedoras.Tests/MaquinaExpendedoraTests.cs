@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using AwesomeAssertions;
+﻿using AwesomeAssertions;
 
 namespace MaquinasExpendedoras.Tests;
 
@@ -180,97 +179,39 @@ public class MaquinaExpendedoraTests
 
         maquina.SeleccionarProducto(new CocaCola());
 
-        maquina.Pantalla.Should().Be("Precio 1US");
-
+        maquina.Pantalla.Should().Be("Precio 1.00US");
     }
 
     [Fact]
     public void Si_SeleccionoElProductoChips_Debe_MostrarEnPantallaPrecio0_50US()
     {
         var maquina = new Maquina();
-        
+
         maquina.SeleccionarProducto(new Chips());
 
         maquina.Pantalla.Should().Be("Precio 0.50US");
     }
-}
 
-public class Chips : CocaCola
-{
-}
-
-public class Penny : Moneda
-{
-    public override int Valor => 1;
-}
-
-public class Nickel : Moneda
-{
-    public override int Valor => 5;
-}
-
-public class Dime : Moneda
-{
-    public override int Valor => 10;
-}
-
-public class Quarter : Moneda
-{
-    public override int Valor => 25;
-}
-
-public abstract class Moneda
-{
-    public abstract int Valor { get; }
-}
-
-public class Maquina
-{
-    private const string EstadoInicialPantalla = "Insertar Monedas";
-
-    public string Pantalla { get; private set; } = EstadoInicialPantalla;
-    private readonly List<Moneda> _bandejaDeMonedas = [];
-    public ReadOnlyCollection<Moneda> BandejaDeMonedas => _bandejaDeMonedas.AsReadOnly();
-
-    private int _montoActual;
-    private List<Moneda> _bandejaEntrada = [];
-
-
-    public void IngresarMoneda(Moneda moneda)
+    [Fact]
+    public void Si_SeleccionoElProductoCaramelo_Debe_MostrarEnPantallaPrecio0_65US()
     {
-        if (EsMonedaInvalida(moneda))
-        {
-            _bandejaDeMonedas.Add(moneda);
-            return;
-        }
+        var maquina = new Maquina();
 
-        _bandejaEntrada.Add(moneda);
-        _montoActual += moneda.Valor;
-        Pantalla = _montoActual.ToString();
+        maquina.SeleccionarProducto(new Caramelo());
+
+        maquina.Pantalla.Should().Be("Precio 0.65US");
     }
 
-    private static bool EsMonedaInvalida(Moneda moneda)
+    [Fact]
+    public void Si_Inserto2QuartersYSeleccionoUnChips_Debe_EntregarChipsYMostrarEnPantallaGracias()
     {
-        return moneda is Penny;
-    }
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
 
-    public void DevolverMonedas()
-    {
-        Pantalla = EstadoInicialPantalla;
-        _bandejaDeMonedas.AddRange(_bandejaEntrada);
-    }
+        maquina.SeleccionarProducto(new Chips());
 
-    public void SeleccionarProducto(CocaCola cocaCola)
-    {
-        if (cocaCola is Chips)
-        {
-            Pantalla = "Precio 0.50US";
-            return;
-        }
-        Pantalla = "Precio 1US";
+        maquina.Pantalla.Should().Be("Gracias");
+        maquina.ProductoDespachado.Should().BeOfType<Chips>();
     }
-}
-
-public class CocaCola
-{
 }
