@@ -268,4 +268,21 @@ public class MaquinaExpendedoraTests
         maquina.ProductoDespachado.Should().BeOfType<Chips>();
         maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Quarter(), new Quarter() });
     }
+    
+    [Fact]
+    public void Si_Ingreso6DimeYCompro1Chips_Debe_EntregarChipYDevolver1Dime()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(new Dime());
+        maquina.IngresarMoneda(new Dime());
+        maquina.IngresarMoneda(new Dime());
+        maquina.IngresarMoneda(new Dime());
+        maquina.IngresarMoneda(new Dime());
+        maquina.IngresarMoneda(new Dime());
+
+        maquina.SeleccionarProducto(new Chips());
+
+        maquina.ProductoDespachado.Should().BeOfType<Chips>();
+        maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Dime() });
+    }
 }

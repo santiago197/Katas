@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Reflection;
 
 namespace MaquinasExpendedoras.Tests;
 
@@ -49,13 +50,27 @@ public class Maquina
     {
         ProductoDespachado = producto;
         Pantalla = "Gracias";
-        
-        if (_bandejaEntrada.Count == 4)
-            _bandejaDeMonedas.AddRange(new List<Moneda>() { new Quarter(), new Quarter() });
-        else
-            _bandejaDeMonedas.AddRange(new List<Moneda>() { new Quarter() });
+
+        DarVueltas(producto);
 
         _bandejaEntrada = [];
+    }
+
+    private void DarVueltas(Producto producto)
+    {
+        var contarDinero = 0;
+
+        foreach (var monedaInsertada in _bandejaEntrada)
+        {
+            if (contarDinero < producto.Precio)
+            {
+                contarDinero += monedaInsertada.Valor;
+            }
+            else
+            {
+                _bandejaDeMonedas.Add(monedaInsertada);
+            }
+        }
     }
 
     private bool EsSaldoSuficiente(decimal productoPrecio) => Saldo >= productoPrecio;
