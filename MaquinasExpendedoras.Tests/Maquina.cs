@@ -11,8 +11,9 @@ public class Maquina
     public Producto ProductoDespachado { get; private set; }
 
     private List<Moneda> _monedero = [];
-    private readonly List<Moneda> _bandejaDeMonedas = [];
+    private List<Moneda> _bandejaDeMonedas = [];
     private const string EstadoInicialPantalla = "Insertar Monedas";
+    private List<Moneda> _inventarioMonedas = [];
 
     private int MontoIngresado => _monedero.Sum(moneda => moneda.Valor);
 
@@ -39,6 +40,7 @@ public class Maquina
             ActualizarPantalla("Agotado");
         else if (EsSaldoSuficiente(producto.Precio))
         {
+            _inventarioMonedas.AddRange(_monedero);
             Despachar(producto);
             _inventarioProductos[producto.GetType().Name]--;
         }
@@ -58,7 +60,7 @@ public class Maquina
 
     private static string MostrarPrecioDelProducto(Producto producto) => $"Precio {producto.Precio / 100:N}US";
 
-    private static bool EsMonedaInvalida(Moneda moneda) => moneda is Penny;
+    private static bool EsMonedaInvalida(Moneda moneda) => moneda is Moneda.Penny;
 
     private void Despachar(Producto producto)
     {
@@ -69,22 +71,26 @@ public class Maquina
         {
             ProductoDespachado = producto;
             ActualizarPantalla("Gracias");
-
             _monedero = [];
         }
     }
 
     private void CalcularCambio(Producto producto)
     {
+        _bandejaDeMonedas = [];
         var valorDevolver = MontoIngresado - producto.Precio;
 
-        var monedasDeMayorAMenorValor = _monedero.OrderByDescending(m => m.Valor);
+        var x = _inventarioMonedas.Concat(_monedero);
+        var monedasDeMayorAMenorValor = x.OrderByDescending(m => m.Valor);
         foreach (var monedaIngresada in monedasDeMayorAMenorValor)
         {
             if (valorDevolver == 0) break;
 
             if (monedaIngresada.Valor > valorDevolver) continue;
             DevuelveABandeja(monedaIngresada);
+            var index = _inventarioMonedas.FindIndex(i => i == monedaIngresada);
+            if(index != -1)
+                _inventarioMonedas.RemoveAt(index);
             valorDevolver -= monedaIngresada.Valor;
         }
     }
