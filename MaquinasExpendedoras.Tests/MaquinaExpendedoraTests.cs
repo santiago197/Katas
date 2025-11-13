@@ -268,7 +268,7 @@ public class MaquinaExpendedoraTests
         maquina.ProductoDespachado.Should().BeOfType<Chips>();
         maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Quarter(), new Quarter() });
     }
-    
+
     [Fact]
     public void Si_Ingreso6DimeYCompro1Chips_Debe_EntregarChipYDevolver1Dime()
     {
@@ -284,5 +284,33 @@ public class MaquinaExpendedoraTests
 
         maquina.ProductoDespachado.Should().BeOfType<Chips>();
         maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Dime() });
+    }
+
+    [Fact]
+    public void Si_Ingreso3QuarterYCompro1Caramelo_Debe_MostrarEnPantallaSoloCambioExacto()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+
+        maquina.SeleccionarProducto(new Caramelo());
+
+        maquina.Pantalla.Should().Be("Solo cambio exacto");
+    }
+
+    [Fact]
+    public void Si_Ingreso2Quarter2Dime1NickelYComproUnCaramelo_Debe_Retornar1Dime()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Dime());
+        maquina.IngresarMoneda(new Dime());
+        maquina.IngresarMoneda(new Nickel());
+
+        maquina.SeleccionarProducto(new Caramelo());
+
+        maquina.BandejaDeMonedas.Should().BeEquivalentTo([new Dime()]);
     }
 }

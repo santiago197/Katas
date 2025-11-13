@@ -13,8 +13,8 @@ public class Maquina
     public Producto ProductoDespachado { get; private set; }
 
 
-    private List<Moneda> _bandejaEntrada = [];
-    private int Saldo => _bandejaEntrada.Sum(moneda => moneda.Valor);
+    private List<Moneda> _monedero = [];
+    private int Saldo => _monedero.Sum(moneda => moneda.Valor);
 
     public void IngresarMoneda(Moneda moneda)
     {
@@ -24,14 +24,14 @@ public class Maquina
             return;
         }
 
-        _bandejaEntrada.Add(moneda);
+        _monedero.Add(moneda);
         Pantalla = Saldo.ToString();
     }
 
     public void DevolverMonedas()
     {
         Pantalla = EstadoInicialPantalla;
-        _bandejaDeMonedas.AddRange(_bandejaEntrada);
+        _bandejaDeMonedas.AddRange(_monedero);
     }
 
     public void SeleccionarProducto(Producto producto)
@@ -48,27 +48,30 @@ public class Maquina
 
     private void Despachar(Producto producto)
     {
-        ProductoDespachado = producto;
-        Pantalla = "Gracias";
-
         DarVueltas(producto);
+        if (Saldo > producto.Precio && !_bandejaDeMonedas.Any())
+            Pantalla = "Solo cambio exacto";
+        else
+        {
+            ProductoDespachado = producto;
+            Pantalla = "Gracias";
 
-        _bandejaEntrada = [];
+            _monedero = [];
+        }
     }
 
     private void DarVueltas(Producto producto)
     {
-        var contarDinero = 0;
+        var valorDevolver = Saldo - producto.Precio;
 
-        foreach (var monedaInsertada in _bandejaEntrada)
+        foreach (var monedaInsertada in _monedero.OrderByDescending(m => m.Valor))
         {
-            if (contarDinero < producto.Precio)
-            {
-                contarDinero += monedaInsertada.Valor;
-            }
-            else
+            if (valorDevolver == 0) break;
+
+            if (monedaInsertada.Valor <= valorDevolver)
             {
                 _bandejaDeMonedas.Add(monedaInsertada);
+                valorDevolver -= monedaInsertada.Valor;
             }
         }
     }
