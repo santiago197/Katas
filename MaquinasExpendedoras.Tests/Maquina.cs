@@ -1,19 +1,17 @@
 ﻿using System.Collections.ObjectModel;
-using System.Reflection;
 
 namespace MaquinasExpendedoras.Tests;
 
 public class Maquina
 {
     public string Pantalla { get; private set; } = EstadoInicialPantalla;
-
     public ReadOnlyCollection<Moneda> BandejaDeMonedas => _bandejaDeMonedas.AsReadOnly();
     public Producto ProductoDespachado { get; private set; }
 
     private List<Moneda> _monedero = [];
     private List<Moneda> _bandejaDeMonedas = [];
     private const string EstadoInicialPantalla = "Insertar Monedas";
-    private List<Moneda> _inventarioMonedas = [];
+    private readonly List<Moneda> _inventarioMonedas = [];
 
     private int MontoIngresado => _monedero.Sum(moneda => moneda.Valor);
 
@@ -34,19 +32,28 @@ public class Maquina
 
     public void SeleccionarProducto(Producto producto)
     {
-        var inventarioProducto = _inventarioProductos[producto.GetType().Name];
+        var inventarioProducto = ConsultarInventarioProducto(producto);
 
-        if (inventarioProducto == 0 && MontoIngresado > 0)
+        if (ProductoEstaAgotado(inventarioProducto))
             ActualizarPantalla("Agotado");
+        
         else if (EsSaldoSuficiente(producto.Precio))
         {
-            _inventarioMonedas.AddRange(_monedero);
+            AgregarMonedaAInventario();
             Despachar(producto);
-            _inventarioProductos[producto.GetType().Name]--;
+            ActualizarInventarioProducto(producto);
         }
         else
-            Pantalla = MostrarPrecioDelProducto(producto);
+            ActualizarPantalla(MostrarPrecioDelProducto(producto));
     }
+
+    private bool ProductoEstaAgotado(int inventarioProducto) => inventarioProducto == 0 && MontoIngresado > 0;
+
+    private void AgregarMonedaAInventario() => _inventarioMonedas.AddRange(_monedero);
+
+    private int ConsultarInventarioProducto(Producto producto) => _inventarioProductos[producto.GetType().Name];
+
+    private void ActualizarInventarioProducto(Producto producto) => _inventarioProductos[producto.GetType().Name]--;
 
     private void ActualizarPantalla(string mensaje) => Pantalla = mensaje;
 
@@ -99,8 +106,8 @@ public class Maquina
 
     private readonly Dictionary<string, int> _inventarioProductos = new()
     {
-        { nameof(CocaCola), 1 },
-        { nameof(Chips), 1 },
-        { nameof(Caramelo), 1 }
+        { nameof(Producto.CocaCola), 1 },
+        { nameof(Producto.Chips), 1 },
+        { nameof(Producto.Caramelo), 1 }
     };
 }

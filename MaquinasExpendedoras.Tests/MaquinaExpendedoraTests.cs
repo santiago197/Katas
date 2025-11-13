@@ -157,7 +157,7 @@ public class MaquinaExpendedoraTests
     [Fact]
     public void Si_SeleccionoElProductoCocaCola_Debe_MostrarEnPantallaPrecio1US()
     {
-        _maquina.SeleccionarProducto(new CocaCola());
+        _maquina.SeleccionarProducto(new Producto.CocaCola());
 
         _maquina.Pantalla.Should().Be("Precio 1.00US");
     }
@@ -165,7 +165,7 @@ public class MaquinaExpendedoraTests
     [Fact]
     public void Si_SeleccionoElProductoChips_Debe_MostrarEnPantallaPrecio0_50US()
     {
-        _maquina.SeleccionarProducto(new Chips());
+        _maquina.SeleccionarProducto(new Producto.Chips());
 
         _maquina.Pantalla.Should().Be("Precio 0.50US");
     }
@@ -173,7 +173,7 @@ public class MaquinaExpendedoraTests
     [Fact]
     public void Si_SeleccionoElProductoCaramelo_Debe_MostrarEnPantallaPrecio0_65US()
     {
-        _maquina.SeleccionarProducto(new Caramelo());
+        _maquina.SeleccionarProducto(new Producto.Caramelo());
 
         _maquina.Pantalla.Should().Be("Precio 0.65US");
     }
@@ -184,10 +184,10 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
 
-        _maquina.SeleccionarProducto(new Chips());
+        _maquina.SeleccionarProducto(new Producto.Chips());
 
         _maquina.Pantalla.Should().Be("Gracias");
-        _maquina.ProductoDespachado.Should().BeOfType<Chips>();
+        _maquina.ProductoDespachado.Should().BeOfType<Producto.Chips>();
     }
 
     [Fact]
@@ -195,9 +195,9 @@ public class MaquinaExpendedoraTests
     {
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
-        _maquina.SeleccionarProducto(new Chips());
+        _maquina.SeleccionarProducto(new Producto.Chips());
 
-        _maquina.SeleccionarProducto(new Chips());
+        _maquina.SeleccionarProducto(new Producto.Chips());
 
         _maquina.Pantalla.Should().Be("Precio 0.50US");
     }
@@ -207,7 +207,7 @@ public class MaquinaExpendedoraTests
     {
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
-        _maquina.SeleccionarProducto(new CocaCola());
+        _maquina.SeleccionarProducto(new Producto.CocaCola());
 
         _maquina.Pantalla.Should().Be("Precio 1.00US");
         _maquina.BandejaDeMonedas.Should().BeEmpty();
@@ -221,9 +221,9 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
 
-        _maquina.SeleccionarProducto(new Chips());
+        _maquina.SeleccionarProducto(new Producto.Chips());
 
-        _maquina.ProductoDespachado.Should().BeOfType<Chips>();
+        _maquina.ProductoDespachado.Should().BeOfType<Producto.Chips>();
         _maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Moneda.Quarter() });
     }
 
@@ -235,9 +235,9 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
 
-        _maquina.SeleccionarProducto(new Chips());
+        _maquina.SeleccionarProducto(new Producto.Chips());
 
-        _maquina.ProductoDespachado.Should().BeOfType<Chips>();
+        _maquina.ProductoDespachado.Should().BeOfType<Producto.Chips>();
         _maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Moneda.Quarter(), new Moneda.Quarter() });
     }
 
@@ -251,9 +251,9 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Dime());
         _maquina.IngresarMoneda(new Moneda.Dime());
 
-        _maquina.SeleccionarProducto(new Chips());
+        _maquina.SeleccionarProducto(new Producto.Chips());
 
-        _maquina.ProductoDespachado.Should().BeOfType<Chips>();
+        _maquina.ProductoDespachado.Should().BeOfType<Producto.Chips>();
         _maquina.BandejaDeMonedas.Should().BeEquivalentTo(new List<Moneda>() { new Moneda.Dime() });
     }
 
@@ -264,7 +264,7 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
 
-        _maquina.SeleccionarProducto(new Caramelo());
+        _maquina.SeleccionarProducto(new Producto.Caramelo());
 
         _maquina.Pantalla.Should().Be("Solo cambio exacto");
     }
@@ -278,7 +278,7 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Dime());
         _maquina.IngresarMoneda(new Moneda.Nickel());
 
-        _maquina.SeleccionarProducto(new Caramelo());
+        _maquina.SeleccionarProducto(new Producto.Caramelo());
 
         _maquina.BandejaDeMonedas.Should().BeEquivalentTo([new Moneda.Dime()]);
     }
@@ -292,7 +292,7 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
 
-        _maquina.SeleccionarProducto(new CocaCola());
+        _maquina.SeleccionarProducto(new Producto.CocaCola());
 
         _maquina.Pantalla.Should().Be("Agotado");
     }
@@ -307,7 +307,7 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Dime());
         _maquina.IngresarMoneda(new Moneda.Nickel());
 
-        _maquina.SeleccionarProducto(new Chips());
+        _maquina.SeleccionarProducto(new Producto.Chips());
 
         _maquina.Pantalla.Should().Be("Gracias");
     }
@@ -321,7 +321,7 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Dime());
         _maquina.IngresarMoneda(new Moneda.Nickel());
 
-        _maquina.SeleccionarProducto(new Caramelo());
+        _maquina.SeleccionarProducto(new Producto.Caramelo());
 
         _maquina.Pantalla.Should().Be("Agotado");
     }
@@ -334,7 +334,7 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
 
-        _maquina.SeleccionarProducto(new Chips());
+        _maquina.SeleccionarProducto(new Producto.Chips());
 
         _maquina.Pantalla.Should().Be("Agotado");
     }
@@ -347,12 +347,12 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Dime());
         _maquina.IngresarMoneda(new Moneda.Dime());
         _maquina.IngresarMoneda(new Moneda.Dime());
-        _maquina.SeleccionarProducto(new Chips());
+        _maquina.SeleccionarProducto(new Producto.Chips());
         
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
-        _maquina.SeleccionarProducto(new Caramelo());
+        _maquina.SeleccionarProducto(new Producto.Caramelo());
 
         _maquina.BandejaDeMonedas.Should().BeEquivalentTo([new Moneda.Dime()]);
     }
@@ -364,7 +364,7 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
-        _maquina.SeleccionarProducto(new Chips());
+        _maquina.SeleccionarProducto(new Producto.Chips());
         
         ComprarCaramelosCon3Quarters();
 
@@ -376,7 +376,7 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
-        _maquina.SeleccionarProducto(new Caramelo());
+        _maquina.SeleccionarProducto(new Producto.Caramelo());
     }
 
     private static void ComprarCocaColaConDineroExacto(Maquina maquina)
@@ -385,7 +385,7 @@ public class MaquinaExpendedoraTests
         maquina.IngresarMoneda(new Moneda.Quarter());
         maquina.IngresarMoneda(new Moneda.Quarter());
         maquina.IngresarMoneda(new Moneda.Quarter());
-        maquina.SeleccionarProducto(new CocaCola());
+        maquina.SeleccionarProducto(new Producto.CocaCola());
     }
 
     private void ComprarCarameloConDineroExacto()
@@ -395,13 +395,13 @@ public class MaquinaExpendedoraTests
         _maquina.IngresarMoneda(new Moneda.Dime());
         _maquina.IngresarMoneda(new Moneda.Nickel());
 
-        _maquina.SeleccionarProducto(new Caramelo());
+        _maquina.SeleccionarProducto(new Producto.Caramelo());
     }
 
     private void ComprarChipsConDineroExacto()
     {
         _maquina.IngresarMoneda(new Moneda.Quarter());
         _maquina.IngresarMoneda(new Moneda.Quarter());
-        _maquina.SeleccionarProducto(new Chips());
+        _maquina.SeleccionarProducto(new Producto.Chips());
     }
 }
