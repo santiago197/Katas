@@ -5,55 +5,55 @@ namespace MaquinasExpendedoras.Tests;
 
 public class Maquina
 {
-    private const string EstadoInicialPantalla = "Insertar Monedas";
-
     public string Pantalla { get; private set; } = EstadoInicialPantalla;
-    private readonly List<Moneda> _bandejaDeMonedas = [];
+
     public ReadOnlyCollection<Moneda> BandejaDeMonedas => _bandejaDeMonedas.AsReadOnly();
     public Producto ProductoDespachado { get; private set; }
 
-
     private List<Moneda> _monedero = [];
-    private int _inventario = 1;
-    private int _inventario2 = 1;
-    private int Saldo => _monedero.Sum(moneda => moneda.Valor);
+    private readonly List<Moneda> _bandejaDeMonedas = [];
+    private const string EstadoInicialPantalla = "Insertar Monedas";
+
+    private int MontoIngresado => _monedero.Sum(moneda => moneda.Valor);
 
     public void IngresarMoneda(Moneda moneda)
     {
         if (EsMonedaInvalida(moneda))
-        {
-            _bandejaDeMonedas.Add(moneda);
-            return;
-        }
-
-        _monedero.Add(moneda);
-        Pantalla = Saldo.ToString();
+            DevuelveABandeja(moneda);
+        else
+            AgregaAMonederoYMuestraEnPantalla(moneda);
     }
 
     public void DevolverMonedas()
     {
-        Pantalla = EstadoInicialPantalla;
+        ActualizarPantalla(EstadoInicialPantalla);
         _bandejaDeMonedas.AddRange(_monedero);
     }
+
 
     public void SeleccionarProducto(Producto producto)
     {
         var inventarioProducto = _inventarioProductos[producto.GetType().Name];
 
-        if (inventarioProducto == 0 && Saldo > 0)
-        {
-            Pantalla = "Agotado";
-            return;
-        }
-
-        if (EsSaldoSuficiente(producto.Precio))
+        if (inventarioProducto == 0 && MontoIngresado > 0)
+            ActualizarPantalla("Agotado");
+        else if (EsSaldoSuficiente(producto.Precio))
         {
             Despachar(producto);
-
             _inventarioProductos[producto.GetType().Name]--;
         }
         else
             Pantalla = MostrarPrecioDelProducto(producto);
+    }
+
+    private void ActualizarPantalla(string mensaje) => Pantalla = mensaje;
+
+    private void DevuelveABandeja(Moneda moneda) => _bandejaDeMonedas.Add(moneda);
+
+    private void AgregaAMonederoYMuestraEnPantalla(Moneda moneda)
+    {
+        _monedero.Add(moneda);
+        ActualizarPantalla(MontoIngresado.ToString());
     }
 
     private static string MostrarPrecioDelProducto(Producto producto) => $"Precio {producto.Precio / 100:N}US";
@@ -62,37 +62,36 @@ public class Maquina
 
     private void Despachar(Producto producto)
     {
-        DarVueltas(producto);
-        if (Saldo > producto.Precio && !_bandejaDeMonedas.Any())
-            Pantalla = "Solo cambio exacto";
+        CalcularCambio(producto);
+        if (MontoIngresado > producto.Precio && !_bandejaDeMonedas.Any())
+            ActualizarPantalla("Solo cambio exacto");
         else
         {
             ProductoDespachado = producto;
-            Pantalla = "Gracias";
+            ActualizarPantalla("Gracias");
 
             _monedero = [];
         }
     }
 
-    private void DarVueltas(Producto producto)
+    private void CalcularCambio(Producto producto)
     {
-        var valorDevolver = Saldo - producto.Precio;
+        var valorDevolver = MontoIngresado - producto.Precio;
 
-        foreach (var monedaInsertada in _monedero.OrderByDescending(m => m.Valor))
+        var monedasDeMayorAMenorValor = _monedero.OrderByDescending(m => m.Valor);
+        foreach (var monedaIngresada in monedasDeMayorAMenorValor)
         {
             if (valorDevolver == 0) break;
 
-            if (monedaInsertada.Valor <= valorDevolver)
-            {
-                _bandejaDeMonedas.Add(monedaInsertada);
-                valorDevolver -= monedaInsertada.Valor;
-            }
+            if (monedaIngresada.Valor > valorDevolver) continue;
+            DevuelveABandeja(monedaIngresada);
+            valorDevolver -= monedaIngresada.Valor;
         }
     }
 
-    private bool EsSaldoSuficiente(decimal productoPrecio) => Saldo >= productoPrecio;
+    private bool EsSaldoSuficiente(decimal productoPrecio) => MontoIngresado >= productoPrecio;
 
-    private Dictionary<string, int> _inventarioProductos = new()
+    private readonly Dictionary<string, int> _inventarioProductos = new()
     {
         { nameof(CocaCola), 1 },
         { nameof(Chips), 1 },
