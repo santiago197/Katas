@@ -14,6 +14,7 @@ public class Maquina
 
 
     private List<Moneda> _monedero = [];
+    private int _inventario = 1;
     private int Saldo => _monedero.Sum(moneda => moneda.Valor);
 
     public void IngresarMoneda(Moneda moneda)
@@ -36,8 +37,18 @@ public class Maquina
 
     public void SeleccionarProducto(Producto producto)
     {
+        if (_inventario == 0)
+        {
+            Pantalla = "Agotado";
+            return;
+        }
+
         if (EsSaldoSuficiente(producto.Precio))
+        {
             Despachar(producto);
+            _inventario--;
+        }
+
         else
             Pantalla = MostrarPrecioDelProducto(producto);
     }

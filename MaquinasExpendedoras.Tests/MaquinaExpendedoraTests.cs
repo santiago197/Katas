@@ -240,6 +240,7 @@ public class MaquinaExpendedoraTests
         maquina.BandejaDeMonedas.Should().BeEmpty();
     }
 
+
     [Fact]
     public void Si_Ingreso3QuarterYCompro1Chips_Debe_EntregarChipYDevolver1Quarter()
     {
@@ -312,5 +313,24 @@ public class MaquinaExpendedoraTests
         maquina.SeleccionarProducto(new Caramelo());
 
         maquina.BandejaDeMonedas.Should().BeEquivalentTo([new Dime()]);
+    }
+
+    [Fact]
+    public void Si_SeleccionoCocaColaYNoHayDisponible_Debe_MostrarPantallaAgotado()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.SeleccionarProducto(new CocaCola());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+
+        maquina.SeleccionarProducto(new CocaCola());
+
+        maquina.Pantalla.Should().Be("Agotado");
     }
 }
