@@ -38,7 +38,9 @@ public class Maquina
 
     public void SeleccionarProducto(Producto producto)
     {
-        if (_inventario == 0 && Saldo > 0 && producto is CocaCola)
+        var inventarioProducto = _inventarioProductos[producto.GetType().Name];
+
+        if (inventarioProducto == 0 && Saldo > 0)
         {
             Pantalla = "Agotado";
             return;
@@ -48,14 +50,7 @@ public class Maquina
         {
             Despachar(producto);
 
-            if (producto is CocaCola)
-            {
-                _inventario--;
-            }
-            else
-            {
-                _inventario2--;
-            }
+            _inventarioProductos[producto.GetType().Name]--;
         }
         else
             Pantalla = MostrarPrecioDelProducto(producto);
@@ -96,4 +91,11 @@ public class Maquina
     }
 
     private bool EsSaldoSuficiente(decimal productoPrecio) => Saldo >= productoPrecio;
+
+    private Dictionary<string, int> _inventarioProductos = new()
+    {
+        { nameof(CocaCola), 1 },
+        { nameof(Chips), 1 },
+        { nameof(Caramelo), 1 }
+    };
 }
