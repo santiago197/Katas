@@ -333,4 +333,25 @@ public class MaquinaExpendedoraTests
 
         maquina.Pantalla.Should().Be("Agotado");
     }
+    
+    [Fact]
+    public void Si_SeleccionoCocaColaYChips_Debe_MostrarEnLaPantallaGracias()
+    {
+        var maquina = new Maquina();
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        
+        maquina.SeleccionarProducto(new CocaCola());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Quarter());
+        maquina.IngresarMoneda(new Dime());
+        maquina.IngresarMoneda(new Nickel());
+
+        maquina.SeleccionarProducto(new Chips());
+
+        maquina.Pantalla.Should().Be("Gracias");
+    }
+    
 }

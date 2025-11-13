@@ -41,4 +41,4 @@ Cuando el artículo seleccionado por el cliente está fuera de stock, la máquin
 Después de eso, mostrará el monto de dinero que queda en la máquina o bien INSERT COIN si no hay dinero en la máquina.
 
 # Sólo cambio exacto
-Cuando la máquina no es capaz de dar cambio para alguno de los artículos que vende, mostrará EXACT CHANGE ONLY en lugar de INSERT COIN.
+    Cuando la máquina no es capaz de dar cambio para alguno de los artículos que vende, mostrará EXACT CHANGE ONLY en lugar de INSERT COIN.
