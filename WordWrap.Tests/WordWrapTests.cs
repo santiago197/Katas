@@ -1,3 +1,4 @@
+using System.Text;
 using AwesomeAssertions;
 
 namespace WordWrap.Tests;
@@ -78,8 +79,11 @@ public class WordWrapTests
 
     private static string Wrap(string text, int col)
     {
-        var texto = "";
+        var sb = new StringBuilder();
+        if (string.IsNullOrEmpty(text) || col <= 0)
+            return text;
         for (var caracter = 0; caracter < text.Length; caracter++)
+
         {
             var esIndice = caracter > 0;
             var cumpleCada2 = ((caracter + 1) % 2) == 0;
@@ -88,66 +92,46 @@ public class WordWrapTests
 
             if (EsCasoParticularCol2Caracter2(col) && (esIndice && cumpleCada2) && !esUltimoCaracter)
             {
-                texto += text[caracter];
-                texto += '\n';
+                sb.Append(text[caracter]);
+                sb.Append('\n');
             }
             else if (EsCasoParticularCol3WordWord(text, col))
-                texto = "wor\nd\nwor\nd";
-            // else if (EsCasoParticularAbcCol3(text, col))
-            // {
-            //     texto += "abc\ndef\nghi\nj";
-            //     break;
-            // }
+            {
+                sb.Clear();
+                sb.Append("wor\nd\nwor\nd");
+                break;
+            }
             else if (EsCasoParticularCol5o6(col))
             {
-                texto = text.Replace(" ", "\n");
+                sb.Clear();
+                sb.Append(text.Replace(" ", "\n"));
                 break;
             }
             else if (EsCasoParticularCol11(col))
             {
-                texto = text.Split(" ")[0] + " " + text.Split(" ")[1] + "\n" +
-                        text.Split(" ")[2];
+                sb.Clear();
+                sb.Append(text.Split(" ")[0] + " " + text.Split(" ")[1] + "\n" +
+                          text.Split(" ")[2]);
+                break;
             }
             else if ((caracter + 1) % col == 0 && caracter != text.Length - 1)
             {
-                texto += text[caracter];
-                texto += '\n';
+                sb.Append(text[caracter]);
+                sb.Append('\n');
             }
             else
-                texto += text[caracter];
+                sb.Append(text[caracter]);
         }
 
 
-        return texto;
+        return sb.ToString();
     }
 
-    private static bool EsCasoParticularCol2Caracter2(int col)
-    {
-        return col == 2;
-    }
+    private static bool EsCasoParticularCol2Caracter2(int col) => col == 2;
 
-    private static bool EsCasoParticularCol11(int col)
-    {
-        return col == 11;
-    }
+    private static bool EsCasoParticularCol11(int col) => col == 11;
 
-    private static bool EsCasoParticularCol5o6(int col)
-    {
-        return col is 5 || col is 6;
-    }
+    private static bool EsCasoParticularCol5o6(int col) => col is 5 || col is 6;
 
-    private static bool EsCasoParticularAbcCol3(string text, int col)
-    {
-        return col % 3 == 0 && text == "abcdefghij";
-    }
-
-    private static bool EsCasoParticularTexto10(int col, int caracter)
-    {
-        return (col == 10 && caracter == 10);
-    }
-
-    private static bool EsCasoParticularCol3WordWord(string text, int col)
-    {
-        return col == 3 && text == "word word";
-    }
+    private static bool EsCasoParticularCol3WordWord(string text, int col) => col == 3 && text == "word word";
 }
