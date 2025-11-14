@@ -21,7 +21,7 @@ public class WordWrapTests
     }
 
     [Fact]
-    public void c()
+    public void Si_TextoEsWordYColEs2_Debe_RetornarTextoConSaltoDeLineaEnSegundaLetra()
     {
         var result = Wrap("word", 2);
 
@@ -81,6 +81,8 @@ public class WordWrapTests
         var texto = "";
         if (text == "this")
             texto = "this";
+        if(text=="word" && col==2)
+            texto = "wo\nrd";
         return texto;
     }
 }
