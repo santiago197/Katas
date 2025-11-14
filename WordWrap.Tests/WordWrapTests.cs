@@ -61,7 +61,7 @@ public class WordWrapTests
     }
 
     [Fact]
-    public void g()
+    public void Si_TextoEsword_wordYColEs6_Debe_RetornarTextoConSaltoDeLineaEnLosEspaciosEnBlanco()
     {
         var result = Wrap("word word word", 6);
 
