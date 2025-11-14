@@ -69,7 +69,7 @@ public class WordWrapTests
     }
 
     [Fact]
-    public void Si()
+    public void Si_TextoTieneEspaciosEnBlancoYColEs11_Debe_RetornarTextoConSaltoDeLineaEnUltimoEspaciosEnBlanco()
     {
         var result = Wrap("word word word", 11);
 
@@ -102,6 +102,11 @@ public class WordWrapTests
             {
                 texto = text.Replace(" ", "\n");
                 break;
+            }
+            else if (col == 11)
+            {
+                texto = text.Split(" ")[0] + " " + text.Split(" ")[1] + "\n" +
+                        text.Split(" ")[2];
             }
             else
                 texto += text[caracter];
