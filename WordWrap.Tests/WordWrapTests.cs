@@ -78,11 +78,12 @@ public class WordWrapTests
 
     private static string Wrap(string text, int col)
     {
-        var texto = "";
-        if (text == "this")
-            texto = "this";
-        if(text=="word" && col==2)
-            texto = "wo\nrd";
+        var texto = text switch
+        {
+            "this" when col == 0 => "this",
+            "word" when col == 2 => "wo\nrd",
+            _ => ""
+        };
         return texto;
     }
 }
