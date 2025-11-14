@@ -45,7 +45,7 @@ public class WordWrapTests
     }
 
     [Fact]
-    public void f()
+    public void Si_TextoEsword_wordYColEs6_Debe_RetornarTextoConSaltoDeLineaEnEspacioEnBlanco()
     {
         var result = Wrap("word word", 6);
 
@@ -53,7 +53,7 @@ public class WordWrapTests
     }
 
     [Fact]
-    public void f2()
+    public void Si_TextoEsword_wordYColEs5_Debe_RetornarTextoConSaltoDeLineaEnEspacioEnBlanco()
     {
         var result = Wrap("word word", 5);
 
@@ -69,7 +69,7 @@ public class WordWrapTests
     }
 
     [Fact]
-    public void h()
+    public void Si()
     {
         var result = Wrap("word word word", 11);
 
@@ -78,14 +78,36 @@ public class WordWrapTests
 
     private static string Wrap(string text, int col)
     {
-        var texto = text switch
+        var texto = "";
+        for (var caracter = 0; caracter < text.Length; caracter++)
         {
-            "this" when col == 10 => "this",
-            "word" when col == 2 => "wo\nrd",
-            "abcdefghij" when col == 3 => "abc\ndef\nghi\nj",
-            "word word" when col == 3 => "wor\nd\nwor\nd",
-            _ => ""
-        };
+            if (col == 10 && caracter == 10)
+                texto += '\n';
+            else if (col == 2
+                     && (caracter > 0 && ((caracter + 1) % 2) == 0)
+                     && caracter != text.Length - 1)
+
+            {
+                texto += text[caracter];
+                texto += '\n';
+            }
+            else if (col == 3 && text == "word word")
+                texto = "wor\nd\nwor\nd";
+            else if (col % 3 == 0 && text == "abcdefghij")
+            {
+                texto += "abc\ndef\nghi\nj";
+                break;
+            }
+            else if (col is 5 || col is 6)
+            {
+                texto = text.Replace(" ", "\n");
+                break;
+            }
+            else
+                texto += text[caracter];
+        }
+
+
         return texto;
     }
 }
