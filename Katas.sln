@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Katas", "Katas\Katas.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermercado.Tests", "Supermercado.Tests\Supermercado.Tests.csproj", "{6598367C-0364-4A40-A513-666EFC406BEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordWrap.Tests", "WordWrap.Tests\WordWrap.Tests.csproj", "{BF56312B-63FE-4489-B190-F04B54278343}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{6598367C-0364-4A40-A513-666EFC406BEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6598367C-0364-4A40-A513-666EFC406BEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6598367C-0364-4A40-A513-666EFC406BEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF56312B-63FE-4489-B190-F04B54278343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF56312B-63FE-4489-B190-F04B54278343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF56312B-63FE-4489-B190-F04B54278343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF56312B-63FE-4489-B190-F04B54278343}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
