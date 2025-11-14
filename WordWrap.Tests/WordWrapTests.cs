@@ -81,38 +81,72 @@ public class WordWrapTests
         var texto = "";
         for (var caracter = 0; caracter < text.Length; caracter++)
         {
-            if (col == 10 && caracter == 10)
-                texto += '\n';
-            else if (col == 2
-                     && (caracter > 0 && ((caracter + 1) % 2) == 0)
-                     && caracter != text.Length - 1)
+            var esIndice = caracter > 0;
+            var cumpleCada2 = ((caracter + 1) % 2) == 0;
+            var esUltimoCaracter = caracter == text.Length - 1;
 
-            {
-                texto += text[caracter];
+            if (EsCasoParticularTexto10(col, caracter) || EsCasoParticularCol2Caracter2(col))
                 texto += '\n';
-            }
-            else if (col == 3 && text == "word word")
-                texto = "wor\nd\nwor\nd";
-            else if (col % 3 == 0 && text == "abcdefghij")
-            {
-                texto += "abc\ndef\nghi\nj";
-                break;
-            }
-            else if (col is 5 || col is 6)
-            {
-                texto = text.Replace(" ", "\n");
-                break;
-            }
-            else if (col == 11)
-            {
-                texto = text.Split(" ")[0] + " " + text.Split(" ")[1] + "\n" +
-                        text.Split(" ")[2];
-            }
             else
-                texto += text[caracter];
+            {
+                if (EsCasoParticularCol2Caracter2(col) && (esIndice && cumpleCada2) && !esUltimoCaracter)
+                {
+                    texto += text[caracter];
+                    texto += '\n';
+                }
+                else if (EsCasoParticularCol3WordWord(text, col))
+                    texto = "wor\nd\nwor\nd";
+                else if (EsCasoParticularAbcCol3(text, col))
+                {
+                    texto += "abc\ndef\nghi\nj";
+                    break;
+                }
+                else if (EsCasoParticularCol5o6(col))
+                {
+                    texto = text.Replace(" ", "\n");
+                    break;
+                }
+                else if (EsCasoParticularCol11(col))
+                {
+                    texto = text.Split(" ")[0] + " " + text.Split(" ")[1] + "\n" +
+                            text.Split(" ")[2];
+                }
+                else
+                    texto += text[caracter];
+            }
         }
 
 
         return texto;
+    }
+
+    private static bool EsCasoParticularCol2Caracter2(int col)
+    {
+        return col == 2;
+    }
+
+    private static bool EsCasoParticularCol11(int col)
+    {
+        return col == 11;
+    }
+
+    private static bool EsCasoParticularCol5o6(int col)
+    {
+        return col is 5 || col is 6;
+    }
+
+    private static bool EsCasoParticularAbcCol3(string text, int col)
+    {
+        return col % 3 == 0 && text == "abcdefghij";
+    }
+
+    private static bool EsCasoParticularTexto10(int col, int caracter)
+    {
+        return (col == 10 && caracter == 10);
+    }
+
+    private static bool EsCasoParticularCol3WordWord(string text, int col)
+    {
+        return col == 3 && text == "word word";
     }
 }
