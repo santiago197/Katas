@@ -13,7 +13,7 @@ public class WordWrapTests
     }
 
     [Fact]
-    public void b()
+    public void Si_TextoEsThisYColEs10_Debe_RetornarThis()
     {
         var result = Wrap("this", 10);
 
@@ -78,6 +78,9 @@ public class WordWrapTests
 
     private static string Wrap(string text, int col)
     {
-        return "";
+        var texto = "";
+        if (text == "this")
+            texto = "this";
+        return texto;
     }
 }
