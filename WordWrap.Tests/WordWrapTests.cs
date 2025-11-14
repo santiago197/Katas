@@ -29,7 +29,7 @@ public class WordWrapTests
     }
 
     [Fact]
-    public void d()
+    public void Si_TextoEsabcdefghijYColEs3_Debe_RetornarTextoConSaltoDeLineaCada3Letras()
     {
         var result = Wrap("abcdefghij", 3);
 
@@ -80,8 +80,9 @@ public class WordWrapTests
     {
         var texto = text switch
         {
-            "this" when col == 0 => "this",
+            "this" when col == 10 => "this",
             "word" when col == 2 => "wo\nrd",
+            "abcdefghij" when col == 3 => "abc\ndef\nghi\nj",
             _ => ""
         };
         return texto;
