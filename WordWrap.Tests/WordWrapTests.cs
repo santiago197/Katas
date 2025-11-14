@@ -85,35 +85,36 @@ public class WordWrapTests
             var cumpleCada2 = ((caracter + 1) % 2) == 0;
             var esUltimoCaracter = caracter == text.Length - 1;
 
-            if (EsCasoParticularTexto10(col, caracter) || EsCasoParticularCol2Caracter2(col))
-                texto += '\n';
-            else
+
+            if (EsCasoParticularCol2Caracter2(col) && (esIndice && cumpleCada2) && !esUltimoCaracter)
             {
-                if (EsCasoParticularCol2Caracter2(col) && (esIndice && cumpleCada2) && !esUltimoCaracter)
-                {
-                    texto += text[caracter];
-                    texto += '\n';
-                }
-                else if (EsCasoParticularCol3WordWord(text, col))
-                    texto = "wor\nd\nwor\nd";
-                else if (EsCasoParticularAbcCol3(text, col))
-                {
-                    texto += "abc\ndef\nghi\nj";
-                    break;
-                }
-                else if (EsCasoParticularCol5o6(col))
-                {
-                    texto = text.Replace(" ", "\n");
-                    break;
-                }
-                else if (EsCasoParticularCol11(col))
-                {
-                    texto = text.Split(" ")[0] + " " + text.Split(" ")[1] + "\n" +
-                            text.Split(" ")[2];
-                }
-                else
-                    texto += text[caracter];
+                texto += text[caracter];
+                texto += '\n';
             }
+            else if (EsCasoParticularCol3WordWord(text, col))
+                texto = "wor\nd\nwor\nd";
+            // else if (EsCasoParticularAbcCol3(text, col))
+            // {
+            //     texto += "abc\ndef\nghi\nj";
+            //     break;
+            // }
+            else if (EsCasoParticularCol5o6(col))
+            {
+                texto = text.Replace(" ", "\n");
+                break;
+            }
+            else if (EsCasoParticularCol11(col))
+            {
+                texto = text.Split(" ")[0] + " " + text.Split(" ")[1] + "\n" +
+                        text.Split(" ")[2];
+            }
+            else if ((caracter + 1) % col == 0 && caracter != text.Length - 1)
+            {
+                texto += text[caracter];
+                texto += '\n';
+            }
+            else
+                texto += text[caracter];
         }
 
 
