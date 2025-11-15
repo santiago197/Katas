@@ -86,31 +86,31 @@ public class WordWrapTests
             return text;
 
         var sb = new StringBuilder();
-        int i = 0;
+        int indice = 0;
 
-        while (i < text.Length)
+        while (indice < text.Length)
         {
-            int remaining = text.Length - i;
+            int remaining = text.Length - indice;
             if (remaining <= col)
             {
-                sb.Append(text.Substring(i));
+                sb.Append(text.Substring(indice));
                 break;
             }
 
-            int end = i + col;
+            int end = indice + col;
             int ultimoEspacio = text.LastIndexOf(' ', end - 1, col);
 
-            if (ultimoEspacio > i)
+            if (ultimoEspacio > indice)
             {
-                sb.Append(text.Substring(i, ultimoEspacio - i));
+                sb.Append(text.Substring(indice, ultimoEspacio - indice));
                 sb.Append('\n');
-                i = ultimoEspacio + 1;
+                indice = ultimoEspacio + 1;
             }
             else
             {
-                sb.Append(text.Substring(i, col));
+                sb.Append(text.Substring(indice, col));
                 sb.Append('\n');
-                i += col;
+                indice += col;
             }
         }
 
