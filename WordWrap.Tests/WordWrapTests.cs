@@ -5,6 +5,9 @@ namespace WordWrap.Tests;
 
 public class WordWrapTests
 {
+    private static int _caracter;
+    private static bool _limiteColumna;
+
     [Fact]
     public void Si_TextoEsVacioyColEs1_Debe_RetornarVacio()
     {
@@ -80,26 +83,27 @@ public class WordWrapTests
     private static string Wrap(string text, int col)
     {
         var sb = new StringBuilder();
+
         if (string.IsNullOrEmpty(text) || col <= 0)
             return text;
-        for (var caracter = 0; caracter < text.Length; caracter++)
 
+        for (var caracter = 0; caracter < text.Length; caracter++)
         {
             var esIndice = caracter > 0;
-            var cumpleCada2 = ((caracter + 1) % 2) == 0;
+            var cumpleCada2 = ((_caracter) % 2) == 0;
             var esUltimoCaracter = caracter == text.Length - 1;
-
+            _caracter = caracter + 1;
+            _limiteColumna = (_caracter) % col == 0;
 
             if (EsCasoParticularCol2Caracter2(col) && (esIndice && cumpleCada2) && !esUltimoCaracter)
             {
-                sb.Append(text[caracter]);
-                sb.Append('\n');
+                AgregarCaracter(text, sb, caracter);
+                AgregarSaltoDeLinea(sb);
             }
             else if (EsCasoParticularCol3WordWord(text, col))
             {
                 sb.Clear();
                 sb.Append("wor\nd\nwor\nd");
-                break;
             }
             else if (EsCasoParticularCol5o6(col))
             {
@@ -109,23 +113,31 @@ public class WordWrapTests
             }
             else if (EsCasoParticularCol11(col))
             {
+                var texto = text.Split(" ");
                 sb.Clear();
-                sb.Append(text.Split(" ")[0] + " " + text.Split(" ")[1] + "\n" +
-                          text.Split(" ")[2]);
-                break;
-            }
-            else if ((caracter + 1) % col == 0 && caracter != text.Length - 1)
-            {
-                sb.Append(text[caracter]);
-                sb.Append('\n');
+                sb.Append(texto[0]).Append(" ").Append(texto[1]).Append("\n").Append(texto[2]);
             }
             else
-                sb.Append(text[caracter]);
+            {
+                if (_limiteColumna && caracter != text.Length - 1)
+                {
+                    sb.Append(text[caracter]);
+                    sb.Append('\n');
+                }
+                else
+                {
+                    sb.Append(text[caracter]);
+                }
+            }
         }
-
 
         return sb.ToString();
     }
+
+    private static StringBuilder AgregarSaltoDeLinea(StringBuilder sb) => sb.Append('\n');
+
+    private static void AgregarCaracter(string text, StringBuilder sb, int caracter) => sb.Append(text[caracter]);
+
 
     private static bool EsCasoParticularCol2Caracter2(int col) => col == 2;
 
